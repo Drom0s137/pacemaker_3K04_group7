@@ -1,29 +1,42 @@
-#Import the required Libraries
+# Import the required libraries
 from tkinter import *
-from tkinter import ttk
+from tkinter import font
 
-#Create an instance of Tkinter frame
-win= Tk()
+# Create an instance of tkinter frame or window
+win = Tk()
 
-#Set the geometry of Tkinter frame
-win.geometry("750x250")
+# Set the size of the window
+win.geometry("700x350")
 
-def display_text(a):
-   global entry
-   string= entry.get()
-   label.configure(text=string)
-   print(a)
+# Create two frames in the window
+greet = Frame(win)
+order = Frame(win)
 
-#Initialize a Label to display the User Input
-label=Label(win, text="", font=("Courier 22 bold"))
-label.pack()
+# Define a function for switching the frames
+def change_to_greet():
+   greet.pack(fill='both', expand=1)
+   order.pack_forget()
 
-#Create an Entry widget to accept User Input
-entry= Entry(win, width= 40)
-entry.focus_set()
-entry.pack()
+def change_to_order():
+   order.pack(fill='both', expand=1)
+   greet.pack_forget()
 
-#Create a Button to validate Entry Widget
-ttk.Button(win, text= "Okay",width= 20, command= display_text("asfd")).pack(pady=20)
+# Create fonts for making difference in the frame
+font1 = font.Font(family='Georgia', size='22', weight='bold')
+font2 = font.Font(family='Aerial', size='12')
+
+# Add a heading logo in the frames
+label1 = Label(greet, text="Hey There! Welcome to TutorialsPoint.", foreground="green3", font=font1)
+label1.pack(pady=20)
+
+label2 = Label(order, text="Find all the interesting Tutorials.", foreground="blue", font=font2)
+label2.pack(pady=20)
+
+# Add a button to switch between two frames
+btn1 = Button(win, text="Switch to Greet", font=font2, command=change_to_order)
+btn1.pack(pady=20)
+
+btn2 = Button(win, text="Switch to Order", font=font2, command=change_to_greet)
+btn2.pack(pady=20)
 
 win.mainloop()
