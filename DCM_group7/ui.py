@@ -24,10 +24,6 @@ def register_user(ui_username, ui_pswrd):
     else:
         login = 0
 
-
-def test():
-    print("Asfdfds")
-
 def main():
     welcome = Tk()
     welcome.title("Pacemaker UI")
