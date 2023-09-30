@@ -30,4 +30,8 @@ quit.pack(padx=20, pady=10)
 welcome.mainloop()
 
     # def clr_text(self):
+<<<<<<< HEAD
     #     self.delete(0, "end")
+=======
+    #     self.delete(0, "end")
+>>>>>>> parent of 8509ee4 (Adding UI updates)
