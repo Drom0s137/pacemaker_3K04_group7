@@ -2,10 +2,7 @@ from tkinter import *
 import customtkinter
 
 ## A00 Pacing Mode
-def AOO_page():
-    AOO = Tk()
-    AOO.title("Pacemaker UI")
-    AOO.geometry("500x580")
+def AOO_page(AOO):
 
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
@@ -30,13 +27,9 @@ def AOO_page():
     AA_input = customtkinter.CTkEntry(AOO, placeholder_text = "---")
     AA_input.pack(pady=8, padx=10)
 
-    AOO.mainloop()
 
 ## V00 Pacing Mode
-def VOO_page():
-    VOO = Tk()
-    VOO.title("Pacemaker UI")
-    VOO.geometry("500x580")
+def VOO_page(VOO):
 
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
@@ -61,13 +54,9 @@ def VOO_page():
     va_input = customtkinter.CTkEntry(VOO, placeholder_text = "---")
     va_input.pack(pady=8, padx=10)
 
-    VOO.mainloop()
 
 ## AAI Pacing Mode
-def AAI_page():
-    AAI = Tk()
-    AAI.title("Pacemaker UI")
-    AAI.geometry("500x750")
+def AAI_page(AAI):
 
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
@@ -117,13 +106,9 @@ def AAI_page():
     pvarp_input = customtkinter.CTkEntry(AAI, placeholder_text = "---")
     pvarp_input.pack(pady=8, padx=10)
 
-    AAI.mainloop()
 
 ## VVI Pacing Mode
-def VVI_page():
-    VVI = Tk()
-    VVI.title("Pacemaker UI")
-    VVI.geometry("500x700")
+def VVI_page(VVI):
 
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
@@ -168,4 +153,3 @@ def VVI_page():
     arp_input = customtkinter.CTkEntry(VVI, placeholder_text = "---")
     arp_input.pack(pady=8, padx=10)
 
-    VVI.mainloop()

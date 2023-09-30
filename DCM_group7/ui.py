@@ -1,18 +1,24 @@
 from tkinter import *
 import customtkinter
 import backend
-import sys
+import mode
+
 
 def temp_text(e, i):
     i.delete(0, "end")
+
+def switch_frame(new, old):
+    global CURRENT_FRAME
+    new.pack(fill='both', expand=1)
+    old.pack_forget()
+    CURRENT_FRAME = new
 
 def obtain_logins(ui_username, ui_pswrd):
     username = ui_username.get()
     password = ui_pswrd.get()
     if backend.log_in(username, password):
         print("chaging to mode view")
-        mode.pack(fill='both', expand=1)
-        welcome.pack_forget()
+        switch_frame(modes, CURRENT_FRAME)
 
 def register_user(ui_username, ui_pswrd):
     username = ui_username.get()
@@ -58,30 +64,39 @@ def Modes_page(Modes):
     label = Label(Modes, text="Select the Pacing Mode", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
-    AOO_btn = Button(Modes, text="AOO", font=('Arial', 12))
+    AOO_btn = Button(Modes, text="AOO", command = lambda: switch_frame(aoo, CURRENT_FRAME), font=('Arial', 12))
     AOO_btn.pack(padx=20, pady=10)
 
-    VOO_btn = Button(Modes, text="VOO", font=('Arial', 12))
+    VOO_btn = Button(Modes, text="VOO", command = lambda: switch_frame(voo, CURRENT_FRAME), font=('Arial', 12))
     VOO_btn.pack(padx=20, pady=10)
 
-    AAI_btn = Button(Modes, text="AAI", font=('Arial', 12))
+    AAI_btn = Button(Modes, text="AAI", command = lambda: switch_frame(aai, CURRENT_FRAME), font=('Arial', 12))
     AAI_btn.pack(padx=20, pady=10)
 
-    VVI_btn = Button(Modes, text="VVI", font=('Arial', 12))
+    VVI_btn = Button(Modes, text="VVI", command = lambda: switch_frame(vvi, CURRENT_FRAME), font=('Arial', 12))
     VVI_btn.pack(padx=20, pady=10)
 
     
 
 if __name__ == "__main__":
-    
+    global CURRENT_FRAME
     win = Tk()
     win.title("Pacemaker UI")
     win.geometry("500x580")
-    mode = Frame(win)
+    modes = Frame(win)
     welcome = Frame(win)
+    aoo = Frame(win)
+    voo = Frame(win)
+    aai = Frame(win)
+    vvi = Frame(win)
     welcome_page(welcome)
-    Modes_page(mode)
+    Modes_page(modes)
+    mode.AOO_page(aoo)
+    mode.VOO_page(voo)
+    mode.AAI_page(aai)
+    mode.VVI_page(vvi)
     welcome.pack(fill='both', expand=1)
+    CURRENT_FRAME = welcome
     win.mainloop()
 
 
