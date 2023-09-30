@@ -4,7 +4,12 @@
         "password": "password"
     },
     {
+<<<<<<< HEAD
+        "user_name": "Grigor",
+        "password": "12345"
+=======
         "user_name": "a",
         "password": "a"
+>>>>>>> eddy
     }
 ]
