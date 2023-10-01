@@ -4,9 +4,9 @@ import ui
 import backend
 
 
-def Save_press():
+def Save_press(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
     print("Save Pressed")
-    if backend.verifyInput():
+    if backend.verifyInput(URL, LRL, APW=APW, AA=AA, RS=RS, AS=AS, ARR=ARR, VPW=VPW, VA=VA, VS=VS, VRR=VRR):
         return 1
     else:
         return 0
@@ -21,29 +21,31 @@ def AOO_page(AOO,modes):
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
+    url = StringVar()
     url_label = Label(AOO, text="Input the Upper Rate Limit", font=('Arial', 12))
     url_label.pack()
-    url_scale = Scale(AOO, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(AOO, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.pack(pady=10)
 
+    lrl = StringVar()
     lrl_label = Label(AOO, text="Input the Lower Rate Limit", font=('Arial', 12))
     lrl_label.pack()
-    lrl_scale = Scale(AOO, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale = Scale(AOO, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale.pack(pady=10)
 
-
+    apw = StringVar()
     apw_label = Label(AOO, text="Atrial Pulse Width", font=('Arial', 12))
     apw_label.pack()
-    apw_scale = Scale(AOO, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
+    apw_scale = Scale(AOO, variable=apw, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
     apw_scale.pack(pady=10)
 
+    aa = StringVar()
     aa_label = Label(AOO, text="Atrial Amplitude", font=('Arial', 12))
     aa_label.pack()
-    aa_scale = Scale(AOO, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
+    aa_scale = Scale(AOO, variable=aa, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
     aa_scale.pack(pady=10)
 
-
-    AOO_save = Button(AOO, text="SAVE", height=1, width=10, command= lambda: Save_press)
+    AOO_save = Button(AOO, text="SAVE", height=1, width=10, command= lambda: Save_press(url.get(), lrl.get(), APW=apw.get(), AA=aa.get()))
     AOO_save.pack(pady=10)
 
     AOO_back = Button(AOO, text="BACK", height=1, width=10, command= lambda: Back_press(modes, AOO))
@@ -55,28 +57,31 @@ def VOO_page(VOO,modes):
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
+    url = StringVar()
     url_label = Label(VOO, text="Input the Upper Rate Limit", font=('Arial', 12))
     url_label.pack(padx=20, pady=2)
-    url_scale = Scale(VOO, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(VOO, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.pack(pady=10)
 
+    lrl = StringVar()
     lrl_label = Label(VOO, text="Input the Lower Rate Limit", font=('Arial', 12))
     lrl_label.pack(padx=20, pady=2)
-    lrl_scale = Scale(VOO, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale = Scale(VOO, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale.pack(pady=10)
 
-
+    vpw = StringVar()
     vpw_label = Label(VOO, text="Ventricular Pulse Width", font=('Arial', 12))
     vpw_label.pack(padx=20, pady=2)
-    vpw_scale = Scale(VOO, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
+    vpw_scale = Scale(VOO, variable=vpw, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
     vpw_scale.pack(pady=10)
 
+    va = StringVar()
     va_label = Label(VOO, text="Ventricular Amplitude", font=('Arial', 12))
     va_label.pack(padx=20, pady=2)
-    va_scale = Scale(VOO, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
+    va_scale = Scale(VOO, variable=va, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
     va_scale.pack(pady=10)
 
-    VOO_save = Button(VOO, text="SAVE", height=1, width=10, command=lambda:Save_press)
+    VOO_save = Button(VOO, text="SAVE", height=1, width=10, command=lambda:Save_press(url.get(), lrl.get(), VPW=vpw.get(), VA=va.get()))
     VOO_save.pack(pady=10)
 
     VOO_back = Button(VOO, text="BACK", height=1, width=10, command=lambda:Back_press(modes, VOO))
@@ -135,7 +140,7 @@ def AAI_page(AAI,modes):
     pvarp_input = Scale(AAI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     pvarp_input.pack()
 
-    AAI_save = Button(AAI, text="SAVE", height=1, width=10, command=lambda:Save_press)
+    AAI_save = Button(AAI, text="SAVE", height=1, width=10, command=lambda:Save_press(url_scale))
     AAI_save.pack(pady=7)
 
     AAI_back = Button(AAI, text="BACK", height=1, width=10, command=lambda:Back_press(modes, AAI))

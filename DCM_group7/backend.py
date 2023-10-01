@@ -47,7 +47,6 @@ def extract_database():
     # user JSON load in 
     user_data = open('user_data.json')
     return json.load(user_data)
-    print(data[0]["user_name"])
 
 '''
 URL: upper rate limit
@@ -60,10 +59,13 @@ ARR: Atrial Refractory Period
 '''
 
 def verifyInput(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
-    if URL < LRL:
+    print(URL)
+    print(LRL)
+    if int(URL) < int(LRL):
         print("error with input values, please try again")
         return 0 
     else:
+        print("pass")
         return 1
     
 if __name__ == "__main__":
