@@ -1,9 +1,23 @@
 from tkinter import *
 import customtkinter
+import ui
+import backend
+
+
+def Save_press():
+    print("Save Pressed")
+    if backend.verifyInput():
+        return 1
+    else:
+        return 0
+
+def Back_press(modes, current):
+    print("Back Pressed")
+    ui.switch_frame(modes, current)
 
 ## A00 Pacing Mode
 
-def AOO_page(AOO):
+def AOO_page(AOO,modes):
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
@@ -29,15 +43,15 @@ def AOO_page(AOO):
     aa_scale.pack(pady=10)
 
 
-    AOO_save = Button(AOO, text="SAVE", height=1, width=10, command=Save_press)
+    AOO_save = Button(AOO, text="SAVE", height=1, width=10, command= lambda: Save_press)
     AOO_save.pack(pady=10)
 
-    AOO_back = Button(AOO, text="BACK", height=1, width=10, command=Back_press)
+    AOO_back = Button(AOO, text="BACK", height=1, width=10, command= lambda: Back_press(modes, AOO))
     AOO_back.pack()
 
 
 ## V00 Pacing Mode
-def VOO_page(VOO):
+def VOO_page(VOO,modes):
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
@@ -62,16 +76,16 @@ def VOO_page(VOO):
     va_scale = Scale(VOO, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
     va_scale.pack(pady=10)
 
-    VOO_save = Button(VOO, text="SAVE", height=1, width=10, command=Save_press)
+    VOO_save = Button(VOO, text="SAVE", height=1, width=10, command=lambda:Save_press)
     VOO_save.pack(pady=10)
 
-    VOO_back = Button(VOO, text="BACK", height=1, width=10, command=Back_press)
+    VOO_back = Button(VOO, text="BACK", height=1, width=10, command=lambda:Back_press(modes, VOO))
     VOO_back.pack()
 
 
 ## AAI Pacing Mode
 
-def AAI_page(AAI):
+def AAI_page(AAI,modes):
 
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
     label.pack(padx=20, pady=5)
@@ -121,15 +135,15 @@ def AAI_page(AAI):
     pvarp_input = Scale(AAI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     pvarp_input.pack()
 
-    AAI_save = Button(AAI, text="SAVE", height=1, width=10, command=Save_press)
+    AAI_save = Button(AAI, text="SAVE", height=1, width=10, command=lambda:Save_press)
     AAI_save.pack(pady=7)
 
-    AAI_back = Button(AAI, text="BACK", height=1, width=10, command=Back_press)
+    AAI_back = Button(AAI, text="BACK", height=1, width=10, command=lambda:Back_press(modes, AAI))
     AAI_back.pack()
 
 ## VVI Pacing Mode
 
-def VVI_page(VVI):
+def VVI_page(VVI, modes):
 
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
     label.pack(padx=20, pady=5)
@@ -176,16 +190,10 @@ def VVI_page(VVI):
     vrp_input.pack()
 
 
-    VVI_save = Button(VVI, text="SAVE", height=1, width=10, command=Save_press)
+    VVI_save = Button(VVI, text="SAVE", height=1, width=10, command=lambda:Save_press)
     VVI_save.pack()
 
-    VVI_back = Button(VVI, text="BACK", height=1, width=10, command=Back_press)
+    VVI_back = Button(VVI, text="BACK", height=1, width=10, command=lambda:Back_press(modes,VVI))
     VVI_back.pack()
 
-def Save_press():
-    print("Save Pressed")
-    return True
 
-def Back_press():
-    print("Back Pressed")
-    return True

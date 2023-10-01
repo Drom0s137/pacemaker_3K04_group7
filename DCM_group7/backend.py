@@ -49,6 +49,22 @@ def extract_database():
     return json.load(user_data)
     print(data[0]["user_name"])
 
+'''
+URL: upper rate limit
+LRL: Lower rate limit
+APW: Atrium Pulse Width
+AA: Atrium Amplitude
+RS: Rate Smoothing
+AS:  Atrial Sensitivity
+ARR: Atrial Refractory Period
+'''
 
+def verifyInput(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
+    if URL < LRL:
+        print("error with input values, please try again")
+        return 0 
+    else:
+        return 1
+    
 if __name__ == "__main__":
     extract_database()
