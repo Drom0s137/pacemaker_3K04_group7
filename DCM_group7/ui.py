@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import ttk
+from ttkthemes import ThemedTk
 import customtkinter
 import backend
 import mode
@@ -29,7 +31,9 @@ def register_user(ui_username, ui_pswrd):
 def welcome_page(welcome):
     #welcome = Modes_page(mode)
 
-    label = Label(welcome, text="Welcome to Pacemaker Interface", font=('Arial', 14))
+    #welcome = ThemedTk(theme="arc")
+
+    label = ttk.Label(welcome, text="Welcome to Pacemaker Interface", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
     #username section
@@ -48,39 +52,40 @@ def welcome_page(welcome):
         return temp_text(event, i)
     ui_pswrd.bind("<FocusIn>", handler)
 
-    login = Button(welcome, command = lambda: obtain_logins(ui_username, ui_pswrd), text="Login", font=('Arial', 12))
+    login = ttk.Button(welcome, command = lambda: obtain_logins(ui_username, ui_pswrd), text="Login")
     login.pack(padx=20, pady=10)
 
-    register = Button(welcome, command = lambda: register_user(ui_username, ui_pswrd), text="Register", font=('Arial', 12))
+    register = ttk.Button(welcome, command = lambda: register_user(ui_username, ui_pswrd), text="Register")
     register.pack(padx=20, pady=10)
 
-    quit = Button(welcome, command = backend.exit_system, text="Quit", font=('Arial', 12))
+    quit = ttk.Button(welcome, command = backend.exit_system, text="Quit")
     quit.pack(padx=20, pady=10)
-
-
 
 def Modes_page(Modes):
 
-    label = Label(Modes, text="Select the Pacing Mode", font=('Arial', 14))
+    label = ttk.Label(Modes, text="Select the Pacing Mode", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
-    AOO_btn = Button(Modes, text="AOO", command = lambda: switch_frame(aoo, CURRENT_FRAME), font=('Arial', 12))
+    AOO_btn = ttk.Button(Modes, text="AOO", command = lambda: switch_frame(aoo, CURRENT_FRAME))
     AOO_btn.pack(padx=20, pady=10)
 
-    VOO_btn = Button(Modes, text="VOO", command = lambda: switch_frame(voo, CURRENT_FRAME), font=('Arial', 12))
+    VOO_btn = ttk.Button(Modes, text="VOO", command = lambda: switch_frame(voo, CURRENT_FRAME))
     VOO_btn.pack(padx=20, pady=10)
 
-    AAI_btn = Button(Modes, text="AAI", command = lambda: switch_frame(aai, CURRENT_FRAME), font=('Arial', 12))
+    AAI_btn = ttk.Button(Modes, text="AAI", command = lambda: switch_frame(aai, CURRENT_FRAME))
     AAI_btn.pack(padx=20, pady=10)
 
-    VVI_btn = Button(Modes, text="VVI", command = lambda: switch_frame(vvi, CURRENT_FRAME), font=('Arial', 12))
+    VVI_btn = ttk.Button(Modes, text="VVI", command = lambda: switch_frame(vvi, CURRENT_FRAME))
     VVI_btn.pack(padx=20, pady=10)
 
-    
+    back = ttk.Button(Modes, text="BACK", width=10, command=mode.Back_press)
+    back.pack(pady=10)
 
 if __name__ == "__main__":
     global CURRENT_FRAME
-    win = Tk()
+    #win = Tk()
+    win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
+    win.iconbitmap("McMaster.ico")
     win.title("Pacemaker UI")
     win.geometry("500x580")
     modes = Frame(win)

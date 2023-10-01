@@ -1,9 +1,12 @@
 from tkinter import *
+from tkinter import ttk
+from ttkthemes import ThemedTk
 import customtkinter
 
 ## A00 Pacing Mode
 
 def AOO_page(AOO):
+    #AOO = ThemedTk(theme="arc")
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
@@ -17,7 +20,6 @@ def AOO_page(AOO):
     lrl_scale = Scale(AOO, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale.pack(pady=10)
 
-
     apw_label = Label(AOO, text="Atrial Pulse Width", font=('Arial', 12))
     apw_label.pack()
     apw_scale = Scale(AOO, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
@@ -28,11 +30,10 @@ def AOO_page(AOO):
     aa_scale = Scale(AOO, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
     aa_scale.pack(pady=10)
 
-
-    AOO_save = Button(AOO, text="SAVE", height=1, width=10, command=Save_press)
+    AOO_save = ttk.Button(AOO, text="SAVE",width=10, command=Save_press)
     AOO_save.pack(pady=10)
 
-    AOO_back = Button(AOO, text="BACK", height=1, width=10, command=Back_press)
+    AOO_back = ttk.Button(AOO, text="BACK", width=10, command=Back_press)
     AOO_back.pack()
 
 
@@ -62,10 +63,10 @@ def VOO_page(VOO):
     va_scale = Scale(VOO, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
     va_scale.pack(pady=10)
 
-    VOO_save = Button(VOO, text="SAVE", height=1, width=10, command=Save_press)
+    VOO_save = ttk.Button(VOO, text="SAVE", width=10, command=Save_press)
     VOO_save.pack(pady=10)
 
-    VOO_back = Button(VOO, text="BACK", height=1, width=10, command=Back_press)
+    VOO_back = ttk.Button(VOO, text="BACK", width=10, command=Back_press)
     VOO_back.pack()
 
 
@@ -121,10 +122,10 @@ def AAI_page(AAI):
     pvarp_input = Scale(AAI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     pvarp_input.pack()
 
-    AAI_save = Button(AAI, text="SAVE", height=1, width=10, command=Save_press)
+    AAI_save = ttk.Button(AAI, text="SAVE", width=10, command=Save_press)
     AAI_save.pack(pady=7)
 
-    AAI_back = Button(AAI, text="BACK", height=1, width=10, command=Back_press)
+    AAI_back = ttk.Button(AAI, text="BACK", width=10, command=Back_press)
     AAI_back.pack()
 
 ## VVI Pacing Mode
@@ -169,17 +170,15 @@ def VVI_page(VVI):
     vs_input = Scale(VVI, length=400, from_=0, to=10, resolution=0.05, orient=HORIZONTAL)
     vs_input.pack()
 
-
     vrp_label = Label(VVI, text="VRP", font=('Arial', 12))
     vrp_label.pack(padx=20, pady=2)
     vrp_input = Scale(VVI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     vrp_input.pack()
 
-
-    VVI_save = Button(VVI, text="SAVE", height=1, width=10, command=Save_press)
+    VVI_save = ttk.Button(VVI, text="SAVE", width=10, command=Save_press)
     VVI_save.pack()
 
-    VVI_back = Button(VVI, text="BACK", height=1, width=10, command=Back_press)
+    VVI_back = ttk.Button(VVI, text="BACK", width=10, command=Back_press)
     VVI_back.pack()
 
 def Save_press():
