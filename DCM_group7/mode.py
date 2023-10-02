@@ -6,7 +6,7 @@ import backend
 
 def Save_press(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
     print("Save Pressed")
-    if backend.verifyInput(URL, LRL, APW=APW, AA=AA, RS=RS, AS=AS, ARR=ARR, VPW=VPW, VA=VA, VS=VS, VRR=VRR):
+    if backend.verifyInput(int(URL), int(LRL), APW=int(APW), AA=int(AA), RS=int(RS), AS=int(AS), ARR=int(ARR), VPW=int(VPW), VA=int(VA), VS=int(VS), VRR=int(VRR)):
         return 1
     else:
         return 0

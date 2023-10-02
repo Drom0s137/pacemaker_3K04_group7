@@ -7,7 +7,7 @@ def exit_system():
 
 def log_in(username, password):
     data = extract_database()
-    if username == "Enter Username" or password == "Enter Password":
+    if username == "Enter Username" or username == "" or password == "Enter Password" or password == "":
         print("Missing information, please complete both sections before continuing")
         return 0
     for user in data:
@@ -59,11 +59,13 @@ ARR: Atrial Refractory Period
 '''
 
 def verifyInput(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
-    print(URL)
-    print(LRL)
-    if int(URL) < int(LRL):
-        print("error with input values, please try again")
+    if URL < LRL:  #basic logic limiter since lower limit cant be higher then upper limit
+        print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit")
         return 0 
+    elif LRL < 30 or LRL > 175:
+        print("LRL out of bounds")
+    elif URL <50 or URL > 175:
+        print("URL out of bounds")
     else:
         print("pass")
         return 1
