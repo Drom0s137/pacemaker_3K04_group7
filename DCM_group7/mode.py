@@ -26,17 +26,19 @@ def AOO_page(AOO):
     apw_scale = Scale(AOO, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
     apw_scale.pack(pady=10)
 
+    global aa_scale_aoo
     aa_label = Label(AOO, text="Atrial Amplitude", font=('Arial', 12))
     aa_label.pack()
-    aa_scale = Scale(AOO, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
-    aa_scale.pack(pady=10)
+    aa_scale_aoo = Scale(AOO, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    aa_scale_aoo.pack(pady=10)
 
     AOO_save = ttk.Button(AOO, text="SAVE",width=10, command=Save_press)
     AOO_save.pack(pady=10)
 
     AOO_back = ttk.Button(AOO, text="BACK", width=10, command=Back_press)
     AOO_back.pack()
-    
+
+    aa_scale_aoo.config(command=lambda e: aa_slider_mod(aa_scale_aoo)) # Dynamically updates the slider resolution
     lrl_scale_aoo.config(command=lambda e: lrl_slider_mod(lrl_scale_aoo)) # Dynamically updates the slider resolution
 
 
@@ -56,16 +58,17 @@ def VOO_page(VOO):
     lrl_scale_voo = Scale(VOO, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_voo.pack(pady=10)
 
-
+    global vpw_scale_voo
     vpw_label = Label(VOO, text="Ventricular Pulse Width", font=('Arial', 12))
     vpw_label.pack(padx=20, pady=2)
-    vpw_scale = Scale(VOO, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
-    vpw_scale.pack(pady=10)
+    vpw_scale_voo = Scale(VOO, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
+    vpw_scale_voo.pack(pady=10)
 
+    global va_scale_voo
     va_label = Label(VOO, text="Ventricular Amplitude", font=('Arial', 12))
     va_label.pack(padx=20, pady=2)
-    va_scale = Scale(VOO, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
-    va_scale.pack(pady=10)
+    va_scale_voo = Scale(VOO, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    va_scale_voo.pack(pady=10)
 
     VOO_save = ttk.Button(VOO, text="SAVE", width=10, command=Save_press)
     VOO_save.pack(pady=10)
@@ -73,6 +76,8 @@ def VOO_page(VOO):
     VOO_back = ttk.Button(VOO, text="BACK", width=10, command=Back_press)
     VOO_back.pack()
 
+    vpw_scale_voo.config(command=lambda e: vpw_slider_mod(vpw_scale_voo)) # Dynamically updates the slider resolution
+    va_scale_voo.config(command=lambda e: va_slider_mod(va_scale_voo)) # Dynamically updates the slider resolution
     lrl_scale_voo.config(command=lambda e: lrl_slider_mod(lrl_scale_voo)) # Dynamically updates the slider resolution
 
 
@@ -99,10 +104,11 @@ def AAI_page(AAI):
     apw_scale = Scale(AAI, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
     apw_scale.pack()
 
+    global aa_scale_aii
     aa_label = Label(AAI, text="Atrial Amplitude", font=('Arial', 12))
     aa_label.pack(padx=20, pady=2)
-    aa_scale = Scale(AAI, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
-    aa_scale.pack()
+    aa_scale_aii = Scale(AAI, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    aa_scale_aii.pack()
 
     # rs_label = Label(AAI, text="Rate Smoothing", font=('Arial', 12))
     # rs_label.pack(padx=20, pady=2)
@@ -135,6 +141,7 @@ def AAI_page(AAI):
     AAI_back = ttk.Button(AAI, text="BACK", width=10, command=Back_press)
     AAI_back.pack()
 
+    aa_scale_aii.config(command=lambda e: aa_slider_mod(aa_scale_aii)) # Dynamically updates the slider resolution
     lrl_scale_aai.config(command=lambda e: lrl_slider_mod(lrl_scale_aai)) # Dynamically updates the slider resolution
 
 
@@ -156,15 +163,17 @@ def VVI_page(VVI):
     lrl_scale_vvi = Scale(VVI, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_vvi.pack()
 
+    global vpw_scale_vvi
     vpw_label = Label(VVI, text="Ventricular Pulse Width", font=('Arial', 12))
     vpw_label.pack(padx=20, pady=2)
-    vpw_scale = Scale(VVI, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
-    vpw_scale.pack()
+    vpw_scale_vvi = Scale(VVI, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
+    vpw_scale_vvi.pack()
 
+    global va_scale_vvi
     va_label = Label(VVI, text="Ventricular Amplitude", font=('Arial', 12))
     va_label.pack(padx=20, pady=2)
-    va_scale = Scale(VVI, length=400, from_=0, to=7, resolution=0.1, orient=HORIZONTAL)
-    va_scale.pack()
+    va_scale_vvi = Scale(VVI, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    va_scale_vvi.pack()
 
     # rs_label = Label(VVI, text="Rate Smoothing", font=('Arial', 12))
     # rs_label.pack(padx=20, pady=2)
@@ -192,6 +201,8 @@ def VVI_page(VVI):
     VVI_back = ttk.Button(VVI, text="BACK", width=10, command=Back_press)
     VVI_back.pack()
 
+    vpw_scale_vvi.config(command=lambda e: vpw_slider_mod(vpw_scale_vvi)) # Dynamically updates the slider resolution
+    va_scale_vvi.config(command=lambda e: va_slider_mod(va_scale_vvi)) # Dynamically updates the slider resolution
     lrl_scale_vvi.config(command=lambda e: lrl_slider_mod(lrl_scale_vvi)) # Dynamically updates the slider resolution
 
 def Save_press():
@@ -209,4 +220,25 @@ def lrl_slider_mod(scale):
     else:
         scale.config(resolution=(1))
 
-# lrl_scale.config(command=lambda e: lrl_slider_mod())
+def va_slider_mod(scale):
+    current = float(scale.get())
+    if current < 0.5 or current > 2.5:
+        scale.config(resolution=(0.5))
+    else:
+        scale.config(resolution=(0.1))
+
+def aa_slider_mod(scale):
+    current = float(scale.get())
+    if current < 0.5 or current > 2.5:
+        scale.config(resolution=(0.5))
+    else:
+        scale.config(resolution=(0.1))
+
+def vpw_slider_mod(scale):
+    current = float(scale.get())
+    if current < 1/10:
+        scale.config(length=400, from_=0.05, to=1.9, resolution=(0.05))
+        print(current)
+    else:
+        scale.config(length=400, from_=0.05, to=1.9, resolution=(0.1))
+        print(current)
