@@ -89,7 +89,8 @@ def verifyInput(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS
         return 1
     
 #input values are now all float instead of string. package data for simulink
-def packageData(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS=-1, VRR=-1)
+def packageData(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS=-1, VRR=-1):
+    return 0
     
 
 # for preperation of serical communication
