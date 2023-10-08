@@ -58,6 +58,9 @@ def welcome_page(welcome):
     register = ttk.Button(welcome, command = lambda: register_user(ui_username, ui_pswrd), text="Register")
     register.pack(padx=20, pady=10)
 
+    log_out = ttk.Button(welcome, text="Log Out")
+    log_out.pack(padx=20, pady=10)
+
     quit = ttk.Button(welcome, command = backend.exit_system, text="Quit")
     quit.pack(padx=20, pady=10)
 

@@ -45,44 +45,49 @@ def AOO_page(AOO):
 ## V00 Pacing Mode
 def VOO_page(VOO):
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
-    label.pack(padx=20, pady=20)
+    label.grid(row=0, column=1)
 
     url_label = Label(VOO, text="Input the Upper Rate Limit", font=('Arial', 12))
-    url_label.pack(padx=20, pady=2)
+    url_label.grid(row=2, column=1)
     url_scale = Scale(VOO, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
-    url_scale.pack(pady=10)
+    url_scale.grid(row=3, column=1)
 
     global lrl_scale_voo
     lrl_label = Label(VOO, text="Input the Lower Rate Limit", font=('Arial', 12))
-    lrl_label.pack(padx=20, pady=2)
+    lrl_label.grid(row=6, column=1)
     lrl_scale_voo = Scale(VOO, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
-    lrl_scale_voo.pack(pady=10)
-
-    global vpw_scale_voo
-    vpw_label = Label(VOO, text="Ventricular Pulse Width", font=('Arial', 12))
-    vpw_label.pack(padx=20, pady=2)
-    vpw_scale_voo = Scale(VOO, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
-    vpw_scale_voo.pack(pady=10)
+    lrl_scale_voo.grid(row=7, column=1)
 
     global va_scale_voo
     va_label = Label(VOO, text="Ventricular Amplitude", font=('Arial', 12))
-    va_label.pack(padx=20, pady=2)
+    va_label.grid(row=10, column=1)
     va_scale_voo = Scale(VOO, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
-    va_scale_voo.pack(pady=10)
+    va_scale_voo.grid(row=11, column=1)
+
+    global current_index_voo
+    current_index_voo = 0  # Initialize the index to 0
+
+    vpw_label = Label(VOO, text="Ventricular Pulse Width", font=('Arial', 12))
+    vpw_label.grid(row=14, column=1)
+    global value_label_voo
+    value_label_voo = Label(VOO, text=str(scale_incs[current_index_voo]))
+    value_label_voo.grid(row=15, column=1)
+
+    # Create a increment/decrement button
+    decrement_button = Button(VOO, text="<", command=lambda: update_value_voo(False))
+    decrement_button.grid(row=15, column=0)
+    increment_button = Button(VOO, text=">", command=lambda: update_value_voo(True))
+    increment_button.grid(row=15, column=2)
 
     VOO_save = ttk.Button(VOO, text="SAVE", width=10, command=Save_press)
-    VOO_save.pack(pady=10)
-
+    VOO_save.grid(row=18, column=1)
     VOO_back = ttk.Button(VOO, text="BACK", width=10, command=Back_press)
-    VOO_back.pack()
+    VOO_back.grid(row=25, column=1)
 
-    vpw_scale_voo.config(command=lambda e: vpw_slider_mod(vpw_scale_voo)) # Dynamically updates the slider resolution
     va_scale_voo.config(command=lambda e: va_slider_mod(va_scale_voo)) # Dynamically updates the slider resolution
     lrl_scale_voo.config(command=lambda e: lrl_slider_mod(lrl_scale_voo)) # Dynamically updates the slider resolution
 
-
 ## AAI Pacing Mode
-
 def AAI_page(AAI):
 
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
@@ -110,30 +115,10 @@ def AAI_page(AAI):
     aa_scale_aii = Scale(AAI, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     aa_scale_aii.pack()
 
-    # rs_label = Label(AAI, text="Rate Smoothing", font=('Arial', 12))
-    # rs_label.pack(padx=20, pady=2)
-    # rs_scale = Scale(AAI, length=400, from_=0, to=25, resolution=1, orient=HORIZONTAL)
-    # rs_scale.pack()
-
-    # hys_label = Label(AAI, text="Hysteresis", font=('Arial', 12))
-    # hys_label.pack(padx=20, pady=2)
-    # hys_input = Checkbutton(AAI, text='Off unchecked, Same as LRL Checked', height=2, width=50)
-    # hys_input.pack()
-
-    # as_label = Label(AAI, text="Atrial Sensitivity", font=('Arial', 12))
-    # as_label.pack(padx=20, pady=2)
-    # as_input = Scale(AAI, length=400, from_=0, to=10, resolution=0.05, orient=HORIZONTAL)
-    # as_input.pack()
-
     arp_label = Label(AAI, text="Atrial Refractory Period", font=('Arial', 12))
     arp_label.pack(padx=20, pady=2)
     arp_input = Scale(AAI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     arp_input.pack()
-
-    # pvarp_label = Label(AAI, text="PVARP", font=('Arial', 12))
-    # pvarp_label.pack(padx=20, pady=2)
-    # pvarp_input = Scale(AAI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
-    # pvarp_input.pack()
 
     AAI_save = ttk.Button(AAI, text="SAVE", width=10, command=Save_press)
     AAI_save.pack(pady=7)
@@ -146,62 +131,54 @@ def AAI_page(AAI):
 
 
 ## VVI Pacing Mode
-
 def VVI_page(VVI):
 
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
-    label.pack(padx=20, pady=5)
+    label.grid(row=0, column=1)
 
     url_label = Label(VVI, text="Input the Upper Rate Limit", font=('Arial', 12))
-    url_label.pack(padx=20, pady=2)
+    url_label.grid(row=1, column=1)
     url_scale = Scale(VVI, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
-    url_scale.pack()
+    url_scale.grid(row=2, column=1)
 
     global lrl_scale_vvi
     lrl_label = Label(VVI, text="Input the Lower Rate Limit", font=('Arial', 12))
-    lrl_label.pack(padx=20, pady=2)
+    lrl_label.grid(row=3, column=1)
     lrl_scale_vvi = Scale(VVI, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
-    lrl_scale_vvi.pack()
-
-    global vpw_scale_vvi
-    vpw_label = Label(VVI, text="Ventricular Pulse Width", font=('Arial', 12))
-    vpw_label.pack(padx=20, pady=2)
-    vpw_scale_vvi = Scale(VVI, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
-    vpw_scale_vvi.pack()
+    lrl_scale_vvi.grid(row=4, column=1)
 
     global va_scale_vvi
     va_label = Label(VVI, text="Ventricular Amplitude", font=('Arial', 12))
-    va_label.pack(padx=20, pady=2)
+    va_label.grid(row=5, column=1)
     va_scale_vvi = Scale(VVI, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
-    va_scale_vvi.pack()
-
-    # rs_label = Label(VVI, text="Rate Smoothing", font=('Arial', 12))
-    # rs_label.pack(padx=20, pady=2)
-    # rs_scale = Scale(VVI, length=400, from_=0, to=25, resolution=1, orient=HORIZONTAL)
-    # rs_scale.pack()
-
-    # hys_label = Label(VVI, text="Hysteresis", font=('Arial', 12))
-    # hys_label.pack(padx=20, pady=2)
-    # hys_input = Checkbutton(VVI, text='Off unchecked, Same as LRL Checked', height=2, width=50)
-    # hys_input.pack()
-
-    # vs_label = Label(VVI, text="Ventricular Sensitivity ", font=('Arial', 12))
-    # vs_label.pack(padx=20, pady=2)
-    # vs_input = Scale(VVI, length=400, from_=0, to=10, resolution=0.05, orient=HORIZONTAL)
-    # vs_input.pack()
+    va_scale_vvi.grid(row=6, column=1)
 
     vrp_label = Label(VVI, text="VRP", font=('Arial', 12))
-    vrp_label.pack(padx=20, pady=2)
+    vrp_label.grid(row=7, column=1)
     vrp_input = Scale(VVI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
-    vrp_input.pack()
+    vrp_input.grid(row=8, column=1)
+
+    global current_index_vvi
+    current_index_vvi = 0  # Initialize the index to 0
+
+    vpw_label = Label(VVI, text="Ventricular Pulse Width", font=('Arial', 12))
+    vpw_label.grid(row=9, column=1)
+    global value_label_vvi
+    value_label_vvi = Label(VVI, text=str(scale_incs[current_index_vvi]))
+    value_label_vvi.grid(row=10, column=1)
+
+    # Create a increment/decrement button
+    decrement_button = Button(VVI, text="<", command=lambda: update_value_vvi(False))
+    decrement_button.grid(row=10, column=0)
+    increment_button = Button(VVI, text=">", command=lambda: update_value_vvi(True))
+    increment_button.grid(row=10, column=2)
 
     VVI_save = ttk.Button(VVI, text="SAVE", width=10, command=Save_press)
-    VVI_save.pack()
+    VVI_save.grid(row=11, column=1)
 
     VVI_back = ttk.Button(VVI, text="BACK", width=10, command=Back_press)
-    VVI_back.pack()
+    VVI_back.grid(row=12, column=1)
 
-    vpw_scale_vvi.config(command=lambda e: vpw_slider_mod(vpw_scale_vvi)) # Dynamically updates the slider resolution
     va_scale_vvi.config(command=lambda e: va_slider_mod(va_scale_vvi)) # Dynamically updates the slider resolution
     lrl_scale_vvi.config(command=lambda e: lrl_slider_mod(lrl_scale_vvi)) # Dynamically updates the slider resolution
 
@@ -234,11 +211,22 @@ def aa_slider_mod(scale):
     else:
         scale.config(resolution=(0.1))
 
-def vpw_slider_mod(scale):
-    current = float(scale.get())
-    if current < 1/10:
-        scale.config(length=400, from_=0.05, to=1.9, resolution=(0.05))
-        print(current)
+global scale_incs
+scale_incs = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9]
+
+def update_value_voo(increment):
+    global current_index_voo
+    if increment:
+        current_index_voo = (current_index_voo + 1) % len(scale_incs)
     else:
-        scale.config(length=400, from_=0.05, to=1.9, resolution=(0.1))
-        print(current)
+        current_index_voo = (current_index_voo - 1) % len(scale_incs)
+    value_label_voo.config(text=str(scale_incs[current_index_voo]))
+
+def update_value_vvi(increment):
+    global current_index_vvi
+    if increment:
+        current_index_vvi = (current_index_vvi + 1) % len(scale_incs)
+    else:
+        current_index_vvi = (current_index_vvi - 1) % len(scale_incs)
+    value_label_vvi.config(text=str(scale_incs[current_index_vvi]))
+
