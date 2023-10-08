@@ -64,7 +64,15 @@ AS:  Atrial Sensitivity
 ARR: Atrial Refractory Period
 '''
 
-def verifyInput(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
+def verifyInput(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS=-1, VRR=-1):
+    try:
+        print (APW)
+        apw = int(APW)
+        aa = int(AA)
+        #rs = int(RS)
+    except:
+        print("artial values missing")
+
     if URL < LRL:  #basic logic limiter since lower limit cant be higher then upper limit
         print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit")
         return 0 
