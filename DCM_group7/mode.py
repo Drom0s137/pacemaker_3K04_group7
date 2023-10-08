@@ -8,35 +8,45 @@ import customtkinter
 def AOO_page(AOO):
     #AOO = ThemedTk(theme="arc")
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
-    label.pack(padx=20, pady=20)
+    label.grid(row=0, column=1)
 
     url_label = Label(AOO, text="Input the Upper Rate Limit", font=('Arial', 12))
-    url_label.pack()
+    url_label.grid(row=1, column=1)
     url_scale = Scale(AOO, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
-    url_scale.pack(pady=10)
+    url_scale.grid(row=2, column=1)
 
     global lrl_scale_aoo
     lrl_label = Label(AOO, text="Input the Lower Rate Limit", font=('Arial', 12))
-    lrl_label.pack()
+    lrl_label.grid(row=3, column=1)
     lrl_scale_aoo = Scale(AOO, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
-    lrl_scale_aoo.pack(pady=10)
-
-    apw_label = Label(AOO, text="Atrial Pulse Width", font=('Arial', 12))
-    apw_label.pack()
-    apw_scale = Scale(AOO, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
-    apw_scale.pack(pady=10)
+    lrl_scale_aoo.grid(row=4, column=1)
 
     global aa_scale_aoo
     aa_label = Label(AOO, text="Atrial Amplitude", font=('Arial', 12))
-    aa_label.pack()
+    aa_label.grid(row=5, column=1)
     aa_scale_aoo = Scale(AOO, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
-    aa_scale_aoo.pack(pady=10)
+    aa_scale_aoo.grid(row=6, column=1)
+
+    global current_index_aoo
+    current_index_aoo = 0  # Initialize the index to 0
+
+    apw_label = Label(AOO, text="Atrial Pulse Width", font=('Arial', 12))
+    apw_label.grid(row=7, column=1)
+    global value_label_aoo
+    value_label_aoo = Label(AOO, text=str(scale_incs[current_index_aoo]))
+    value_label_aoo.grid(row=8, column=1)
+
+    # Create a increment/decrement button
+    decrement_button = Button(AOO, text="<", command=lambda: update_value_aoo(False))
+    decrement_button.grid(row=8, column=0)
+    increment_button = Button(AOO, text=">", command=lambda: update_value_aoo(True))
+    increment_button.grid(row=8, column=2)
 
     AOO_save = ttk.Button(AOO, text="SAVE",width=10, command=Save_press)
-    AOO_save.pack(pady=10)
+    AOO_save.grid(row=9, column=1)
 
     AOO_back = ttk.Button(AOO, text="BACK", width=10, command=Back_press)
-    AOO_back.pack()
+    AOO_back.grid(row=10, column=1)
 
     aa_scale_aoo.config(command=lambda e: aa_slider_mod(aa_scale_aoo)) # Dynamically updates the slider resolution
     lrl_scale_aoo.config(command=lambda e: lrl_slider_mod(lrl_scale_aoo)) # Dynamically updates the slider resolution
@@ -91,40 +101,55 @@ def VOO_page(VOO):
 def AAI_page(AAI):
 
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
-    label.pack(padx=20, pady=5)
+    label.grid(row=0, column=1)
 
     url_label = Label(AAI, text="Input the Upper Rate Limit", font=('Arial', 12))
-    url_label.pack(padx=20, pady=2)
+    url_label.grid(row=1, column=1)
     url_scale = Scale(AAI, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
-    url_scale.pack()
+    url_scale.grid(row=2, column=1)
 
     global lrl_scale_aai
     lrl_label = Label(AAI, text="Input the Lower Rate Limit", font=('Arial', 12))
-    lrl_label.pack(padx=20, pady=2)
+    lrl_label.grid(row=3, column=1)
     lrl_scale_aai = Scale(AAI, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
-    lrl_scale_aai.pack()
+    lrl_scale_aai.grid(row=4, column=1)
 
     apw_label = Label(AAI, text="Atrial Pulse Width", font=('Arial', 12))
-    apw_label.pack(padx=20, pady=2)
+    apw_label.grid(row=5, column=1)
     apw_scale = Scale(AAI, length=400, from_=0.05, to=1.9, resolution=0.01, orient=HORIZONTAL)
-    apw_scale.pack()
+    apw_scale.grid(row=6, column=1)
 
     global aa_scale_aii
     aa_label = Label(AAI, text="Atrial Amplitude", font=('Arial', 12))
-    aa_label.pack(padx=20, pady=2)
+    aa_label.grid(row=7, column=1)
     aa_scale_aii = Scale(AAI, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
-    aa_scale_aii.pack()
+    aa_scale_aii.grid(row=8, column=1)
 
     arp_label = Label(AAI, text="Atrial Refractory Period", font=('Arial', 12))
-    arp_label.pack(padx=20, pady=2)
+    arp_label.grid(row=9, column=1)
     arp_input = Scale(AAI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
-    arp_input.pack()
+    arp_input.grid(row=10, column=1)
+
+    global current_index_aai
+    current_index_aai = 0  # Initialize the index to 0
+
+    apw_label = Label(AAI, text="Atrial Pulse Width", font=('Arial', 12))
+    apw_label.grid(row=11, column=1)
+    global value_label_aai
+    value_label_aai = Label(AAI, text=str(scale_incs[current_index_aai]))
+    value_label_aai.grid(row=12, column=1)
+
+    # Create a increment/decrement button
+    decrement_button = Button(AAI, text="<", command=lambda: update_value_aai(False))
+    decrement_button.grid(row=12, column=0)
+    increment_button = Button(AAI, text=">", command=lambda: update_value_aai(True))
+    increment_button.grid(row=12, column=2)
 
     AAI_save = ttk.Button(AAI, text="SAVE", width=10, command=Save_press)
-    AAI_save.pack(pady=7)
+    AAI_save.grid(row=13, column=1)
 
     AAI_back = ttk.Button(AAI, text="BACK", width=10, command=Back_press)
-    AAI_back.pack()
+    AAI_back.grid(row=14, column=1)
 
     aa_scale_aii.config(command=lambda e: aa_slider_mod(aa_scale_aii)) # Dynamically updates the slider resolution
     lrl_scale_aai.config(command=lambda e: lrl_slider_mod(lrl_scale_aai)) # Dynamically updates the slider resolution
@@ -230,3 +255,18 @@ def update_value_vvi(increment):
         current_index_vvi = (current_index_vvi - 1) % len(scale_incs)
     value_label_vvi.config(text=str(scale_incs[current_index_vvi]))
 
+def update_value_aoo(increment):
+    global current_index_aoo
+    if increment:
+        current_index_aoo = (current_index_aoo + 1) % len(scale_incs)
+    else:
+        current_index_aoo = (current_index_aoo - 1) % len(scale_incs)
+    value_label_aoo.config(text=str(scale_incs[current_index_aoo]))
+
+def update_value_aai(increment):
+    global current_index_aai
+    if increment:
+        current_index_aai = (current_index_aai + 1) % len(scale_incs)
+    else:
+        current_index_aai = (current_index_aai - 1) % len(scale_incs)
+    value_label_aai.config(text=str(scale_incs[current_index_aai]))

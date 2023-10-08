@@ -58,8 +58,8 @@ def welcome_page(welcome):
     register = ttk.Button(welcome, command = lambda: register_user(ui_username, ui_pswrd), text="Register")
     register.pack(padx=20, pady=10)
 
-    log_out = ttk.Button(welcome, text="Log Out")
-    log_out.pack(padx=20, pady=10)
+    # log_out = ttk.Button(welcome, text="Log Out")
+    # log_out.pack(padx=20, pady=10)
 
     quit = ttk.Button(welcome, command = backend.exit_system, text="Quit")
     quit.pack(padx=20, pady=10)
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
     win.title("Pacemaker UI")
-    win.geometry("500x580")
+    win.geometry("453x580")
     modes = Frame(win)
     welcome = Frame(win)
     aoo = Frame(win)
