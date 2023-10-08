@@ -68,17 +68,6 @@ AS:  Atrial Sensitivity
 ARR: Atrial Refractory Period
 '''
 
-<<<<<<< HEAD
-def verifyInput(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
-    if URL < LRL:  #basic logic limiter since lower limit cant be higher then upper limit
-        print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit")
-        error_msg = "LRL cannot be greater than URL"
-        return 0
-    elif LRL < 30 or LRL > 175:
-        print("LRL out of bounds")
-    elif URL <50 or URL > 175:
-        print("URL out of bounds")
-=======
 def verifyInput(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS=-1, VRR=-1):
     #package to float for comparison
     apw = float(APW)
@@ -99,7 +88,6 @@ def verifyInput(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS
     if URL < LRL: 
         print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit") #basic logic limiter since lower limit cant be higher then upper limit
         return 0 #return 0 if it didnt pass
->>>>>>> eddy
     else:
         print("pass")
         return 1
