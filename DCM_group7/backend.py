@@ -68,44 +68,21 @@ AS:  Atrial Sensitivity
 ARR: Atrial Refractory Period
 '''
 
-<<<<<<< HEAD
-def verifyInput(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
+def verifyInput(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARP=None, VPW=None, VA=None, VS=None, VRP=None):
     if URL < LRL:  #basic logic limiter since lower limit cant be higher then upper limit
         print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit")
         error_msg = "LRL cannot be greater than URL"
-        return 0
-    elif LRL < 30 or LRL > 175:
-        print("LRL out of bounds")
-    elif URL <50 or URL > 175:
-        print("URL out of bounds")
-=======
-def verifyInput(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS=-1, VRR=-1):
-    #package to float for comparison
-    apw = float(APW)
-    vpw = float(VPW)
-    aa = float(AA)
-    va = float(VA)
-    rs = float(RS)
-    asense = float(AS)
-    vsense = float(VS)
-    arr = float(ARR)
-    vrr = float(VRR)
-
-    #data sheet adheration 
-    #actually, the ui's bounds set the limiters for the specific values. we just need to be ware of logical ones
-    #if 30 >= LRL >= 175: print("LRL out of bounds") #lrl check
-    #elif 50 >= URL >= 175: print("URL out of bounds") #url check
-    #elif 0.05 >= apw >= 1.9 or 0.05 >= vpw >= 1.9: print("pulse width our of bounds")
-    if URL < LRL: 
-        print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit") #basic logic limiter since lower limit cant be higher then upper limit
-        return 0 #return 0 if it didnt pass
->>>>>>> eddy
+        return 0, error_msg
+    # elif LRL < 30 or LRL > 175: # These are useless. UI blockes them anyways.
+    #     print("LRL out of bounds")
+    # elif URL <50 or URL > 175:
+    #     print("URL out of bounds")
     else:
         print("pass")
-        return 1
+        return 1, "SUCCESS"
     
 #input values are now all float instead of string. package data for simulink
-def packageData(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS=-1, VRR=-1):
+def packageData(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
     return 0
     
 
