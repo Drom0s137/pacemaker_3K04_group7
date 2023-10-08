@@ -1,14 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 from ttkthemes import ThemedTk
-import customtkinter
 import ui
 import backend
 
 
 def Save_press(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS=-1, VRR=-1):
     print("Save Pressed")
-    if backend.verifyInput(int(URL), int(LRL), APW=APW, AA=AA, RS=RS, AS=AS, ARR=ARR, VPW=VPW, VA=VA, VS=VS, VRR=VRR):
+    if backend.verifyInput(float(URL), float(LRL), APW=APW, AA=AA, RS=RS, AS=AS, ARR=ARR, VPW=VPW, VA=VA, VS=VS, VRR=VRR):
         return 1
     else:
         return 0

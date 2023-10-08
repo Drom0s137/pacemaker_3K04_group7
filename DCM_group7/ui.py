@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk
 from ttkthemes import ThemedTk
-import customtkinter
 import backend
 import mode
 
