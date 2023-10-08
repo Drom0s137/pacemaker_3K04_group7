@@ -10,17 +10,15 @@ def temp_text(e, i):
     i.delete(0, "end")
 
 def switch_frame(new, old):
-    global CURRENT_FRAME
     new.pack(fill='both', expand=1)
-    old.pack_forget()
-    CURRENT_FRAME = new
+    old.forget()
 
 def obtain_logins(ui_username, ui_pswrd):
     username = ui_username.get()
     password = ui_pswrd.get()
     if backend.log_in(username, password):
         print("chaging to mode view")
-        switch_frame(modes, CURRENT_FRAME)
+        switch_frame(modes, welcome)
 
 def register_user(ui_username, ui_pswrd):
     username = ui_username.get()
@@ -99,12 +97,11 @@ if __name__ == "__main__":
     vvi = Frame(win)
     welcome_page(welcome)
     Modes_page(modes)
-    mode.AOO_page(aoo)
-    mode.VOO_page(voo)
-    mode.AAI_page(aai)
-    mode.VVI_page(vvi)
+    mode.AOO_page(aoo, modes)
+    mode.VOO_page(voo, modes)
+    mode.AAI_page(aai, modes)
+    mode.VVI_page(vvi, modes)
     welcome.pack(fill='both', expand=1)
-    CURRENT_FRAME = welcome
     win.mainloop()
 
 

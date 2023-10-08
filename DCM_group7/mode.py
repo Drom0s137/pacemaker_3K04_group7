@@ -2,34 +2,51 @@ from tkinter import *
 from tkinter import ttk
 from ttkthemes import ThemedTk
 import customtkinter
+import ui
+import backend
+
+
+def Save_press(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
+    print("Save Pressed")
+    if backend.verifyInput(int(URL), int(LRL), APW=int(APW), AA=int(AA), RS=int(RS), AS=int(AS), ARR=int(ARR), VPW=int(VPW), VA=int(VA), VS=int(VS), VRR=int(VRR)):
+        return 1
+    else:
+        return 0
+
+def Back_press(modes, current):
+    print("Back Pressed")
+    ui.switch_frame(modes, current)
 
 ## A00 Pacing Mode
 
-def AOO_page(AOO):
-    #AOO = ThemedTk(theme="arc")
+def AOO_page(AOO,modes):
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.grid(row=0, column=1)
 
+    url = StringVar()
     url_label = Label(AOO, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=1)
-    url_scale = Scale(AOO, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(AOO, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.grid(row=2, column=1)
 
     global lrl_scale_aoo
+    lrl = StringVar()
     lrl_label = Label(AOO, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=1)
-    lrl_scale_aoo = Scale(AOO, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale_aoo = Scale(AOO, variable=lrl,length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_aoo.grid(row=4, column=1)
 
     global aa_scale_aoo
+    aa = StringVar()    
     aa_label = Label(AOO, text="Atrial Amplitude [V]", font=('Arial', 12))
     aa_label.grid(row=5, column=1)
-    aa_scale_aoo = Scale(AOO, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    aa_scale_aoo = Scale(AOO,  variable=aa,length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     aa_scale_aoo.grid(row=6, column=1)
 
     global current_index_aoo
     current_index_aoo = 0  # Initialize the index to 0
 
+    apw = StringVar()
     apw_label = Label(AOO, text="Atrial Pulse Width [ms]", font=('Arial', 12))
     apw_label.grid(row=7, column=1)
     global value_label_aoo
@@ -42,10 +59,10 @@ def AOO_page(AOO):
     increment_button = Button(AOO, text=">", command=lambda: update_value_aoo(True))
     increment_button.grid(row=8, column=2)
 
-    AOO_save = ttk.Button(AOO, text="SAVE",width=10, command=Save_press)
+    AOO_save = ttk.Button(AOO, text="SAVE",width=10, command= lambda: Save_press(url.get(), lrl.get(), APW=apw.get(), AA=aa.get()))
     AOO_save.grid(row=9, column=1)
 
-    AOO_back = ttk.Button(AOO, text="BACK", width=10, command=Back_press)
+    AOO_back = ttk.Button(AOO, text="BACK", width=10, command=lambda: Back_press(modes, AOO))
     AOO_back.grid(row=10, column=1)
 
     aa_scale_aoo.config(command=lambda e: aa_slider_mod(aa_scale_aoo)) # Dynamically updates the slider resolution
@@ -53,30 +70,34 @@ def AOO_page(AOO):
 
 
 ## V00 Pacing Mode
-def VOO_page(VOO):
+def VOO_page(VOO,modes):
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
     label.grid(row=0, column=1)
 
+    url = StringVar()
     url_label = Label(VOO, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=2, column=1)
-    url_scale = Scale(VOO, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(VOO, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.grid(row=3, column=1)
 
     global lrl_scale_voo
+    lrl = StringVar()
     lrl_label = Label(VOO, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=6, column=1)
-    lrl_scale_voo = Scale(VOO, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale_voo = Scale(VOO, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_voo.grid(row=7, column=1)
 
     global va_scale_voo
+    va = StringVar()
     va_label = Label(VOO, text="Ventricular Amplitude [V]", font=('Arial', 12))
     va_label.grid(row=10, column=1)
-    va_scale_voo = Scale(VOO, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    va_scale_voo = Scale(VOO, variable=va, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     va_scale_voo.grid(row=11, column=1)
 
     global current_index_voo
     current_index_voo = 0  # Initialize the index to 0
 
+    vpw = StringVar()
     vpw_label = Label(VOO, text="Ventricular Pulse Width [ms]", font=('Arial', 12))
     vpw_label.grid(row=14, column=1)
     global value_label_voo
@@ -89,16 +110,17 @@ def VOO_page(VOO):
     increment_button = Button(VOO, text=">", command=lambda: update_value_voo(True))
     increment_button.grid(row=15, column=2)
 
-    VOO_save = ttk.Button(VOO, text="SAVE", width=10, command=Save_press)
+    VOO_save = ttk.Button(VOO, text="SAVE", width=10, command=lambda:Save_press(url.get(), lrl.get(), VPW=vpw.get(), VA=va.get()))
     VOO_save.grid(row=18, column=1)
-    VOO_back = ttk.Button(VOO, text="BACK", width=10, command=Back_press)
+    VOO_back = ttk.Button(VOO, text="BACK", width=10, command=lambda:Back_press(modes, VOO))
     VOO_back.grid(row=25, column=1)
 
     va_scale_voo.config(command=lambda e: va_slider_mod(va_scale_voo)) # Dynamically updates the slider resolution
     lrl_scale_voo.config(command=lambda e: lrl_slider_mod(lrl_scale_voo)) # Dynamically updates the slider resolution
 
 ## AAI Pacing Mode
-def AAI_page(AAI):
+
+def AAI_page(AAI,modes):
 
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
     label.grid(row=0, column=1)
@@ -140,18 +162,16 @@ def AAI_page(AAI):
     increment_button = Button(AAI, text=">", command=lambda: update_value_aai(True))
     increment_button.grid(row=12, column=2)
 
-    AAI_save = ttk.Button(AAI, text="SAVE", width=10, command=Save_press)
+    AAI_save = ttk.Button(AAI, text="SAVE", width=10, command=lambda:Save_press(url_scale))
     AAI_save.grid(row=13, column=1)
 
-    AAI_back = ttk.Button(AAI, text="BACK", width=10, command=Back_press)
+    AAI_back = ttk.Button(AAI, text="BACK", width=10, command=lambda:Back_press(modes, AAI))
     AAI_back.grid(row=14, column=1)
 
     aa_scale_aii.config(command=lambda e: aa_slider_mod(aa_scale_aii)) # Dynamically updates the slider resolution
     lrl_scale_aai.config(command=lambda e: lrl_slider_mod(lrl_scale_aai)) # Dynamically updates the slider resolution
 
-
-## VVI Pacing Mode
-def VVI_page(VVI):
+def VVI_page(VVI, modes):
 
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
     label.grid(row=0, column=1)
@@ -193,22 +213,14 @@ def VVI_page(VVI):
     increment_button = Button(VVI, text=">", command=lambda: update_value_vvi(True))
     increment_button.grid(row=10, column=2)
 
-    VVI_save = ttk.Button(VVI, text="SAVE", width=10, command=Save_press)
+    VVI_save = ttk.Button(VVI, text="SAVE", width=10, command=lambda:Save_press)
     VVI_save.grid(row=11, column=1)
 
-    VVI_back = ttk.Button(VVI, text="BACK", width=10, command=Back_press)
+    VVI_back = ttk.Button(VVI, text="BACK", width=10, command=lambda:Back_press(modes,VVI))
     VVI_back.grid(row=12, column=1)
 
     va_scale_vvi.config(command=lambda e: va_slider_mod(va_scale_vvi)) # Dynamically updates the slider resolution
     lrl_scale_vvi.config(command=lambda e: lrl_slider_mod(lrl_scale_vvi)) # Dynamically updates the slider resolution
-
-def Save_press():
-    print("Save Pressed")
-    return True
-
-def Back_press():
-    print("Back Pressed")
-    return True
 
 def lrl_slider_mod(scale):
     current = float(scale.get())
