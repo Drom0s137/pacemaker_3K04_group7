@@ -2,11 +2,12 @@ import json
 import logging
 import sys
 
+
 def exit_system():
     sys.exit()
 
 def log_in(username, password):
-    data = extract_database()
+    data, usercount = extract_database()
     if username == "Enter Username" or username == "" or password == "Enter Password" or password == "":
         print("Missing information, please complete both sections before continuing")
         return 0
@@ -20,8 +21,11 @@ def log_in(username, password):
     
 
 def register(username, password):
-    data = extract_database()
-    if username == "Enter Username" or password == "Enter Password":
+    data, usercount = extract_database()
+    if usercount == 10:
+        print("too many users, please remove users first")
+        return 0 
+    if username == "Enter Username" or username == "" or password == "Enter Password" or password == "":
         print("Missing information, please complete both sections before continuing")
         return 0
     for user in data:
@@ -46,7 +50,9 @@ def register(username, password):
 def extract_database():
     # user JSON load in 
     user_data = open('user_data.json')
-    return json.load(user_data)
+    interperated_user_data = json.load(user_data)
+    usercount = len(interperated_user_data)
+    return interperated_user_data, usercount
 
 '''
 URL: upper rate limit

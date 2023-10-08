@@ -1,5 +1,5 @@
 from tkinter import *
-import customtkinter
+#import customtkinter
 import ui
 import backend
 
