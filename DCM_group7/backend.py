@@ -10,7 +10,7 @@ def log_in(username, password):
     data, _ = extract_database()
     if username == "Enter Username" or username == "" or password == "Enter Password" or password == "":
         print("Missing information, please complete both sections before continuing")
-        error_msg = "\tMissing information\t"
+        error_msg = "\tMissing information               "
         return 0, error_msg
     for user in data:
         if user["user_name"] == username:
@@ -21,10 +21,10 @@ def log_in(username, password):
     
     if user_verify:
         print("incorrect password")
-        error_msg = "\tIncorrect password\t"
+        error_msg = "\tIncorrect password          "
     else:
         print("no matching user name")
-        error_msg = "\tno matching user name\t"
+        error_msg = "no matching user name"
     return 0, error_msg
     
 
