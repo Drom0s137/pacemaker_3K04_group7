@@ -62,28 +62,26 @@ def welcome_page(welcome):
     quit = ttk.Button(welcome, command = backend.exit_system, text="Quit")
     quit.pack(padx=20, pady=10)
 
-def Modes_page(Modes):
+def Modes_page(Modes, Welcome):
 
     label = ttk.Label(Modes, text="Select the Pacing Mode", font=('Arial', 14))
     label.pack(padx=20, pady=20)
 
-    AOO_btn = ttk.Button(Modes, text="AOO", command = lambda: switch_frame(aoo, CURRENT_FRAME))
+    AOO_btn = ttk.Button(Modes, text="AOO", command = lambda: switch_frame(aoo, Modes))
     AOO_btn.pack(padx=20, pady=10)
 
-    VOO_btn = ttk.Button(Modes, text="VOO", command = lambda: switch_frame(voo, CURRENT_FRAME))
+    VOO_btn = ttk.Button(Modes, text="VOO", command = lambda: switch_frame(voo, Modes))
     VOO_btn.pack(padx=20, pady=10)
 
-    AAI_btn = ttk.Button(Modes, text="AAI", command = lambda: switch_frame(aai, CURRENT_FRAME))
+    AAI_btn = ttk.Button(Modes, text="AAI", command = lambda: switch_frame(aai, Modes))
     AAI_btn.pack(padx=20, pady=10)
 
-    VVI_btn = ttk.Button(Modes, text="VVI", command = lambda: switch_frame(vvi, CURRENT_FRAME))
+    VVI_btn = ttk.Button(Modes, text="VVI", command = lambda: switch_frame(vvi, Modes))
     VVI_btn.pack(padx=20, pady=10)
-
-    back = ttk.Button(Modes, text="BACK", width=10, command=mode.Back_press)
+    back = ttk.Button(Modes, text="BACK", width=10, command=lambda: switch_frame(Welcome, Modes))
     back.pack(pady=10)
 
 if __name__ == "__main__":
-    global CURRENT_FRAME
     #win = Tk()
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
@@ -96,7 +94,7 @@ if __name__ == "__main__":
     aai = Frame(win)
     vvi = Frame(win)
     welcome_page(welcome)
-    Modes_page(modes)
+    Modes_page(modes, welcome)
     mode.AOO_page(aoo, modes)
     mode.VOO_page(voo, modes)
     mode.AAI_page(aai, modes)
