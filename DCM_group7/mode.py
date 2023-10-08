@@ -1,14 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 from ttkthemes import ThemedTk
-import customtkinter
 import ui
 import backend
 
 
-def Save_press(URL, LRL, APW=None, AA=None, RS=None, AS=None, ARR=None, VPW=None, VA=None, VS=None, VRR=None):
+def Save_press(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARR=-1, VPW=-1, VA=-1, VS=-1, VRR=-1):
     print("Save Pressed")
-    if backend.verifyInput(int(URL), int(LRL), APW=int(APW), AA=int(AA), RS=int(RS), AS=int(AS), ARR=int(ARR), VPW=int(VPW), VA=int(VA), VS=int(VS), VRR=int(VRR)):
+    if backend.verifyInput(float(URL), float(LRL), APW=APW, AA=AA, RS=RS, AS=AS, ARR=ARR, VPW=VPW, VA=VA, VS=VS, VRR=VRR):
         return 1
     else:
         return 0
@@ -46,12 +45,12 @@ def AOO_page(AOO,modes):
     global current_index_aoo
     current_index_aoo = 0  # Initialize the index to 0
 
-    apw = StringVar()
     apw_label = Label(AOO, text="Atrial Pulse Width [ms]", font=('Arial', 12))
     apw_label.grid(row=7, column=1)
     global value_label_aoo
     value_label_aoo = Label(AOO, text=str(scale_incs[current_index_aoo]))
     value_label_aoo.grid(row=8, column=1)
+    
 
     # Create a increment/decrement button
     decrement_button = Button(AOO, text="<", command=lambda: update_value_aoo(False))
@@ -59,7 +58,7 @@ def AOO_page(AOO,modes):
     increment_button = Button(AOO, text=">", command=lambda: update_value_aoo(True))
     increment_button.grid(row=8, column=2)
 
-    AOO_save = ttk.Button(AOO, text="SAVE",width=10, command= lambda: Save_press(url.get(), lrl.get(), APW=apw.get(), AA=aa.get()))
+    AOO_save = ttk.Button(AOO, text="SAVE",width=10, command= lambda: Save_press(url.get(), lrl.get(), APW=scale_incs[current_index_voo], AA=aa.get()))
     AOO_save.grid(row=9, column=1)
 
     AOO_back = ttk.Button(AOO, text="BACK", width=10, command=lambda: Back_press(modes, AOO))
@@ -97,7 +96,6 @@ def VOO_page(VOO,modes):
     global current_index_voo
     current_index_voo = 0  # Initialize the index to 0
 
-    vpw = StringVar()
     vpw_label = Label(VOO, text="Ventricular Pulse Width [ms]", font=('Arial', 12))
     vpw_label.grid(row=14, column=1)
     global value_label_voo
@@ -110,7 +108,7 @@ def VOO_page(VOO,modes):
     increment_button = Button(VOO, text=">", command=lambda: update_value_voo(True))
     increment_button.grid(row=15, column=2)
 
-    VOO_save = ttk.Button(VOO, text="SAVE", width=10, command=lambda:Save_press(url.get(), lrl.get(), VPW=vpw.get(), VA=va.get()))
+    VOO_save = ttk.Button(VOO, text="SAVE", width=10, command=lambda:Save_press(url.get(), lrl.get(), VPW=scale_incs[current_index_voo], VA=va.get()))
     VOO_save.grid(row=18, column=1)
     VOO_back = ttk.Button(VOO, text="BACK", width=10, command=lambda:Back_press(modes, VOO))
     VOO_back.grid(row=25, column=1)
@@ -125,26 +123,30 @@ def AAI_page(AAI,modes):
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
     label.grid(row=0, column=1)
 
+    url = StringVar()
     url_label = Label(AAI, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=1)
-    url_scale = Scale(AAI, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(AAI, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.grid(row=2, column=1)
 
     global lrl_scale_aai
+    lrl = StringVar()
     lrl_label = Label(AAI, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=1)
-    lrl_scale_aai = Scale(AAI, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale_aai = Scale(AAI, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_aai.grid(row=4, column=1)
 
     global aa_scale_aii
+    aa = StringVar()
     aa_label = Label(AAI, text="Atrial Amplitude [V]", font=('Arial', 12))
     aa_label.grid(row=7, column=1)
-    aa_scale_aii = Scale(AAI, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    aa_scale_aii = Scale(AAI, variable=aa, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     aa_scale_aii.grid(row=8, column=1)
 
+    arp = StringVar()
     arp_label = Label(AAI, text="Atrial Refractory Period [ms]", font=('Arial', 12))
     arp_label.grid(row=9, column=1)
-    arp_input = Scale(AAI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
+    arp_input = Scale(AAI, variable=arp, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     arp_input.grid(row=10, column=1)
 
     global current_index_aai
@@ -162,7 +164,7 @@ def AAI_page(AAI,modes):
     increment_button = Button(AAI, text=">", command=lambda: update_value_aai(True))
     increment_button.grid(row=12, column=2)
 
-    AAI_save = ttk.Button(AAI, text="SAVE", width=10, command=lambda:Save_press(url_scale))
+    AAI_save = ttk.Button(AAI, text="SAVE", width=10, command=lambda:Save_press(url.get(), lrl.get(), APW=scale_incs[current_index_voo], AA=aa.get(), ARP = arp.get()))
     AAI_save.grid(row=13, column=1)
 
     AAI_back = ttk.Button(AAI, text="BACK", width=10, command=lambda:Back_press(modes, AAI))
@@ -176,26 +178,30 @@ def VVI_page(VVI, modes):
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
     label.grid(row=0, column=1)
 
+    url = StringVar()
     url_label = Label(VVI, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=1)
-    url_scale = Scale(VVI, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(VVI, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.grid(row=2, column=1)
 
     global lrl_scale_vvi
+    lrl = StringVar()
     lrl_label = Label(VVI, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=1)
-    lrl_scale_vvi = Scale(VVI, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale_vvi = Scale(VVI, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_vvi.grid(row=4, column=1)
 
     global va_scale_vvi
+    va = StringVar()
     va_label = Label(VVI, text="Ventricular Amplitude [V]", font=('Arial', 12))
     va_label.grid(row=5, column=1)
-    va_scale_vvi = Scale(VVI, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    va_scale_vvi = Scale(VVI,variable=va, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     va_scale_vvi.grid(row=6, column=1)
-
+   
+    vrp = StringVar()
     vrp_label = Label(VVI, text="Ventrical Refractory Period [ms]", font=('Arial', 12))
     vrp_label.grid(row=7, column=1)
-    vrp_input = Scale(VVI, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
+    vrp_input = Scale(VVI, variable=vrp, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     vrp_input.grid(row=8, column=1)
 
     global current_index_vvi
@@ -213,7 +219,7 @@ def VVI_page(VVI, modes):
     increment_button = Button(VVI, text=">", command=lambda: update_value_vvi(True))
     increment_button.grid(row=10, column=2)
 
-    VVI_save = ttk.Button(VVI, text="SAVE", width=10, command=lambda:Save_press)
+    VVI_save = ttk.Button(VVI, text="SAVE", width=10, command=lambda:Save_press(url.get(), lrl.get(), VPW=scale_incs[current_index_voo], VA=va.get(), VRP = vrp.get()))
     VVI_save.grid(row=11, column=1)
 
     VVI_back = ttk.Button(VVI, text="BACK", width=10, command=lambda:Back_press(modes,VVI))

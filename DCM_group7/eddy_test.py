@@ -40,7 +40,7 @@ def app():
      
     lab = Label(root, text="Live Plotting", bg = 'white').pack() 
      
-    fig = Figure() 
+    fig = Figure()
      
     ax = fig.add_subplot(111) 
     ax.set_xlabel("X axis") 

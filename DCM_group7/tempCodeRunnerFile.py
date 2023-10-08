@@ -1,2 +1,0 @@
-button.pack()
-# label.pack()
