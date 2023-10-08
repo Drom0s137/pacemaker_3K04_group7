@@ -6,18 +6,25 @@ def exit_system():
     sys.exit()
 
 def log_in(username, password):
+    user_verify = False
     data, _ = extract_database()
     if username == "Enter Username" or username == "" or password == "Enter Password" or password == "":
         print("Missing information, please complete both sections before continuing")
-        error_msg = "Unsuccessful Login"
+        error_msg = "\tMissing information\t"
         return 0, error_msg
     for user in data:
-        if user["user_name"] == username and user["password"] == password:
-            print("log in successful")
-            return 1
+        if user["user_name"] == username:
+            user_verify = True
+            if user["password"] == password:
+                print("log in successful")
+                return 1
     
-    print("no matching data avaiable")
-    error_msg = "No match"
+    if user_verify:
+        print("incorrect password")
+        error_msg = "\tIncorrect password\t"
+    else:
+        print("no matching user name")
+        error_msg = "\tno matching user name\t"
     return 0, error_msg
     
 
