@@ -8,7 +8,6 @@
         "password": "a"
     },
     {
-<<<<<<< HEAD
         "user_name": "aa",
         "password": "a"
     },
@@ -23,9 +22,5 @@
     {
         "user_name": "gesgse",
         "password": "srg"
-=======
-        "user_name": "",
-        "password": ""
->>>>>>> eddy
     }
 ]
