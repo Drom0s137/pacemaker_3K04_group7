@@ -1,42 +1,72 @@
-# Import the required libraries
-from tkinter import *
-from tkinter import font
+from tkinter import * 
+from random import randint 
+ 
+# these four imports are important 
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg 
+from matplotlib.figure import Figure 
+import time 
+import threading 
 
-# Create an instance of tkinter frame or window
-win = Tk()
+continuePlotting = False 
+ 
+def change_state(): 
+    global continuePlotting 
+    if continuePlotting == True: 
+        continuePlotting = False 
+    else: 
+        continuePlotting = True 
 
-# Set the size of the window
-win.geometry("700x350")
 
-# Create two frames in the window
-greet = Frame(win)
-order = Frame(win)
+def data_points(): 
+    f = open("data.txt", "w") 
+    for i in range(10): 
+        f.write(str(randint(0, 10))+'\n') 
+    f.close() 
+ 
+    f = open("data.txt", "r") 
+    data = f.readlines() 
+    f.close() 
+ 
+    l = [] 
+    for i in range(len(data)): 
+        l.append(int(data[i].rstrip("\n"))) 
+    return l 
 
-# Define a function for switching the frames
-def change_to_greet():
-   greet.pack(fill='both', expand=1)
-   order.pack_forget()
-
-def change_to_order():
-   order.pack(fill='both', expand=1)
-   greet.pack_forget()
-
-# Create fonts for making difference in the frame
-font1 = font.Font(family='Georgia', size='22', weight='bold')
-font2 = font.Font(family='Aerial', size='12')
-
-# Add a heading logo in the frames
-label1 = Label(greet, text="Hey There! Welcome to TutorialsPoint.", foreground="green3", font=font1)
-label1.pack(pady=20)
-
-label2 = Label(order, text="Find all the interesting Tutorials.", foreground="blue", font=font2)
-label2.pack(pady=20)
-
-# Add a button to switch between two frames
-btn1 = Button(win, text="Switch to Greet", font=font2, command=change_to_order)
-btn1.pack(pady=20)
-
-btn2 = Button(win, text="Switch to Order", font=font2, command=change_to_greet)
-btn2.pack(pady=20)
-
-win.mainloop()
+def app(): 
+    # initialise a window. 
+    root = Tk() 
+    root.config(background='white') 
+    root.geometry("1000x700") 
+     
+    lab = Label(root, text="Live Plotting", bg = 'white').pack() 
+     
+    fig = Figure()
+     
+    ax = fig.add_subplot(111) 
+    ax.set_xlabel("X axis") 
+    ax.set_ylabel("Y axis") 
+    ax.grid() 
+ 
+    graph = FigureCanvasTkAgg(fig, master=root) 
+    graph.get_tk_widget().pack(side="top",fill='both',expand=True) 
+ 
+    def plotter(): 
+        while continuePlotting: 
+            ax.cla() 
+            ax.grid() 
+            dpts = data_points() 
+            ax.plot(range(10), dpts, marker='o', color='orange') 
+            graph.draw() 
+            time.sleep(1) 
+ 
+    def gui_handler(): 
+        change_state() 
+        threading.Thread(target=plotter).start() 
+ 
+    b = Button(root, text="Start/Stop", command=gui_handler, bg="red", fg="white") 
+    b.pack() 
+     
+    root.mainloop() 
+ 
+if __name__ == '__main__': 
+    app() 
