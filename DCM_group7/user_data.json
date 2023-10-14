@@ -1,14 +1,32 @@
 [
     {
+        "user_name": "a",
+        "password": "a",
+        "URL": 50.0,
+        "LRL": 45.0,
+        "APW": 0.05,
+        "AA": "0.0",
+        "RS": -1,
+        "AS": -1,
+        "ARP": -1,
+        "VPW": -1,
+        "VA": -1,
+        "VS": -1,
+        "VRP": -1
+    },
+    {
         "user_name": "admin",
-        "password": "password"
-    },
-    {
-        "user_name": "eddy",
-        "password": "123"
-    },
-    {
-        "user_name": "grigor",
-        "password": "456"
+        "password": "password",
+        "URL": 50.0,
+        "LRL": 30.0,
+        "APW": 0.05,
+        "AA": "0.0",
+        "RS": -1,
+        "AS": -1,
+        "ARP": -1,
+        "VPW": -1,
+        "VA": -1,
+        "VS": -1,
+        "VRP": -1
     }
 ]
