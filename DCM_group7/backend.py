@@ -113,15 +113,15 @@ def saveData(username, URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA
         if user["user_name"] == username:
             data[index]["URL"] = URL
             data[index]["LRL"] = LRL
-            data[index]["APW"] = APW
-            data[index]["AA"] = AA
-            data[index]["RS"] = RS
-            data[index]["AS"] = AS
-            data[index]["ARP"] = ARP
-            data[index]["VPW"] = VPW
-            data[index]["VA"] = VA
-            data[index]["VS"] = VS
-            data[index]["VRP"] = VRP
+            if APW!= -1:data[index]["APW"] = APW
+            if AA!= -1:data[index]["AA"] = AA
+            if RS!= -1:data[index]["RS"] = RS
+            if AS!= -1:data[index]["AS"] = AS
+            if ARP!= -1:data[index]["ARP"] = ARP
+            if VPW!= -1:data[index]["VPW"] = VPW
+            if VA!= -1:data[index]["VA"] = VA
+            if VS!= -1:data[index]["VS"] = VS
+            if VRP!= -1:data[index]["VRP"] = VRP
 
             with open("user_data.json", 'w') as json_file:
                 json.dump(data, json_file, 
