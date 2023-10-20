@@ -5,10 +5,12 @@ import ui
 import backend
 
 
-def Save_press(URL, LRL, frame, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
+def Save_press(URL, frame, LRL_AOO = -1, LRL_VOO = -1, LRL_AAI = -1, LRL_VVI = -1, \
+               APW=-1, AA_AOO=-1, AA_AAI=-1, ARP=-1, VPW=-1, VA_VOO=-1, VA_VVI = -1, VRP=-1):
     print("Save Pressed")
-    temp = backend.verifyInput(float(URL), float(LRL), APW=APW, AA=AA, RS=RS, AS=AS, ARP=ARP, VPW=VPW, VA=VA, VS=VS,
-                               VRP=VRP)
+    temp = backend.verifyInput(float(URL), LRL_AOO=LRL_AOO, LRL_AAI=LRL_AAI, LRL_VOO=LRL_VOO, \
+                               LRL_VVI=LRL_VVI, APW=APW, AA_AOO=AA_AOO, AA_AAI=AA_AAI, ARP=ARP, VPW=VPW,\
+                                VA_VOO=VA_VOO, VA_VVI=VA_VVI, VRP=VRP)
     if temp[0]:
         ui.display_msg("\t\tSUCCESS\t\t", frame)
         return 1
@@ -22,9 +24,26 @@ def Back_press(modes, current):
     ui.switch_frame(modes, current)
 
 
+def update_values():
+    global url_scale, lrl_scale_aoo, lrl_scale_voo, lrl_scale_aai, lrl_scale_vvi
+    global aa_scale_aoo, arp, va_scale_voo, vrp, aa_scale_aii, va_scale_vvi
+    url_scale.set(backend.USERSETTINGS[0])
+    lrl_scale_aoo.set(backend.USERSETTINGS[1])
+    lrl_scale_voo.set(backend.USERSETTINGS[2])
+    lrl_scale_aai.set(backend.USERSETTINGS[3])
+    lrl_scale_vvi.set(backend.USERSETTINGS[4])
+    aa_scale_aoo.set(backend.USERSETTINGS[5])
+    aa_scale_aii.set(backend.USERSETTINGS[6])
+    va_scale_voo.set(backend.USERSETTINGS[7])
+    va_scale_vvi.set(backend.USERSETTINGS[8])
+    arp.set(backend.USERSETTINGS[9])
+    vrp.set(backend.USERSETTINGS[10])
+
 ## A00 Pacing Mode
 
-def AOO_page(AOO, modes):
+def AOO_page(AOO, modes): 
+    global url_scale
+
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.grid(row=0, column=1)
 
@@ -67,8 +86,8 @@ def AOO_page(AOO, modes):
     increment_button.grid(row=8, column=2)
 
     AOO_save = ttk.Button(AOO, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), APW=scale_incs[current_index_voo],
-                                                     AA=aa.get(), frame=AOO))
+                          command=lambda: Save_press(url.get(), LRL_AOO=lrl.get(), APW=scale_incs[current_index_voo],
+                                                     AA_AOO=aa.get(), frame=AOO))
     AOO_save.grid(row=9, column=1)
 
     AOO_back = ttk.Button(AOO, text="BACK", width=10, command=lambda: Back_press(modes, AOO))
@@ -80,6 +99,8 @@ def AOO_page(AOO, modes):
 
 ## V00 Pacing Mode
 def VOO_page(VOO, modes):
+    global url
+
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
     label.grid(row=0, column=1)
 
@@ -122,8 +143,8 @@ def VOO_page(VOO, modes):
     increment_button.grid(row=15, column=2)
 
     VOO_save = ttk.Button(VOO, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), VPW=scale_incs[current_index_voo],
-                                                     VA=va.get(), frame=VOO))
+                          command=lambda: Save_press(url.get(), LRL_VOO=lrl.get(), VPW=scale_incs[current_index_voo],
+                                                     VA_VOO=va.get(), frame=VOO))
     VOO_save.grid(row=18, column=1)
     VOO_back = ttk.Button(VOO, text="BACK", width=10, command=lambda: Back_press(modes, VOO))
     VOO_back.grid(row=25, column=1)
@@ -135,6 +156,8 @@ def VOO_page(VOO, modes):
 ## AAI Pacing Mode
 
 def AAI_page(AAI, modes):
+    global url, arp
+
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
     label.grid(row=0, column=1)
 
@@ -184,8 +207,8 @@ def AAI_page(AAI, modes):
     increment_button.grid(row=12, column=2)
 
     AAI_save = ttk.Button(AAI, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), APW=scale_incs[current_index_voo],
-                                                     AA=aa.get(), ARP=arp.get(), frame=AAI))
+                          command=lambda: Save_press(url.get(), LRL_AAI=lrl.get(), APW=scale_incs[current_index_voo],
+                                                     AA_AAI=aa.get(), ARP=arp.get(), frame=AAI))
     AAI_save.grid(row=13, column=1)
 
     AAI_back = ttk.Button(AAI, text="BACK", width=10, command=lambda: Back_press(modes, AAI))
@@ -196,6 +219,7 @@ def AAI_page(AAI, modes):
 
 
 def VVI_page(VVI, modes):
+    global url, vrp
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
     label.grid(row=0, column=1)
 
@@ -245,8 +269,8 @@ def VVI_page(VVI, modes):
     increment_button.grid(row=10, column=2)
 
     VVI_save = ttk.Button(VVI, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), VPW=scale_incs[current_index_voo],
-                                                     VA=va.get(), VRP=vrp.get(), frame=VVI))
+                          command=lambda: Save_press(url.get(), LRL_VVI=lrl.get(), VPW=scale_incs[current_index_voo],
+                                                     VA_VVI=va.get(), VRP=vrp.get(), frame=VVI))
     VVI_save.grid(row=11, column=1)
 
     VVI_back = ttk.Button(VVI, text="BACK", width=10, command=lambda: Back_press(modes, VVI))

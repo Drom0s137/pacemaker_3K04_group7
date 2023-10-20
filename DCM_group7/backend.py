@@ -3,12 +3,15 @@ import logging
 import sys
 
 USERNAME = ""
+USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 def exit_system():
     sys.exit()
 
 def log_in(username, password):
     global USERNAME
+    global USERSETTINGS
+    
     user_verify = False
     data, _ = extract_database()
     if username == "Enter Username" or username == "" or password == "Enter Password" or password == "":
@@ -21,6 +24,20 @@ def log_in(username, password):
             if user["password"] == password:
                 USERNAME = username
                 print("log in successful")
+                USERSETTINGS[0] = user["URL"]
+                USERSETTINGS[1] = user["LRL_AOO"]
+                USERSETTINGS[2] = user["LRL_VOO"]
+                USERSETTINGS[3] = user["LRL_AAI"]
+                USERSETTINGS[4] = user["LRL_VVI"]
+                USERSETTINGS[5] = user["AA_AOO"]
+                USERSETTINGS[6] = user["AA_AAI"]
+                USERSETTINGS[7] = user["VA_VOO"]
+                USERSETTINGS[8] = user["VA_VVI"]
+                USERSETTINGS[9] = user["ARP"]
+                USERSETTINGS[10] = user["VRP"]
+                USERSETTINGS[11] = user["APW"]
+                USERSETTINGS[12] = user["VPW"]
+                print(user)
                 return 1
     
     if user_verify:
@@ -29,6 +46,7 @@ def log_in(username, password):
     else:
         print("no matching user name")
         error_msg = "no matching user name"
+
     return 0, error_msg
     
 
@@ -52,17 +70,19 @@ def register(username, password):
     data.append({
     "user_name": username,
     "password": password,
-    "URL" : -1,
-    "LRL" : -1,
-    "APW" : -1,
-    "AA" : -1,
-    "RS" : -1,
-    "AS" : -1,
-    "ARP" : -1,
-    "VPW" : -1,
-    "VA" : -1,
-    "VS" : -1,
-    "VRP" : -1
+    "URL" : 120,
+    "LRL_AOO" : 60,
+    "LRL_VOO" : 60,
+    "LRL_AAI" : 60,
+    "LRL_VVI" : 60,
+    "AA_AOO" : 3.5,
+    "AA_AAI" : 3.5,
+    "VA_VOO" : 3.5,
+    "VA_VVI" : 3.5,
+    "ARP" : 250,
+    "VRP" : 320,
+    "VPW" : 0.4,
+    "APW" :0.4
     })
     
     with open("user_data.json", 'w') as json_file:
@@ -90,37 +110,36 @@ AS:  Atrial Sensitivity
 ARR: Atrial Refractory Period
 '''
 
-def verifyInput(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
+def verifyInput(URL, LRL_AOO=-1, LRL_VOO=-1, LRL_AAI=-1, LRL_VVI=-1, APW=-1, AA_AOO=-1, AA_AAI=-1, ARP=-1, VPW=-1, VA_VOO=-1, VA_VVI=-1, VRP=-1):
     global USERNAME
-    if URL < LRL:  #basic logic limiter since lower limit cant be higher then upper limit
+    if float(LRL_AOO) !=-1 and URL < float(LRL_AOO) or float(LRL_VOO) !=-1 and URL < float(LRL_VOO)\
+          or float(LRL_AAI) !=-1 and URL < float(LRL_AAI) or float(LRL_VVI) !=-1 and URL < float(LRL_VVI):#basic logic limiter since lower limit cant be higher then upper limit
         print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit")
         error_msg = "LRL cannot be greater than URL"
         return 0, error_msg
-    # elif LRL < 30 or LRL > 175: # These are useless. UI blockes them anyways.
-    #     print("LRL out of bounds")
-    # elif URL <50 or URL > 175:
-    #     print("URL out of bounds")
     else:
         print("pass")
-        saveData(USERNAME, URL, LRL, APW=APW, AA=AA, RS=RS, AS=AS, ARP=ARP, VPW=VPW, VA=VA, VS=VS, VRP=VRP)
+        saveData(USERNAME, URL, LRL_AOO=LRL_AOO, LRL_VOO=LRL_VOO, LRL_AAI=LRL_AAI, LRL_VVI=LRL_VVI, APW=APW, AA_AOO=AA_AOO, AA_AAI=AA_AAI, ARP=ARP, VPW=VPW, VA_VOO=VA_VOO, VA_VVI=VA_VVI, VRP=VRP)
         return 1, "SUCCESS"
     
 
-def saveData(username, URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
-    data, usercount = extract_database()
+def saveData(username, URL, LRL_AOO=-1, LRL_VOO=-1, LRL_AAI=-1, LRL_VVI=-1, APW=-1, AA_AOO=-1, AA_AAI=-1, ARP=-1, VPW=-1, VA_VOO=-1, VA_VVI=-1, VRP=-1):
+    data, _ = extract_database()
     print(username)
     for index, user in enumerate(data):
         if user["user_name"] == username:
             data[index]["URL"] = URL
-            data[index]["LRL"] = LRL
+            if LRL_AOO!= -1:data[index]["LRL_AOO"] = LRL_AOO
+            if LRL_VOO!= -1:data[index]["LRL_VOO"] = LRL_VOO
+            if LRL_AAI!= -1:data[index]["LRL_AAI"] = LRL_AAI
+            if LRL_VVI!= -1:data[index]["LRL_VVI"] = LRL_VVI
             if APW!= -1:data[index]["APW"] = APW
-            if AA!= -1:data[index]["AA"] = AA
-            if RS!= -1:data[index]["RS"] = RS
-            if AS!= -1:data[index]["AS"] = AS
+            if AA_AOO!= -1:data[index]["AA_AOO"] = AA_AOO
+            if AA_AAI!= -1:data[index]["AA_AAI"] = AA_AAI
             if ARP!= -1:data[index]["ARP"] = ARP
             if VPW!= -1:data[index]["VPW"] = VPW
-            if VA!= -1:data[index]["VA"] = VA
-            if VS!= -1:data[index]["VS"] = VS
+            if VA_VOO!= -1:data[index]["VA_VOO"] = VA_VOO
+            if VA_VVI!= -1:data[index]["VA_VVI"] = VA_VVI
             if VRP!= -1:data[index]["VRP"] = VRP
 
             with open("user_data.json", 'w') as json_file:
