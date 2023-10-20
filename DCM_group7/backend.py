@@ -112,8 +112,8 @@ ARR: Atrial Refractory Period
 
 def verifyInput(URL, LRL_AOO=-1, LRL_VOO=-1, LRL_AAI=-1, LRL_VVI=-1, APW=-1, AA_AOO=-1, AA_AAI=-1, ARP=-1, VPW=-1, VA_VOO=-1, VA_VVI=-1, VRP=-1):
     global USERNAME
-    if float(LRL_AOO) !=-1 and URL < float(LRL_AOO) or float(LRL_VOO) !=-1 and URL < float(LRL_VOO)\
-          or float(LRL_AAI) !=-1 and URL < float(LRL_AAI) or float(LRL_VVI) !=-1 and URL < float(LRL_VVI):#basic logic limiter since lower limit cant be higher then upper limit
+    if (float(LRL_AOO) !=-1 and URL < float(LRL_AOO)) or (float(LRL_VOO) !=-1 and URL < float(LRL_VOO))\
+          or (float(LRL_AAI) !=-1 and URL < float(LRL_AAI)) or (float(LRL_VVI) !=-1 and URL < float(LRL_VVI)):#basic logic limiter since lower limit cant be higher then upper limit
         print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit")
         error_msg = "LRL cannot be greater than URL"
         return 0, error_msg
