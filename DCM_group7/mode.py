@@ -255,6 +255,21 @@ def VVI_page(VVI, modes):
     va_scale_vvi.config(command=lambda e: va_slider_mod(va_scale_vvi))  # Dynamically updates the slider resolution
     lrl_scale_vvi.config(command=lambda e: lrl_slider_mod(lrl_scale_vvi))  # Dynamically updates the slider resolution
 
+def AOOR_page(AOOR, modes):
+    label = Label(AOOR, text="AOOR Page", font=('Arial', 14))
+    label.grid(row=0, column=1)
+
+def VOOR_page(VOOR, modes):
+    label = Label(VOOR, text="VOOR Page", font=('Arial', 14))
+    label.grid(row=0, column=1)
+
+def AAIR_page(AAIR, modes):
+    label = Label(AAIR, text="AAIR Page", font=('Arial', 14))
+    label.grid(row=0, column=1)
+
+def VVIR_page(VVIR, modes):
+    label = Label(VVIR, text="VVIR Page", font=('Arial', 14))
+    label.grid(row=0, column=1)
 
 def lrl_slider_mod(scale):
     current = float(scale.get())

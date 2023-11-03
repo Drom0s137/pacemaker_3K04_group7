@@ -69,21 +69,37 @@ def welcome_page(welcome):
 def Modes_page(Modes, Welcome):
 
     label = ttk.Label(Modes, text="Select the Pacing Mode", font=('Arial', 14))
-    label.pack(padx=20, pady=20)
+    label.grid(row=0, column=1, columnspan=3, pady=5)
 
     AOO_btn = ttk.Button(Modes, text="AOO", command = lambda: switch_frame(aoo, Modes))
-    AOO_btn.pack(padx=20, pady=10)
+    AOO_btn.grid(row=1, column=1, columnspan=1,pady=5, padx=3)
 
     VOO_btn = ttk.Button(Modes, text="VOO", command = lambda: switch_frame(voo, Modes))
-    VOO_btn.pack(padx=20, pady=10)
+    VOO_btn.grid(row=2, column=1, columnspan=1,pady=5, padx=3)
 
     AAI_btn = ttk.Button(Modes, text="AAI", command = lambda: switch_frame(aai, Modes))
-    AAI_btn.pack(padx=20, pady=10)
+    AAI_btn.grid(row=3, column=1, columnspan=1,pady=5, padx=3)
 
     VVI_btn = ttk.Button(Modes, text="VVI", command = lambda: switch_frame(vvi, Modes))
-    VVI_btn.pack(padx=20, pady=10)
+    VVI_btn.grid(row=4, column=1, columnspan=1,pady=5, padx=3)
+
+    AOOR_btn = ttk.Button(Modes, text="AOOR", command = lambda: switch_frame(aoor, Modes)) #Change the page
+    AOOR_btn.grid(row=1, column=3, columnspan=1,pady=5, padx=3)
+
+    VOOR_btn = ttk.Button(Modes, text="VOOR", command = lambda: switch_frame(voor, Modes)) #Change the page
+    VOOR_btn.grid(row=2, column=3, columnspan=1,pady=5, padx=3)
+
+    AAIR_btn = ttk.Button(Modes, text="AAIR", command = lambda: switch_frame(aair, Modes)) #Change the page
+    AAIR_btn.grid(row=3, column=3, columnspan=1,pady=5, padx=3)
+
+    VVIR_btn = ttk.Button(Modes, text="VVIR", command = lambda: switch_frame(vvir, Modes)) #Change the page
+    VVIR_btn.grid(row=4, column=3, columnspan=1,pady=5, padx=3)
+
     back = ttk.Button(Modes, text="BACK", width=10, command=lambda: switch_frame(Welcome, Modes))
-    back.pack(pady=10)
+    back.grid(row=5, column=1, columnspan=3)
+
+    l0 = Label(Modes, width=10, height=3) # This is blank space just to help center the layout 
+    l0.grid(column=0, row=0, rowspan=10)
 
 def display_msg(msg, frame):
     label = ttk.Label(frame, text=msg, foreground="red", font=('Arial', 10))
@@ -101,12 +117,20 @@ if __name__ == "__main__":
     voo = Frame(win)
     aai = Frame(win)
     vvi = Frame(win)
+    aoor = Frame(win)
+    voor = Frame(win)
+    aair = Frame(win)
+    vvir = Frame(win)
     welcome_page(welcome)
     Modes_page(modes, welcome)
     mode.AOO_page(aoo, modes)
     mode.VOO_page(voo, modes)
     mode.AAI_page(aai, modes)
     mode.VVI_page(vvi, modes)
+    mode.AOOR_page(aoor, modes)
+    mode.VOOR_page(voor, modes)
+    mode.AAIR_page(aair, modes)
+    mode.VVIR_page(vvir, modes)
     welcome.pack(fill='both', expand=1)
     win.mainloop()
 
