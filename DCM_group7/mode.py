@@ -4,7 +4,6 @@ from ttkthemes import ThemedTk
 import ui
 import backend
 
-
 def Save_press(URL, LRL, frame, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
     print("Save Pressed")
     temp = backend.verifyInput(float(URL), float(LRL), APW=APW, AA=AA, RS=RS, AS=AS, ARP=ARP, VPW=VPW, VA=VA, VS=VS,
@@ -67,7 +66,7 @@ def AOO_page(AOO, modes):
     increment_button.grid(row=8, column=2)
 
     AOO_save = ttk.Button(AOO, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), APW=scale_incs[current_index_voo],
+                          command=lambda: Save_press(url.get(), lrl.get(), APW=scale_incs[current_index_aoo],
                                                      AA=aa.get(), frame=AOO))
     AOO_save.grid(row=9, column=1)
 
@@ -184,7 +183,7 @@ def AAI_page(AAI, modes):
     increment_button.grid(row=12, column=2)
 
     AAI_save = ttk.Button(AAI, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), APW=scale_incs[current_index_voo],
+                          command=lambda: Save_press(url.get(), lrl.get(), APW=scale_incs[current_index_aai],
                                                      AA=aa.get(), ARP=arp.get(), frame=AAI))
     AAI_save.grid(row=13, column=1)
 
@@ -245,7 +244,7 @@ def VVI_page(VVI, modes):
     increment_button.grid(row=10, column=2)
 
     VVI_save = ttk.Button(VVI, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), VPW=scale_incs[current_index_voo],
+                          command=lambda: Save_press(url.get(), lrl.get(), VPW=scale_incs[current_index_vvi],
                                                      VA=va.get(), VRP=vrp.get(), frame=VVI))
     VVI_save.grid(row=11, column=1)
 
@@ -254,22 +253,6 @@ def VVI_page(VVI, modes):
 
     va_scale_vvi.config(command=lambda e: va_slider_mod(va_scale_vvi))  # Dynamically updates the slider resolution
     lrl_scale_vvi.config(command=lambda e: lrl_slider_mod(lrl_scale_vvi))  # Dynamically updates the slider resolution
-
-def AOOR_page(AOOR, modes):
-    label = Label(AOOR, text="AOOR Page", font=('Arial', 14))
-    label.grid(row=0, column=1)
-
-def VOOR_page(VOOR, modes):
-    label = Label(VOOR, text="VOOR Page", font=('Arial', 14))
-    label.grid(row=0, column=1)
-
-def AAIR_page(AAIR, modes):
-    label = Label(AAIR, text="AAIR Page", font=('Arial', 14))
-    label.grid(row=0, column=1)
-
-def VVIR_page(VVIR, modes):
-    label = Label(VVIR, text="VVIR Page", font=('Arial', 14))
-    label.grid(row=0, column=1)
 
 def lrl_slider_mod(scale):
     current = float(scale.get())
@@ -307,7 +290,6 @@ def update_value_voo(increment):
         current_index_voo = (current_index_voo - 1) % len(scale_incs)
     value_label_voo.config(text=str(scale_incs[current_index_voo]))
 
-
 def update_value_vvi(increment):
     global current_index_vvi
     if increment:
@@ -316,7 +298,6 @@ def update_value_vvi(increment):
         current_index_vvi = (current_index_vvi - 1) % len(scale_incs)
     value_label_vvi.config(text=str(scale_incs[current_index_vvi]))
 
-
 def update_value_aoo(increment):
     global current_index_aoo
     if increment:
@@ -324,7 +305,6 @@ def update_value_aoo(increment):
     else:
         current_index_aoo = (current_index_aoo - 1) % len(scale_incs)
     value_label_aoo.config(text=str(scale_incs[current_index_aoo]))
-
 
 def update_value_aai(increment):
     global current_index_aai

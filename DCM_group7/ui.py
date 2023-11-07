@@ -3,6 +3,7 @@ from tkinter import ttk
 from ttkthemes import ThemedTk
 import backend
 import mode
+import mode_extend
 
 
 def temp_text(e, i):
@@ -103,7 +104,7 @@ def Modes_page(Modes, Welcome):
 
 def display_msg(msg, frame):
     label = ttk.Label(frame, text=msg, foreground="red", font=('Arial', 10))
-    label.grid(row=20,column=1)
+    label.grid(row=50,column=1)
 
 if __name__ == "__main__":
     #win = Tk()
@@ -127,10 +128,10 @@ if __name__ == "__main__":
     mode.VOO_page(voo, modes)
     mode.AAI_page(aai, modes)
     mode.VVI_page(vvi, modes)
-    mode.AOOR_page(aoor, modes)
-    mode.VOOR_page(voor, modes)
-    mode.AAIR_page(aair, modes)
-    mode.VVIR_page(vvir, modes)
+    mode_extend.AOOR_page(aoor, modes)
+    mode_extend.VOOR_page(voor, modes)
+    mode_extend.AAIR_page(aair, modes)
+    mode_extend.VVIR_page(vvir, modes)
     welcome.pack(fill='both', expand=1)
     win.mainloop()
 
