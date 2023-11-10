@@ -12,6 +12,9 @@ def AOOR_page(AOOR, modes):
     l0 = Label(AOOR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
 
+    plot = Label(AOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
+    plot.grid(column=2, row=15, columnspan=4, pady=5)
+
     url = StringVar()
     url_label = Label(AOOR, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=2)
@@ -110,6 +113,9 @@ def VOOR_page(VOOR, modes):
 
     l0 = Label(VOOR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
+    
+    plot = Label(VOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
+    plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     url = StringVar()
     url_label = Label(VOOR, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
@@ -208,6 +214,9 @@ def AAIR_page(AAIR, modes):
 
     l0 = Label(AAIR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
+    
+    plot = Label(AAIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
+    plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     url = StringVar()
     url_label = Label(AAIR, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
@@ -300,10 +309,10 @@ def AAIR_page(AAIR, modes):
     AAI_save = ttk.Button(AAIR, text="SAVE", width=10,
                           command=lambda: mode.Save_press(url.get(), lrl.get(), APW=mode.scale_incs[current_index_aair],
                                                      AA=aa.get(), ARP=arp.get(), frame=AAIR))
-    AAI_save.grid(row=15, column=2, columnspan=4)
+    AAI_save.grid(row=20, column=2, columnspan=4)
 
     AAI_back = ttk.Button(AAIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AAIR))
-    AAI_back.grid(row=16, column=2, columnspan=4)
+    AAI_back.grid(row=21, column=2, columnspan=4)
 
     aa_scale_aii.config(command=lambda e: mode.aa_slider_mod(aa_scale_aii))  # Dynamically updates the slider resolution
     lrl_scale_aai.config(command=lambda e: mode.lrl_slider_mod(lrl_scale_aai))  # Dynamically updates the slider resolution
@@ -315,6 +324,9 @@ def VVIR_page(VVIR, modes):
     
     l0 = Label(VVIR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
+    
+    plot = Label(VVIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
+    plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     url = StringVar()
     url_label = Label(VVIR, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
@@ -407,10 +419,10 @@ def VVIR_page(VVIR, modes):
     VVI_save = ttk.Button(VVIR, text="SAVE", width=10,
                           command=lambda: mode.Save_press(url.get(), lrl.get(), VPW=mode.scale_incs[current_index_vvir],
                                                      VA=va.get(), VRP=vrp.get(), frame=VVIR))
-    VVI_save.grid(row=13, column=2, columnspan=4)
+    VVI_save.grid(row=20, column=2, columnspan=4)
 
     VVI_back = ttk.Button(VVIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VVIR))
-    VVI_back.grid(row=14, column=2, columnspan=4)
+    VVI_back.grid(row=21, column=2, columnspan=4)
 
     va_scale_vvi.config(command=lambda e: mode.va_slider_mod(va_scale_vvi))  # Dynamically updates the slider resolution
     lrl_scale_vvi.config(command=lambda e: mode.lrl_slider_mod(lrl_scale_vvi))  # Dynamically updates the slider resolution

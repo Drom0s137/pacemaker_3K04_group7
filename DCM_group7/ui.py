@@ -36,8 +36,11 @@ def welcome_page(welcome):
 
     #welcome = ThemedTk(theme="arc")
 
-    label = ttk.Label(welcome, text="\tWelcome to Pacemaker Interface", font=('Arial', 14))
-    label.grid(row=0, column=0, columnspan=3)
+    label = ttk.Label(welcome, text="Welcome to Pacemaker Interface", font=('Arial', 14))
+    label.grid(row=0, column=1)
+
+    l0 = Label(welcome, width=42, height=3) # This is blank space just to help center the layout 
+    l0.grid(column=0, row=0, rowspan=10)
 
     #username section
     ui_username = Entry(welcome, bg = "white", width=20)
@@ -64,13 +67,14 @@ def welcome_page(welcome):
     quit = ttk.Button(welcome, command = backend.exit_system, text="Quit")
     quit.grid(row=5,column=1, pady=5)
 
-    l0 = Label(welcome, width=10, height=3) # This is blank space just to help center the layout 
-    l0.grid(column=0, row=0, rowspan=10)
 
 def Modes_page(Modes, Welcome):
 
     label = ttk.Label(Modes, text="Select the Pacing Mode", font=('Arial', 14))
     label.grid(row=0, column=1, columnspan=3, pady=5)
+
+    l0 = Label(Modes, width=45, height=3) # This is blank space just to help center the layout 
+    l0.grid(column=0, row=0, rowspan=10)
 
     AOO_btn = ttk.Button(Modes, text="AOO", command = lambda: switch_frame(aoo, Modes))
     AOO_btn.grid(row=1, column=1, columnspan=1,pady=5, padx=3)
@@ -99,9 +103,6 @@ def Modes_page(Modes, Welcome):
     back = ttk.Button(Modes, text="BACK", width=10, command=lambda: switch_frame(Welcome, Modes))
     back.grid(row=5, column=1, columnspan=3)
 
-    l0 = Label(Modes, width=10, height=3) # This is blank space just to help center the layout 
-    l0.grid(column=0, row=0, rowspan=10)
-
 def display_msg(msg, frame):
     label = ttk.Label(frame, text=msg, foreground="red", font=('Arial', 10))
     label.grid(row=50,column=1)
@@ -111,7 +112,7 @@ if __name__ == "__main__":
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
     win.title("Pacemaker UI")
-    win.geometry("1080x580")
+    win.geometry("1080x650")
     modes = Frame(win)
     welcome = Frame(win)
     aoo = Frame(win)
