@@ -111,7 +111,7 @@ if __name__ == "__main__":
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
     win.title("Pacemaker UI")
-    win.geometry("453x580")
+    win.geometry("1080x580")
     modes = Frame(win)
     welcome = Frame(win)
     aoo = Frame(win)
