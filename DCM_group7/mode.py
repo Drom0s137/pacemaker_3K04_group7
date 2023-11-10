@@ -12,10 +12,10 @@ def Save_press(URL, frame, LRL_AOO = -1, LRL_VOO = -1, LRL_AAI = -1, LRL_VVI = -
                                LRL_VVI=LRL_VVI, APW=APW, AA_AOO=AA_AOO, AA_AAI=AA_AAI, ARP=ARP, VPW=VPW,\
                                 VA_VOO=VA_VOO, VA_VVI=VA_VVI, VRP=VRP)
     if temp[0]:
-        ui.display_msg("\t\tSUCCESS\t\t", frame)
+        ui.display_msg("\t\tSUCCESS\t\t", frame, 2)
         return 1
     else:
-        ui.display_msg(temp[1], frame)
+        ui.display_msg(temp[1], frame, 2)
         return 0
 
 

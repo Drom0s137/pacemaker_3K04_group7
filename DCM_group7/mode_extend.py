@@ -5,6 +5,17 @@ import ui
 import backend
 import mode
 
+def Save_press(URL, LRL, frame, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
+    print("Save Pressed")
+    temp = backend.verifyInput(float(URL), float(LRL), APW=APW, AA=AA, RS=RS, AS=AS, ARP=ARP, VPW=VPW, VA=VA, VS=VS,
+                               VRP=VRP)
+    if temp[0]:
+        ui.display_ext_msg("\t\tSUCCESS\t\t", frame, 2)
+        return 1
+    else:
+        ui.display_ext_msg(temp[1], frame, 2)
+        return 0
+
 def AOOR_page(AOOR, modes):
     label = Label(AOOR, text="AOOR Page", font=('Arial', 14))
     label.grid(row=0, column=2, columnspan=4)
@@ -97,7 +108,7 @@ def AOOR_page(AOOR, modes):
     increment_activity.grid(row=10, column=6)
 
     AOO_save = ttk.Button(AOOR, text="SAVE", width=10,
-                          command=lambda: mode.Save_press(url.get(), lrl.get(), APW=mode.scale_incs[current_index_aoor],
+                          command=lambda: Save_press(url.get(), lrl.get(), APW=mode.scale_incs[current_index_aoor],
                                                      AA=aa.get(), frame=AOOR))
     AOO_save.grid(row=17, column=2, columnspan= 4)
 
@@ -199,7 +210,7 @@ def VOOR_page(VOOR, modes):
     increment_activity.grid(row=10, column=6)
 
     VOO_save = ttk.Button(VOOR, text="SAVE", width=10,
-                          command=lambda: mode.Save_press(url.get(), lrl.get(), VPW=mode.scale_incs[current_index_voor],
+                          command=lambda: Save_press(url.get(), lrl.get(), VPW=mode.scale_incs[current_index_voor],
                                                      VA=va.get(), frame=VOOR))
     VOO_save.grid(row=18, column=2, columnspan=4)
     VOO_back = ttk.Button(VOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VOOR))
@@ -307,7 +318,7 @@ def AAIR_page(AAIR, modes):
     increment_activity.grid(row=10, column=6)
 
     AAI_save = ttk.Button(AAIR, text="SAVE", width=10,
-                          command=lambda: mode.Save_press(url.get(), lrl.get(), APW=mode.scale_incs[current_index_aair],
+                          command=lambda: Save_press(url.get(), lrl.get(), APW=mode.scale_incs[current_index_aair],
                                                      AA=aa.get(), ARP=arp.get(), frame=AAIR))
     AAI_save.grid(row=20, column=2, columnspan=4)
 
@@ -417,7 +428,7 @@ def VVIR_page(VVIR, modes):
     increment_activity.grid(row=10, column=6)
 
     VVI_save = ttk.Button(VVIR, text="SAVE", width=10,
-                          command=lambda: mode.Save_press(url.get(), lrl.get(), VPW=mode.scale_incs[current_index_vvir],
+                          command=lambda: Save_press(url.get(), lrl.get(), VPW=mode.scale_incs[current_index_vvir],
                                                      VA=va.get(), VRP=vrp.get(), frame=VVIR))
     VVI_save.grid(row=20, column=2, columnspan=4)
 
