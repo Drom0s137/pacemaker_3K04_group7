@@ -12,10 +12,10 @@ def Save_press(URL, frame, LRL_AOO = -1, LRL_VOO = -1, LRL_AAI = -1, LRL_VVI = -
                                LRL_VVI=LRL_VVI, APW=APW, AA_AOO=AA_AOO, AA_AAI=AA_AAI, ARP=ARP, VPW=VPW,\
                                 VA_VOO=VA_VOO, VA_VVI=VA_VVI, VRP=VRP)
     if temp[0]:
-        ui.display_msg("\t\tSUCCESS\t\t", frame)
+        ui.display_msg("\t\tSUCCESS\t\t", frame, 2)
         return 1
     else:
-        ui.display_msg(temp[1], frame)
+        ui.display_msg(temp[1], frame, 2)
         return 0
 
 
@@ -94,7 +94,7 @@ def AOO_page(AOO, modes):
     AOO_save = ttk.Button(AOO, text="SAVE", width=10,
                           command=lambda: Save_press(url.get(), LRL_AOO=lrl.get(), APW=scale_incs[current_index_voo],
                                                      AA_AOO=aa.get(), frame=AOO))
-    AOO_save.grid(row=9, column=1)
+    AOO_save.grid(row=10, column=2)
 
     AOO_back = ttk.Button(AOO, text="BACK", width=10, command=lambda: Back_press(modes, AOO))
     AOO_back.grid(row=11, column=2)
@@ -157,7 +157,7 @@ def VOO_page(VOO, modes):
     VOO_save = ttk.Button(VOO, text="SAVE", width=10,
                           command=lambda: Save_press(url.get(), LRL_VOO=lrl.get(), VPW=scale_incs[current_index_voo],
                                                      VA_VOO=va.get(), frame=VOO))
-    VOO_save.grid(row=18, column=1)
+    VOO_save.grid(row=18, column=2)
     VOO_back = ttk.Button(VOO, text="BACK", width=10, command=lambda: Back_press(modes, VOO))
     VOO_back.grid(row=25, column=2)
 
@@ -227,10 +227,10 @@ def AAI_page(AAI, modes):
     AAI_save = ttk.Button(AAI, text="SAVE", width=10,
                           command=lambda: Save_press(url.get(), LRL_AAI=lrl.get(), APW=scale_incs[current_index_voo],
                                                      AA_AAI=aa.get(), ARP=arp.get(), frame=AAI))
-    AAI_save.grid(row=13, column=1)
+    AAI_save.grid(row=14, column=2)
 
     AAI_back = ttk.Button(AAI, text="BACK", width=10, command=lambda: Back_press(modes, AAI))
-    AAI_back.grid(row=15, column=2)
+    AAI_back.grid(row=16, column=2)
 
     aa_scale_aii.config(command=lambda e: aa_slider_mod(aa_scale_aii))  # Dynamically updates the slider resolution
     lrl_scale_aai.config(command=lambda e: lrl_slider_mod(lrl_scale_aai))  # Dynamically updates the slider resolution
@@ -296,7 +296,7 @@ def VVI_page(VVI, modes):
     VVI_save = ttk.Button(VVI, text="SAVE", width=10,
                           command=lambda: Save_press(url.get(), LRL_VVI=lrl.get(), VPW=scale_incs[current_index_voo],
                                                      VA_VVI=va.get(), VRP=vrp.get(), frame=VVI))
-    VVI_save.grid(row=11, column=1)
+    VVI_save.grid(row=12, column=2)
 
     VVI_back = ttk.Button(VVI, text="BACK", width=10, command=lambda: Back_press(modes, VVI))
     VVI_back.grid(row=13, column=2)
