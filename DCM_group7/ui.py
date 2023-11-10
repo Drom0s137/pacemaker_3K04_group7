@@ -20,16 +20,16 @@ def obtain_logins(ui_username, ui_pswrd):
         print("chaging to mode view")
         switch_frame(modes, welcome)
     else:
-        display_msg(backend.log_in(username, password)[1], welcome)
+        display_msg(backend.log_in(username, password)[1], welcome, 1)
 
 def register_user(ui_username, ui_pswrd):
     username = ui_username.get()
     password = ui_pswrd.get()
     temp = backend.register(username, password)
     if temp[0] == 0:
-        display_msg(temp[1], welcome)
+        display_msg(temp[1], welcome, 1)
     else:
-        display_msg("\tSUCCESS\t", welcome)
+        display_msg("\tSUCCESS\t", welcome, 1)
     
 def welcome_page(welcome):
     #welcome = Modes_page(mode)
@@ -103,9 +103,13 @@ def Modes_page(Modes, Welcome):
     back = ttk.Button(Modes, text="BACK", width=10, command=lambda: switch_frame(Welcome, Modes))
     back.grid(row=5, column=1, columnspan=3)
 
-def display_msg(msg, frame):
+def display_msg(msg, frame, where):
     label = ttk.Label(frame, text=msg, foreground="red", font=('Arial', 10))
-    label.grid(row=50,column=1)
+    label.grid(row=50,column=where)
+
+def display_ext_msg(msg, frame, where):
+    label = ttk.Label(frame, text=msg, foreground="red", font=('Arial', 10))
+    label.grid(row=50,column=where, columnspan=4)
 
 if __name__ == "__main__":
     #win = Tk()

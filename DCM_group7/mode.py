@@ -9,10 +9,10 @@ def Save_press(URL, LRL, frame, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=
     temp = backend.verifyInput(float(URL), float(LRL), APW=APW, AA=AA, RS=RS, AS=AS, ARP=ARP, VPW=VPW, VA=VA, VS=VS,
                                VRP=VRP)
     if temp[0]:
-        ui.display_msg("\t\tSUCCESS\t\t", frame)
+        ui.display_msg("\t\tSUCCESS\t\t", frame, 2)
         return 1
     else:
-        ui.display_msg(temp[1], frame)
+        ui.display_msg(temp[1], frame, 2)
         return 0
 
 
