@@ -1,7 +1,6 @@
 import json
 import logging
 import sys
-import pyserial
 
 USERNAME = ""
 USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
