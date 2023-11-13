@@ -5,17 +5,41 @@ import ui
 import backend
 import mode
 
-def Save_press(URL, LRL, frame, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
+def Save_press(frame, AURL=-1, VURL=-1, ALRL=-1, VLRL = -1, \
+               APW=-1, AA=-1, ARP=-1, VPW=-1, VA=-1, VRP=-1,\
+                AMSR=-1, VMSR=-1, AREACT=-1, VREACT=-1, ARF=-1, VRF=-1,\
+                    ARECOVER=-1, VRECOVER=-1, AAT=-1, VAT=-1):
     print("Save Pressed")
-    temp = backend.verifyInput(float(URL), float(LRL), APW=APW, AA=AA, RS=RS, AS=AS, ARP=ARP, VPW=VPW, VA=VA, VS=VS,
-                               VRP=VRP)
+    settings = {
+        "AURL": AURL,
+        "VURL": VURL,
+        "ALRL": ALRL,
+        "VLRL": VLRL,
+        "APW": APW,
+        "AA": AA,
+        "ARP": ARP,
+        "VPW": VPW,
+        "VA": VA,
+        "VRP": VRP,
+        "AMSR": AMSR,
+        "VMSR": VMSR,
+        "AREACT":AREACT,
+        "VREACT":VREACT,
+        "ARF": ARF,
+        "VRF": VRF,
+        "ARECOVER": ARECOVER,
+        "VRECOVER": VRECOVER,
+        "AAT": AAT,
+        "VAT": VAT
+    }
+    temp = backend.verifyInput(settings)
     if temp[0]:
-        ui.display_ext_msg("\t\tSUCCESS\t\t", frame, 2)
+        ui.display_msg("\t\tSUCCESS\t\t", frame, 2)
         return 1
     else:
-        ui.display_ext_msg(temp[1], frame, 2)
+        ui.display_msg(temp[1], frame, 2)
         return 0
-
+    
 def AOOR_page(AOOR, modes):
     label = Label(AOOR, text="AOOR Page", font=('Arial', 14))
     label.grid(row=0, column=2, columnspan=4)
@@ -107,13 +131,13 @@ def AOOR_page(AOOR, modes):
     increment_activity = Button(AOOR, text=">", command=lambda: update_activity_aoor(True))
     increment_activity.grid(row=10, column=6)
 
-    AOO_save = ttk.Button(AOOR, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), APW=mode.scale_incs[current_index_aoor],
-                                                     AA=aa.get(), frame=AOOR))
-    AOO_save.grid(row=17, column=2, columnspan= 4)
+    AOOR_save = ttk.Button(AOOR, text="SAVE", width=10,
+                          command=lambda: Save_press(AURL = url.get(), ALRL = lrl.get(), APW=mode.scale_incs[current_index_aoor],
+                                                     AA=aa.get(), AMSR=msr.get(), AReactT=reactt.get(), ARF=respfac.get(), ARecoverT=recovert.get(),  frame=AOOR))
+    AOOR_save.grid(row=17, column=2, columnspan= 4)
 
-    AOO_back = ttk.Button(AOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AOOR))
-    AOO_back.grid(row=18, column=2, columnspan= 4)
+    AOOR_back = ttk.Button(AOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AOOR))
+    AOOR_back.grid(row=18, column=2, columnspan= 4)
 
     aa_scale_aoor.config(command=lambda e: mode.aa_slider_mod(aa_scale_aoor))  # Dynamically updates the slider resolution
     lrl_scale_aoor.config(command=lambda e: mode.lrl_slider_mod(lrl_scale_aoor))  # Dynamically updates the slider resolution
@@ -209,12 +233,13 @@ def VOOR_page(VOOR, modes):
     increment_activity = Button(VOOR, text=">", command=lambda: update_activity_voor(True))
     increment_activity.grid(row=10, column=6)
 
-    VOO_save = ttk.Button(VOOR, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), VPW=mode.scale_incs[current_index_voor],
-                                                     VA=va.get(), frame=VOOR))
-    VOO_save.grid(row=18, column=2, columnspan=4)
-    VOO_back = ttk.Button(VOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VOOR))
-    VOO_back.grid(row=25, column=2, columnspan=4)
+    VOOR_save = ttk.Button(VOOR, text="SAVE", width=10,
+                          command=lambda: Save_press(AURL = url.get(), ALRL = lrl.get(), APW=mode.scale_incs[current_index_voor],
+                                                     AA=va.get(), AMSR=msr.get(), AReactT=reactt.get(), ARF=respfac.get(), ARecoverT=recovert.get(),  frame=VOOR))
+    VOOR_save.grid(row=17, column=2, columnspan= 4)
+
+    VOOR_back = ttk.Button(VOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VOOR))
+    VOOR_back.grid(row=18, column=2, columnspan= 4)
 
     va_scale_voo.config(command=lambda e: mode.va_slider_mod(va_scale_voo))  # Dynamically updates the slider resolution
     lrl_scale_voo.config(command=lambda e: mode.lrl_slider_mod(lrl_scale_voo))  # Dynamically updates the slider resolution
@@ -317,13 +342,13 @@ def AAIR_page(AAIR, modes):
     increment_activity = Button(AAIR, text=">", command=lambda: update_activity_aair(True))
     increment_activity.grid(row=10, column=6)
 
-    AAI_save = ttk.Button(AAIR, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), APW=mode.scale_incs[current_index_aair],
-                                                     AA=aa.get(), ARP=arp.get(), frame=AAIR))
-    AAI_save.grid(row=20, column=2, columnspan=4)
+    AAIR_save = ttk.Button(AAIR, text="SAVE", width=10,
+                          command=lambda: Save_press(AURL = url.get(), ALRL = lrl.get(), APW=mode.scale_incs[current_index_aair],
+                                                     AA=aa.get(), AMSR=msr.get(), AReactT=reactt.get(), ARF=respfac.get(), ARecoverT=recovert.get(),  frame=AAIR))
+    AAIR_save.grid(row=17, column=2, columnspan= 4)
 
-    AAI_back = ttk.Button(AAIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AAIR))
-    AAI_back.grid(row=21, column=2, columnspan=4)
+    AAIR_back = ttk.Button(AAIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AAIR))
+    AAIR_back.grid(row=18, column=2, columnspan= 4)
 
     aa_scale_aii.config(command=lambda e: mode.aa_slider_mod(aa_scale_aii))  # Dynamically updates the slider resolution
     lrl_scale_aai.config(command=lambda e: mode.lrl_slider_mod(lrl_scale_aai))  # Dynamically updates the slider resolution
@@ -427,13 +452,13 @@ def VVIR_page(VVIR, modes):
     increment_activity = Button(VVIR, text=">", command=lambda: update_activity_vvir(True))
     increment_activity.grid(row=10, column=6)
 
-    VVI_save = ttk.Button(VVIR, text="SAVE", width=10,
-                          command=lambda: Save_press(url.get(), lrl.get(), VPW=mode.scale_incs[current_index_vvir],
-                                                     VA=va.get(), VRP=vrp.get(), frame=VVIR))
-    VVI_save.grid(row=20, column=2, columnspan=4)
+    VVIR_save = ttk.Button(VVIR, text="SAVE", width=10,
+                          command=lambda: Save_press(AURL = url.get(), ALRL = lrl.get(), APW=mode.scale_incs[current_index_vvir],
+                                                     AA=va.get(), AMSR=msr.get(), AReactT=reactt.get(), ARF=respfac.get(), ARecoverT=recovert.get(),  frame=VVIR))
+    VVIR_save.grid(row=17, column=2, columnspan= 4)
 
-    VVI_back = ttk.Button(VVIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VVIR))
-    VVI_back.grid(row=21, column=2, columnspan=4)
+    VVIR_back = ttk.Button(VVIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VVIR))
+    VVIR_back.grid(row=18, column=2, columnspan= 4)
 
     va_scale_vvi.config(command=lambda e: mode.va_slider_mod(va_scale_vvi))  # Dynamically updates the slider resolution
     lrl_scale_vvi.config(command=lambda e: mode.lrl_slider_mod(lrl_scale_vvi))  # Dynamically updates the slider resolution
