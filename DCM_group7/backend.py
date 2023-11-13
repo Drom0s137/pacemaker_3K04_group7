@@ -1,6 +1,7 @@
 import json
 import logging
 import sys
+import pyserial
 
 USERNAME = ""
 USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
@@ -78,31 +79,22 @@ def register(username, password):
     "password": password,
     "AURL" : 120,
     "VURL" : 120,
-
     "ALRL" : 60,
     "VLRL" : 60,
-
     "AA" : 3.5,
     "VA" : 3.5,
-
     "ARP" : 250,
     "VRP" : 320,
-
     "APW" :0.4,
     "VPW" : 0.4,
-
     "AMSR": 120,
     "VMSR": 120,
-
     "AREACT":30,
     "VREACT":30,
-
     "ARF": 8,
     "VRF": 8,
-
     "ARECOVER": 5,
     "VRECOVER": 5,
-
     "AAT": "V-High",
     "VAT": "V-High"
     })
@@ -196,12 +188,15 @@ def saveData(username, settings):
 
 #input values are now all float instead of string. package data for simulink
 def packageData(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
+
     return 0
     
 
 # for preperation of serical communication
 def sendToDevice(data):
     return 0 
+
+
 
 #test script
 if __name__ == "__main__":
