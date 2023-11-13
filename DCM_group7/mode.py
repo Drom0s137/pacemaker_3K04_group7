@@ -47,19 +47,27 @@ def Back_press(modes, current):
 
 
 def update_values():
-    global aurl_scale, vurl_scale, alrl_scale, vlrl_scale
-    global aa_scale, arp, va_scale, vrp, aa_scale, va_scale, apw, vpw
+    global url_aoo, url_aai, url_voo, url_vvi, lrl_aoo, lrl_voo, lrl_aai, lrl_vvi
+    global aa_aai, aa_aoo, arp_aai, va_voo, va_vvi, vrp_vvi#, apw, vpw
     #global amsr, vmsr, areact, vreact, arf, vrf, arecover, vrecover, aat, vat
-    aurl_scale.set(backend.USERSETTINGS[0])
-    vurl_scale.set(backend.USERSETTINGS[1])
-    alrl_scale.set(backend.USERSETTINGS[2])
-    vlrl_scale.set(backend.USERSETTINGS[3])
-    aa_scale.set(backend.USERSETTINGS[4])
-    va_scale.set(backend.USERSETTINGS[5])
-    #arp.set(backend.USERSETTINGS[6])
-    #vrp.set(backend.USERSETTINGS[7])
-    #apw.set(backend.USERSETTINGS[8])
-    #vpw.set(backend.USERSETTINGS[9])
+    url_aoo.set(backend.USERSETTINGS[0])
+    url_aai.set(backend.USERSETTINGS[0])
+    url_voo.set(backend.USERSETTINGS[1])
+    url_vvi.set(backend.USERSETTINGS[1])
+
+    lrl_aoo.set(backend.USERSETTINGS[2])
+    lrl_aai.set(backend.USERSETTINGS[2])
+    lrl_voo.set(backend.USERSETTINGS[3])
+    lrl_vvi.set(backend.USERSETTINGS[3])
+    
+    aa_aoo.set(backend.USERSETTINGS[4])
+    aa_aai.set(backend.USERSETTINGS[4])
+
+    va_voo.set(backend.USERSETTINGS[5])
+    va_vvi.set(backend.USERSETTINGS[5])
+
+    arp_aai.set(backend.USERSETTINGS[6])
+    vrp_vvi.set(backend.USERSETTINGS[7])
     '''amsr.set(backend.USERSETTINGS[10])
     vmsr.set(backend.USERSETTINGS[11])
     areact.set(backend.USERSETTINGS[12])
@@ -75,7 +83,6 @@ def update_values():
 
     
 def AOO_page(AOO, modes):
-    global aurl_scale
     l0 = Label(AOO, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
 
@@ -85,26 +92,27 @@ def AOO_page(AOO, modes):
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.grid(row=0, column=2)
 
-    url = StringVar()
+    global url_aoo
+    url_aoo = StringVar()
     url_label = Label(AOO, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=2)
-    aurl_scale = Scale(AOO, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    aurl_scale = Scale(AOO, variable=url_aoo, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     aurl_scale.grid(row=2, column=2)
     aurl_scale.set(120)
 
-    global alrl_scale
-    lrl = StringVar()
+    global alrl_scale, lrl_aoo
+    lrl_aoo = StringVar()
     lrl_label = Label(AOO, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=2)
-    alrl_scale = Scale(AOO, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    alrl_scale = Scale(AOO, variable=lrl_aoo, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     alrl_scale.grid(row=4, column=2)
     alrl_scale.set(60)
 
-    global aa_scale
-    aa = StringVar()
+    global aa_scale, aa_aoo
+    aa_aoo = StringVar()
     aa_label = Label(AOO, text="Atrial Amplitude [V]", font=('Arial', 12))
     aa_label.grid(row=5, column=2)
-    aa_scale = Scale(AOO, variable=aa, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    aa_scale = Scale(AOO, variable=aa_aoo, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     aa_scale.grid(row=6, column=2)
     aa_scale.set(3.5)
 
@@ -124,8 +132,8 @@ def AOO_page(AOO, modes):
     increment_button.grid(row=8, column=3)
 
     AOO_save = ttk.Button(AOO, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL=url.get(), ALRL=lrl.get(), APW=scale_incs[current_index_aoo],
-                                                     AA=aa.get(), frame=AOO))
+                          command=lambda: Save_press(AURL=url_aoo.get(), ALRL=lrl_aoo.get(), APW=scale_incs[current_index_aoo],
+                                                     AA=aa_aoo.get(), frame=AOO))
     AOO_save.grid(row=10, column=2)
 
     AOO_back = ttk.Button(AOO, text="BACK", width=10, command=lambda: Back_press(modes, AOO))
@@ -137,7 +145,6 @@ def AOO_page(AOO, modes):
 
 ## V00 Pacing Mode
 def VOO_page(VOO, modes):
-    global vurl_scale
         
     l0 = Label(VOO, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
@@ -148,26 +155,27 @@ def VOO_page(VOO, modes):
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
     label.grid(row=0, column=2)
 
-    url = StringVar()
+    global url_voo
+    url_voo = StringVar()
     url_label = Label(VOO, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=2, column=2)
-    vurl_scale = Scale(VOO, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    vurl_scale = Scale(VOO, variable=url_voo, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     vurl_scale.grid(row=3, column=2)
     vurl_scale.set(120)
 
-    global vlrl_scale
-    lrl = StringVar()
+    global vlrl_scale, lrl_voo
+    lrl_voo = StringVar()
     lrl_label = Label(VOO, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=6, column=2)
-    vlrl_scale = Scale(VOO, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    vlrl_scale = Scale(VOO, variable=lrl_voo, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     vlrl_scale.grid(row=7, column=2)
     vlrl_scale.set(60)
 
-    global va_scale
-    va = StringVar()
+    global va_scale, va_voo
+    va_voo = StringVar()
     va_label = Label(VOO, text="Ventricular Amplitude [V]", font=('Arial', 12))
     va_label.grid(row=10, column=2)
-    va_scale = Scale(VOO, variable=va, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    va_scale = Scale(VOO, variable=va_voo, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     va_scale.grid(row=11, column=2)
     va_scale.set(3.5)
 
@@ -187,8 +195,8 @@ def VOO_page(VOO, modes):
     increment_button.grid(row=15, column=3)
 
     VOO_save = ttk.Button(VOO, text="SAVE", width=10,
-                          command=lambda: Save_press(VURL=url.get(), VLRL=lrl.get(), VPW=scale_incs[current_index_voo],
-                                                     VA=va.get(), frame=VOO))
+                          command=lambda: Save_press(VURL=url_voo.get(), VLRL=lrl_voo.get(), VPW=scale_incs[current_index_voo],
+                                                     VA=va_voo.get(), frame=VOO))
     VOO_save.grid(row=18, column=2)
     VOO_back = ttk.Button(VOO, text="BACK", width=10, command=lambda: Back_press(modes, VOO))
     VOO_back.grid(row=25, column=2)
@@ -200,7 +208,6 @@ def VOO_page(VOO, modes):
 ## AAI Pacing Mode
 
 def AAI_page(AAI, modes):
-    global aurl_scale
         
     l0 = Label(AAI, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
@@ -211,33 +218,35 @@ def AAI_page(AAI, modes):
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
     label.grid(row=0, column=2)
 
-    url = StringVar()
+    global url_aai
+    url_aai = StringVar()
     url_label = Label(AAI, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=2)
-    aurl_scale = Scale(AAI, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    aurl_scale = Scale(AAI, variable=url_aai, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     aurl_scale.grid(row=2, column=2)
     aurl_scale.set(120)
 
-    global alrl_scale
-    lrl = StringVar()
+    global alrl_scale, lrl_aai
+    lrl_aai = StringVar()
     lrl_label = Label(AAI, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=2)
-    alrl_scale = Scale(AAI, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    alrl_scale = Scale(AAI, variable=lrl_aai, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     alrl_scale.grid(row=4, column=2)
     alrl_scale.set(60)
 
-    global aa_scale
-    aa = StringVar()
+    global aa_scale, aa_aai
+    aa_aai = StringVar()
     aa_label = Label(AAI, text="Atrial Amplitude [V]", font=('Arial', 12))
     aa_label.grid(row=7, column=2)
-    aa_scale = Scale(AAI, variable=aa, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    aa_scale = Scale(AAI, variable=aa_aai, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     aa_scale.grid(row=8, column=2)
     aa_scale.set(3.5)
 
-    arp = StringVar()
+    global arp_aai
+    arp_aai = StringVar()
     arp_label = Label(AAI, text="Atrial Refractory Period [ms]", font=('Arial', 12))
     arp_label.grid(row=9, column=2)
-    arp_input = Scale(AAI, variable=arp, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
+    arp_input = Scale(AAI, variable=arp_aai, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     arp_input.grid(row=10, column=2)
     arp_input.set(250)
 
@@ -257,8 +266,8 @@ def AAI_page(AAI, modes):
     increment_button.grid(row=12, column=3)
 
     AAI_save = ttk.Button(AAI, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL=url.get(), ALRL=lrl.get(), APW=scale_incs[current_index_aai],
-                                                     AA=aa.get(), ARP=arp.get(), frame=AAI))
+                          command=lambda: Save_press(AURL=url_aai.get(), ALRL=lrl_aai.get(), APW=scale_incs[current_index_aai],
+                                                     AA=aa_aai.get(), ARP=arp_aai.get(), frame=AAI))
     AAI_save.grid(row=14, column=2)
 
     AAI_back = ttk.Button(AAI, text="BACK", width=10, command=lambda: Back_press(modes, AAI))
@@ -269,7 +278,6 @@ def AAI_page(AAI, modes):
 
 
 def VVI_page(VVI, modes):
-    global vurl_scale
         
     l0 = Label(VVI, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
@@ -280,33 +288,35 @@ def VVI_page(VVI, modes):
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
     label.grid(row=0, column=2)
 
-    url = StringVar()
+    global url_vvi
+    url_vvi = StringVar()
     url_label = Label(VVI, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=2)
-    vurl_scale = Scale(VVI, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    vurl_scale = Scale(VVI, variable=url_vvi, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     vurl_scale.grid(row=2, column=2)
     vurl_scale.set(120)
 
-    global vlrl_scale
-    lrl = StringVar()
+    global vlrl_scale, lrl_vvi
+    lrl_vvi = StringVar()
     lrl_label = Label(VVI, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=2)
-    vlrl_scale = Scale(VVI, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    vlrl_scale = Scale(VVI, variable=lrl_vvi, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     vlrl_scale.grid(row=4, column=2)
     vlrl_scale.set(60)
 
-    global va_scale
-    va = StringVar()
+    global va_scale, va_vvi
+    va_vvi = StringVar()
     va_label = Label(VVI, text="Ventricular Amplitude [V]", font=('Arial', 12))
     va_label.grid(row=5, column=2)
-    va_scale = Scale(VVI, variable=va, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    va_scale = Scale(VVI, variable=va_vvi, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     va_scale.grid(row=6, column=2)
     va_scale.set(3.5)
 
-    vrp = StringVar()
+    global vrp_vvi
+    vrp_vvi = StringVar()
     vrp_label = Label(VVI, text="Ventrical Refractory Period [ms]", font=('Arial', 12))
     vrp_label.grid(row=7, column=2)
-    vrp_input = Scale(VVI, variable=vrp, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
+    vrp_input = Scale(VVI, variable=vrp_vvi, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     vrp_input.grid(row=8, column=2)
     vrp_input.set(320)
 
@@ -326,8 +336,8 @@ def VVI_page(VVI, modes):
     increment_button.grid(row=10, column=3)
 
     VVI_save = ttk.Button(VVI, text="SAVE", width=10,
-                          command=lambda: Save_press(VURL=url.get(), VLRL=lrl.get(), VPW=scale_incs[current_index_vvi],
-                                                     VA=va.get(), VRP=vrp.get(), frame=VVI))
+                          command=lambda: Save_press(VURL=url_vvi.get(), VLRL=lrl_vvi.get(), VPW=scale_incs[current_index_vvi],
+                                                     VA=va_vvi.get(), VRP=vrp_vvi.get(), frame=VVI))
     VVI_save.grid(row=12, column=2)
 
     VVI_back = ttk.Button(VVI, text="BACK", width=10, command=lambda: Back_press(modes, VVI))

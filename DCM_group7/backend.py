@@ -180,7 +180,7 @@ def saveData(username, settings):
             if settings["AAT"]!= -1:data[index]["AAT"] = settings["AAT"]
             if settings["VAT"]!= -1:data[index]["VAT"] = settings["VAT"]
 
-
+            print(data)
             with open("user_data.json", 'w') as json_file:
                 json.dump(data, json_file, 
                                     indent=4,  

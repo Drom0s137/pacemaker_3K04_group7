@@ -39,7 +39,53 @@ def Save_press(frame, AURL=-1, VURL=-1, ALRL=-1, VLRL = -1, \
     else:
         ui.display_msg(temp[1], frame, 2)
         return 0
+
+def update_values():
+    global url_aoor, url_aair, url_voor, url_vvir, lrl_aoor, lrl_voor, lrl_aair, lrl_vvir
+    global aa_aair, aa_aoor, arp_aair, va_voor, va_vvir, vrp_vvir#, apw, vpw
+    global msr_aoor, msr_aair, msr_voor, msr_vvir, reactt_aoor, reactt_aair, reactt_voor, reactt_vvir
+    global respfac_aoor, respfac_aair, respfac_voor, respfac_vvir, \
+        recovert_aoor, recovert_aair, recovert_voor, recovert_vvir, arp_aair, vrp_vvir
+    url_aoor.set(backend.USERSETTINGS[0])
+    url_aair.set(backend.USERSETTINGS[0])
+    url_voor.set(backend.USERSETTINGS[1])
+    url_vvir.set(backend.USERSETTINGS[1])
+
+    lrl_aoor.set(backend.USERSETTINGS[2])
+    lrl_aair.set(backend.USERSETTINGS[2])
+    lrl_voor.set(backend.USERSETTINGS[3])
+    lrl_vvir.set(backend.USERSETTINGS[3])
     
+    aa_aoor.set(backend.USERSETTINGS[4])
+    aa_aair.set(backend.USERSETTINGS[4])
+
+    va_voor.set(backend.USERSETTINGS[5])
+    va_vvir.set(backend.USERSETTINGS[5])
+
+    arp_aair.set(backend.USERSETTINGS[6])
+    vrp_vvir.set(backend.USERSETTINGS[7])
+    
+    msr_aoor.set(backend.USERSETTINGS[10])
+    msr_aair.set(backend.USERSETTINGS[10])
+    msr_voor.set(backend.USERSETTINGS[11])
+    msr_vvir.set(backend.USERSETTINGS[11])
+
+    reactt_aoor.set(backend.USERSETTINGS[12])
+    reactt_aair.set(backend.USERSETTINGS[12])
+    reactt_voor.set(backend.USERSETTINGS[13])
+    reactt_vvir.set(backend.USERSETTINGS[13])
+
+    respfac_aoor.set(backend.USERSETTINGS[14])
+    respfac_aair.set(backend.USERSETTINGS[14])
+    respfac_voor.set(backend.USERSETTINGS[15])
+    respfac_vvir.set(backend.USERSETTINGS[15])
+
+    recovert_aoor.set(backend.USERSETTINGS[16])
+    recovert_aair.set(backend.USERSETTINGS[16])
+    recovert_voor.set(backend.USERSETTINGS[17])
+    recovert_vvir.set(backend.USERSETTINGS[17])
+
+
 def AOOR_page(AOOR, modes):
     label = Label(AOOR, text="AOOR Page", font=('Arial', 14))
     label.grid(row=0, column=2, columnspan=4)
@@ -50,26 +96,27 @@ def AOOR_page(AOOR, modes):
     plot = Label(AOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
     plot.grid(column=2, row=15, columnspan=4, pady=5)
 
-    url = StringVar()
+    global url_aoor
+    url_aoor = StringVar()
     url_label = Label(AOOR, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=2)
-    url_scale = Scale(AOOR, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(AOOR, variable=url_aoor, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.grid(row=2, column=2)
     url_scale.set(120)
 
-    global lrl_scale_aoor
-    lrl = StringVar()
+    global lrl_scale_aoor, lrl_aoor
+    lrl_aoor = StringVar()
     lrl_label = Label(AOOR, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=2)
-    lrl_scale_aoor = Scale(AOOR, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale_aoor = Scale(AOOR, variable=lrl_aoor, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_aoor.grid(row=4, column=2)
     lrl_scale_aoor.set(60)
 
-    global aa_scale_aoor
-    aa = StringVar()
+    global aa_scale_aoor, aa_aoor
+    aa_aoor = StringVar()
     aa_label = Label(AOOR, text="Atrial Amplitude [V]", font=('Arial', 12))
     aa_label.grid(row=5, column=2)
-    aa_scale_aoor = Scale(AOOR, variable=aa, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    aa_scale_aoor = Scale(AOOR, variable=aa_aoor, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     aa_scale_aoor.grid(row=6, column=2)
     aa_scale_aoor.set(3.5)
 
@@ -88,31 +135,35 @@ def AOOR_page(AOOR, modes):
     increment_button = Button(AOOR, text=">", command=lambda: update_value_aoor(True))
     increment_button.grid(row=8, column=3)
 
-    msr = StringVar()
+    global msr_aoor
+    msr_aoor = StringVar()
     msr_label = Label(AOOR, text="Maximum Sensor Rate [MSR]", font=('Arial', 12))
     msr_label.grid(row=1, column=5)
-    msr_input = Scale(AOOR, variable=msr, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    msr_input = Scale(AOOR, variable=msr_aoor, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     msr_input.grid(row=2, column=5)
     msr_input.set(120)
 
-    reactt = StringVar()
+    global reactt_aoor
+    reactt_aoor = StringVar()
     reactt_label = Label(AOOR, text="Reaction Time [sec]", font=('Arial', 12))
     reactt_label.grid(row=3, column=5)
-    reactt_input = Scale(AOOR, variable=reactt, length=400, from_=10, to=50, resolution=10, orient=HORIZONTAL)
+    reactt_input = Scale(AOOR, variable=reactt_aoor, length=400, from_=10, to=50, resolution=10, orient=HORIZONTAL)
     reactt_input.grid(row=4, column=5)
     reactt_input.set(30)
 
-    respfac = StringVar()
+    global respfac_aoor
+    respfac_aoor = StringVar()
     respfac_label = Label(AOOR, text="Response Factor [min]", font=('Arial', 12))
     respfac_label.grid(row=5, column=5)
-    respfac_input = Scale(AOOR, variable=respfac, length=400, from_=1, to=16, resolution=1, orient=HORIZONTAL)
+    respfac_input = Scale(AOOR, variable=respfac_aoor, length=400, from_=1, to=16, resolution=1, orient=HORIZONTAL)
     respfac_input.grid(row=6, column=5)
     respfac_input.set(8)
 
-    recovert = StringVar()
+    global recovert_aoor
+    recovert_aoor = StringVar()
     recovert_label = Label(AOOR, text="Recover Time [min]", font=('Arial', 12))
     recovert_label.grid(row=7, column=5)
-    recovert_input = Scale(AOOR, variable=recovert, length=400, from_=2, to=16, resolution=1, orient=HORIZONTAL)
+    recovert_input = Scale(AOOR, variable=recovert_aoor, length=400, from_=2, to=16, resolution=1, orient=HORIZONTAL)
     recovert_input.grid(row=8, column=5)
     recovert_input.set(5)
 
@@ -132,8 +183,9 @@ def AOOR_page(AOOR, modes):
     increment_activity.grid(row=10, column=6)
 
     AOOR_save = ttk.Button(AOOR, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL = url.get(), ALRL = lrl.get(), APW=mode.scale_incs[current_index_aoor],
-                                                     AA=aa.get(), AMSR=msr.get(), AReactT=reactt.get(), ARF=respfac.get(), ARecoverT=recovert.get(),  frame=AOOR))
+                          command=lambda: Save_press(AURL = url_aoor.get(), ALRL = lrl_aoor.get(), APW=mode.scale_incs[current_index_aoor],
+                                                     AA=aa_aoor.get(), AMSR=msr_aoor.get(), AREACT=reactt_aoor.get(), ARF=respfac_aoor.get(), 
+                                                     ARECOVER=recovert_aoor.get(),  frame=AOOR))
     AOOR_save.grid(row=17, column=2, columnspan= 4)
 
     AOOR_back = ttk.Button(AOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AOOR))
@@ -152,26 +204,27 @@ def VOOR_page(VOOR, modes):
     plot = Label(VOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
     plot.grid(column=2, row=15, columnspan=4, pady=5)
 
-    url = StringVar()
+    global url_voor
+    url_voor = StringVar()
     url_label = Label(VOOR, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=2)
-    url_scale = Scale(VOOR, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(VOOR, variable=url_voor, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.grid(row=2, column=2)
     url_scale.set(120)
 
-    global lrl_scale_voo
-    lrl = StringVar()
+    global lrl_scale_voo, lrl_voor
+    lrl_voor = StringVar()
     lrl_label = Label(VOOR, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=2)
-    lrl_scale_voo = Scale(VOOR, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale_voo = Scale(VOOR, variable=lrl_voor, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_voo.grid(row=4, column=2)
     lrl_scale_voo.set(60)
 
-    global va_scale_voo
-    va = StringVar()
+    global va_scale_voo, va_voor
+    va_voor = StringVar()
     va_label = Label(VOOR, text="Ventricular Amplitude [V]", font=('Arial', 12))
     va_label.grid(row=5, column=2)
-    va_scale_voo = Scale(VOOR, variable=va, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    va_scale_voo = Scale(VOOR, variable=va_voor, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     va_scale_voo.grid(row=6, column=2)
     va_scale_voo.set(3.5)
 
@@ -190,31 +243,35 @@ def VOOR_page(VOOR, modes):
     increment_button = Button(VOOR, text=">", command=lambda: update_value_voor(True))
     increment_button.grid(row=9, column=3)
 
-    msr = StringVar()
+    global msr_voor
+    msr_voor = StringVar()
     msr_label = Label(VOOR, text="Maximum Sensor Rate [MSR]", font=('Arial', 12))
     msr_label.grid(row=1, column=5)
-    msr_input = Scale(VOOR, variable=msr, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    msr_input = Scale(VOOR, variable=msr_voor, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     msr_input.grid(row=2, column=5)
     msr_input.set(120)
 
-    reactt = StringVar()
+    global reactt_voor
+    reactt_voor = StringVar()
     reactt_label = Label(VOOR, text="Reaction Time [sec]", font=('Arial', 12))
     reactt_label.grid(row=3, column=5)
-    reactt_input = Scale(VOOR, variable=reactt, length=400, from_=10, to=50, resolution=10, orient=HORIZONTAL)
+    reactt_input = Scale(VOOR, variable=reactt_voor, length=400, from_=10, to=50, resolution=10, orient=HORIZONTAL)
     reactt_input.grid(row=4, column=5)
     reactt_input.set(30)
 
-    respfac = StringVar()
+    global respfac_voor
+    respfac_voor = StringVar()
     respfac_label = Label(VOOR, text="Response Factor [min]", font=('Arial', 12))
     respfac_label.grid(row=5, column=5)
-    respfac_input = Scale(VOOR, variable=respfac, length=400, from_=1, to=16, resolution=1, orient=HORIZONTAL)
+    respfac_input = Scale(VOOR, variable=respfac_voor, length=400, from_=1, to=16, resolution=1, orient=HORIZONTAL)
     respfac_input.grid(row=6, column=5)
     respfac_input.set(8)
 
-    recovert = StringVar()
+    global recovert_voor
+    recovert_voor = StringVar()
     recovert_label = Label(VOOR, text="Recover Time [min]", font=('Arial', 12))
     recovert_label.grid(row=7, column=5)
-    recovert_input = Scale(VOOR, variable=recovert, length=400, from_=2, to=16, resolution=1, orient=HORIZONTAL)
+    recovert_input = Scale(VOOR, variable=recovert_voor, length=400, from_=2, to=16, resolution=1, orient=HORIZONTAL)
     recovert_input.grid(row=8, column=5)
     recovert_input.set(5)
 
@@ -234,8 +291,9 @@ def VOOR_page(VOOR, modes):
     increment_activity.grid(row=10, column=6)
 
     VOOR_save = ttk.Button(VOOR, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL = url.get(), ALRL = lrl.get(), APW=mode.scale_incs[current_index_voor],
-                                                     AA=va.get(), AMSR=msr.get(), AReactT=reactt.get(), ARF=respfac.get(), ARecoverT=recovert.get(),  frame=VOOR))
+                          command=lambda: Save_press(VURL = url_voor.get(), VLRL = lrl_voor.get(), VPW=mode.scale_incs[current_index_voor],
+                                                     VA=va_voor.get(), VMSR=msr_voor.get(), VREACT=reactt_voor.get(), VRF=respfac_voor.get(), 
+                                                     VRECOVER=recovert_voor.get(),  frame=VOOR))
     VOOR_save.grid(row=17, column=2, columnspan= 4)
 
     VOOR_back = ttk.Button(VOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VOOR))
@@ -254,33 +312,35 @@ def AAIR_page(AAIR, modes):
     plot = Label(AAIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
     plot.grid(column=2, row=15, columnspan=4, pady=5)
 
-    url = StringVar()
+    global url_aair
+    url_aair = StringVar()
     url_label = Label(AAIR, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=2)
-    url_scale = Scale(AAIR, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(AAIR, variable=url_aair, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.grid(row=2, column=2)
     url_scale.set(120)
 
-    global lrl_scale_aai
-    lrl = StringVar()
+    global lrl_scale_aai, lrl_aair
+    lrl_aair = StringVar()
     lrl_label = Label(AAIR, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=2)
-    lrl_scale_aai = Scale(AAIR, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale_aai = Scale(AAIR, variable=lrl_aair, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_aai.grid(row=4, column=2)
     lrl_scale_aai.set(60)
 
-    global aa_scale_aii
-    aa = StringVar()
+    global aa_scale_aii, aa_aair
+    aa_aair = StringVar()
     aa_label = Label(AAIR, text="Atrial Amplitude [V]", font=('Arial', 12))
     aa_label.grid(row=5, column=2)
-    aa_scale_aii = Scale(AAIR, variable=aa, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    aa_scale_aii = Scale(AAIR, variable=aa_aair, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     aa_scale_aii.grid(row=6, column=2)
     aa_scale_aii.set(3.5)
 
-    arp = StringVar()
+    global arp_aair
+    arp_aair = StringVar()
     arp_label = Label(AAIR, text="Atrial Refractory Period [ms]", font=('Arial', 12))
     arp_label.grid(row=7, column=2)
-    arp_input = Scale(AAIR, variable=arp, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
+    arp_input = Scale(AAIR, variable=arp_aair, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     arp_input.grid(row=8, column=2)
     arp_input.set(250)
 
@@ -299,31 +359,35 @@ def AAIR_page(AAIR, modes):
     increment_button = Button(AAIR, text=">", command=lambda: update_value_aair(True))
     increment_button.grid(row=10, column=3)
 
-    msr = StringVar()
+    global msr_aair
+    msr_aair = StringVar()
     msr_label = Label(AAIR, text="Maximum Sensor Rate [MSR]", font=('Arial', 12))
     msr_label.grid(row=1, column=5)
-    msr_input = Scale(AAIR, variable=msr, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    msr_input = Scale(AAIR, variable=msr_aair, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     msr_input.grid(row=2, column=5)
     msr_input.set(120)
 
-    reactt = StringVar()
+    global reactt_aair
+    reactt_aair = StringVar()
     reactt_label = Label(AAIR, text="Reaction Time [sec]", font=('Arial', 12))
     reactt_label.grid(row=3, column=5)
-    reactt_input = Scale(AAIR, variable=reactt, length=400, from_=10, to=50, resolution=10, orient=HORIZONTAL)
+    reactt_input = Scale(AAIR, variable=reactt_aair, length=400, from_=10, to=50, resolution=10, orient=HORIZONTAL)
     reactt_input.grid(row=4, column=5)
     reactt_input.set(30)
 
-    respfac = StringVar()
+    global respfac_aair
+    respfac_aair = StringVar()
     respfac_label = Label(AAIR, text="Response Factor [min]", font=('Arial', 12))
     respfac_label.grid(row=5, column=5)
-    respfac_input = Scale(AAIR, variable=respfac, length=400, from_=1, to=16, resolution=1, orient=HORIZONTAL)
+    respfac_input = Scale(AAIR, variable=respfac_aair, length=400, from_=1, to=16, resolution=1, orient=HORIZONTAL)
     respfac_input.grid(row=6, column=5)
     respfac_input.set(8)
 
-    recovert = StringVar()
+    global recovert_aair
+    recovert_aair = StringVar()
     recovert_label = Label(AAIR, text="Recover Time [min]", font=('Arial', 12))
     recovert_label.grid(row=7, column=5)
-    recovert_input = Scale(AAIR, variable=recovert, length=400, from_=2, to=16, resolution=1, orient=HORIZONTAL)
+    recovert_input = Scale(AAIR, variable=recovert_aair, length=400, from_=2, to=16, resolution=1, orient=HORIZONTAL)
     recovert_input.grid(row=8, column=5)
     recovert_input.set(5)
 
@@ -343,8 +407,9 @@ def AAIR_page(AAIR, modes):
     increment_activity.grid(row=10, column=6)
 
     AAIR_save = ttk.Button(AAIR, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL = url.get(), ALRL = lrl.get(), APW=mode.scale_incs[current_index_aair],
-                                                     AA=aa.get(), AMSR=msr.get(), AReactT=reactt.get(), ARF=respfac.get(), ARecoverT=recovert.get(),  frame=AAIR))
+                          command=lambda: Save_press(AURL = url_aair.get(), ALRL = lrl_aair.get(), APW=mode.scale_incs[current_index_aair],
+                                                     AA=aa_aair.get(), AMSR=msr_aair.get(), AREACT=reactt_aair.get(), 
+                                                     ARF=respfac_aair.get(), ARECOVER=recovert_aair.get(), ARP=arp_aair.get(), frame=AAIR))
     AAIR_save.grid(row=17, column=2, columnspan= 4)
 
     AAIR_back = ttk.Button(AAIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AAIR))
@@ -364,33 +429,35 @@ def VVIR_page(VVIR, modes):
     plot = Label(VVIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
     plot.grid(column=2, row=15, columnspan=4, pady=5)
 
-    url = StringVar()
+    global url_vvir
+    url_vvir = StringVar()
     url_label = Label(VVIR, text="Input the Upper Rate Limit [ppm]", font=('Arial', 12))
     url_label.grid(row=1, column=2)
-    url_scale = Scale(VVIR, variable=url, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    url_scale = Scale(VVIR, variable=url_vvir, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     url_scale.grid(row=2, column=2)
     url_scale.set(120)
 
-    global lrl_scale_vvi
-    lrl = StringVar()
+    global lrl_scale_vvi, lrl_vvir
+    lrl_vvir = StringVar()
     lrl_label = Label(VVIR, text="Input the Lower Rate Limit [ppm]", font=('Arial', 12))
     lrl_label.grid(row=3, column=2)
-    lrl_scale_vvi = Scale(VVIR, variable=lrl, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
+    lrl_scale_vvi = Scale(VVIR, variable=lrl_vvir, length=400, from_=30, to=175, resolution=1, orient=HORIZONTAL)
     lrl_scale_vvi.grid(row=4, column=2)
     lrl_scale_vvi.set(60)
 
-    global va_scale_vvi
-    va = StringVar()
+    global va_scale_vvi, va_vvir
+    va_vvir = StringVar()
     va_label = Label(VVIR, text="Ventricular Amplitude [V]", font=('Arial', 12))
     va_label.grid(row=5, column=2)
-    va_scale_vvi = Scale(VVIR, variable=va, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
+    va_scale_vvi = Scale(VVIR, variable=va_vvir, length=400, from_=0, to=5, resolution=0.1, orient=HORIZONTAL)
     va_scale_vvi.grid(row=6, column=2)
     va_scale_vvi.set(3.5)
 
-    vrp = StringVar()
+    global vrp_vvir
+    vrp_vvir = StringVar()
     vrp_label = Label(VVIR, text="Ventrical Refractory Period [ms]", font=('Arial', 12))
     vrp_label.grid(row=7, column=2)
-    vrp_input = Scale(VVIR, variable=vrp, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
+    vrp_input = Scale(VVIR, variable=vrp_vvir, length=400, from_=150, to=500, resolution=10, orient=HORIZONTAL)
     vrp_input.grid(row=8, column=2)
     vrp_input.set(320)
 
@@ -409,31 +476,35 @@ def VVIR_page(VVIR, modes):
     increment_button = Button(VVIR, text=">", command=lambda: update_value_vvir(True))
     increment_button.grid(row=10, column=3)
 
-    msr = StringVar()
+    global msr_vvir
+    msr_vvir = StringVar()
     msr_label = Label(VVIR, text="Maximum Sensor Rate [MSR]", font=('Arial', 12))
     msr_label.grid(row=1, column=5)
-    msr_input = Scale(VVIR, variable=msr, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
+    msr_input = Scale(VVIR, variable=msr_vvir, length=400, from_=50, to=175, resolution=5, orient=HORIZONTAL)
     msr_input.grid(row=2, column=5)
     msr_input.set(120)
 
-    reactt = StringVar()
+    global reactt_vvir
+    reactt_vvir = StringVar()
     reactt_label = Label(VVIR, text="Reaction Time [sec]", font=('Arial', 12))
     reactt_label.grid(row=3, column=5)
-    reactt_input = Scale(VVIR, variable=reactt, length=400, from_=10, to=50, resolution=10, orient=HORIZONTAL)
+    reactt_input = Scale(VVIR, variable=reactt_vvir, length=400, from_=10, to=50, resolution=10, orient=HORIZONTAL)
     reactt_input.grid(row=4, column=5)
     reactt_input.set(30)
 
-    respfac = StringVar()
+    global respfac_vvir
+    respfac_vvir = StringVar()
     respfac_label = Label(VVIR, text="Response Factor [min]", font=('Arial', 12))
     respfac_label.grid(row=5, column=5)
-    respfac_input = Scale(VVIR, variable=respfac, length=400, from_=1, to=16, resolution=1, orient=HORIZONTAL)
+    respfac_input = Scale(VVIR, variable=respfac_vvir, length=400, from_=1, to=16, resolution=1, orient=HORIZONTAL)
     respfac_input.grid(row=6, column=5)
     respfac_input.set(8)
 
-    recovert = StringVar()
+    global recovert_vvir
+    recovert_vvir = StringVar()
     recovert_label = Label(VVIR, text="Recover Time [min]", font=('Arial', 12))
     recovert_label.grid(row=7, column=5)
-    recovert_input = Scale(VVIR, variable=recovert, length=400, from_=2, to=16, resolution=1, orient=HORIZONTAL)
+    recovert_input = Scale(VVIR, variable=recovert_vvir, length=400, from_=2, to=16, resolution=1, orient=HORIZONTAL)
     recovert_input.grid(row=8, column=5)
     recovert_input.set(5)
 
@@ -453,8 +524,9 @@ def VVIR_page(VVIR, modes):
     increment_activity.grid(row=10, column=6)
 
     VVIR_save = ttk.Button(VVIR, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL = url.get(), ALRL = lrl.get(), APW=mode.scale_incs[current_index_vvir],
-                                                     AA=va.get(), AMSR=msr.get(), AReactT=reactt.get(), ARF=respfac.get(), ARecoverT=recovert.get(),  frame=VVIR))
+                          command=lambda: Save_press(VURL = url_vvir.get(), VLRL = lrl_vvir.get(), VPW=mode.scale_incs[current_index_vvir],
+                                                     VA=va_vvir.get(), VMSR=msr_vvir.get(), VREACT=reactt_vvir.get(), 
+                                                     VRF=respfac_vvir.get(), VRECOVER=recovert_vvir.get(), VRP=vrp_vvir.get(), frame=VVIR))
     VVIR_save.grid(row=17, column=2, columnspan= 4)
 
     VVIR_back = ttk.Button(VVIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VVIR))
