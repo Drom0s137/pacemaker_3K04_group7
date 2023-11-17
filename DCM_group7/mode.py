@@ -3,15 +3,10 @@ from tkinter import ttk
 from ttkthemes import ThemedTk
 import ui
 import backend
-import numpy as np
-from matplotlib import pyplot as plt
-import matplotlib.animation as animation
-from matplotlib import style
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from collections import deque
+
 
 # generate random floating point values
-import random 
+
 def Save_press(frame, AURL=-1, VURL=-1, ALRL=-1, VLRL = -1, \
                APW=-1, AA=-1, ARP=-1, VPW=-1, VA=-1, VRP=-1,\
                 AMSR=-1, VMSR=-1, AREACT=-1, VREACT=-1, ARF=-1, VRF=-1,\
@@ -86,49 +81,11 @@ def update_values():
     aat.set(backend.USERSETTINGS[18])
     vat.set(backend.USERSETTINGS[19])'''
 
-#atrium graphing ekg
-atrium_x = 0
-atrium_y = 0
-style.use('ggplot')
-atrium_graph = plt.figure(figsize=(5, 2), dpi=100)
-atrium_plot = atrium_graph.add_subplot(1, 1, 1)
-atrium_plot.set_ylim(0, 2)
-atrium_data = deque([(atrium_x, atrium_y)], maxlen=10)
-atrium_line, = atrium_plot.plot(*zip(*atrium_data), 'r', marker='o')
-def atrium_animate(i):
-    atrium_y=random.uniform(0, 2)
-    atrium_x=(i+1)
-    atrium_data.append((atrium_x, atrium_y))
-    atrium_line.set_data(*zip(*atrium_data))
-    atrium_plot.relim()
-    atrium_plot.autoscale_view()
-
-#ventricle graphing ekg
-ventricle_x = 0
-ventricle_y = 0
-style.use('ggplot')
-ventricle_graph = plt.figure(figsize=(5, 2), dpi=100)
-ventricle_plot = ventricle_graph.add_subplot(1, 1, 1)
-ventricle_plot.set_ylim(0, 2)
-ventricle_data = deque([(ventricle_x, ventricle_y)], maxlen=10)
-ventricle_line, = ventricle_plot.plot(*zip(*ventricle_data), 'r', marker='o')
-def ventricle_animate(i):
-    ventricle_y=random.uniform(0, 2)
-    ventricle_x=(i+1)
-    ventricle_data.append((ventricle_x, ventricle_y))
-    ventricle_line.set_data(*zip(*ventricle_data))
-    ventricle_plot.relim()
-    ventricle_plot.autoscale_view()
-
 ## A00 Pacing Mode
 def AOO_page(AOO, modes):
     l0 = Label(AOO, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
     
-    plotcanvas = FigureCanvasTkAgg(atrium_graph, AOO)
-    plotcanvas.get_tk_widget().grid(column=1, row=9, columnspan=3, pady=5)
-    a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=1000, blit=False)
-
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.grid(row=0, column=2)
 
@@ -181,7 +138,6 @@ def AOO_page(AOO, modes):
 
     aa_scale.config(command=lambda e: aa_slider_mod(aa_scale))  # Dynamically updates the slider resolution
     alrl_scale.config(command=lambda e: lrl_slider_mod(alrl_scale))  # Dynamically updates the slider resolution
-    return a_ani
 
 
 ## V00 Pacing Mode
@@ -190,9 +146,6 @@ def VOO_page(VOO, modes):
     l0 = Label(VOO, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
 
-    plotcanvas = FigureCanvasTkAgg(ventricle_graph, VOO)
-    plotcanvas.get_tk_widget().grid(column=1, row=15, columnspan=3, pady=5)
-    ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=1000, blit=False)
 
 
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
@@ -247,7 +200,6 @@ def VOO_page(VOO, modes):
     va_scale.config(command=lambda e: va_slider_mod(va_scale))  # Dynamically updates the slider resolution
     vlrl_scale.config(command=lambda e: lrl_slider_mod(vlrl_scale))  # Dynamically updates the slider resolution
     
-    return ani
 ## AAI Pacing Mode
 
 def AAI_page(AAI, modes):
@@ -255,9 +207,6 @@ def AAI_page(AAI, modes):
     l0 = Label(AAI, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
 
-    plotcanvas = FigureCanvasTkAgg(atrium_graph, AAI)
-    plotcanvas.get_tk_widget().grid(column=1, row = 13, columnspan=3, pady=5)
-    a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=1000, blit=False)
 
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
     label.grid(row=0, column=2)
@@ -319,16 +268,11 @@ def AAI_page(AAI, modes):
 
     aa_scale.config(command=lambda e: aa_slider_mod(aa_scale))  # Dynamically updates the slider resolution
     alrl_scale.config(command=lambda e: lrl_slider_mod(alrl_scale))  # Dynamically updates the slider resolution
-    return a_ani
 
 def VVI_page(VVI, modes):
         
     l0 = Label(VVI, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
-
-    plotcanvas = FigureCanvasTkAgg(ventricle_graph, VVI)
-    plotcanvas.get_tk_widget().grid(column=1, row = 11, columnspan=3, pady=5)
-    ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=1000, blit=False)
 
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
     label.grid(row=0, column=2)
@@ -391,7 +335,6 @@ def VVI_page(VVI, modes):
     va_scale.config(command=lambda e: va_slider_mod(va_scale))  # Dynamically updates the slider resolution
     vlrl_scale.config(command=lambda e: lrl_slider_mod(vlrl_scale))  # Dynamically updates the slider resolution
 
-    return ani
 
 def lrl_slider_mod(scale):
     current = float(scale.get())
