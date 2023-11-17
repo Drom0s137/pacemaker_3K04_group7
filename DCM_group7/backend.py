@@ -3,7 +3,7 @@ import logging
 import sys
 
 USERNAME = ""
-USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 def exit_system():
     sys.exit()
@@ -24,20 +24,26 @@ def log_in(username, password):
             if user["password"] == password:
                 USERNAME = username
                 print("log in successful")
-                USERSETTINGS[0] = user["URL"]
-                USERSETTINGS[1] = user["LRL_AOO"]
-                USERSETTINGS[2] = user["LRL_VOO"]
-                USERSETTINGS[3] = user["LRL_AAI"]
-                USERSETTINGS[4] = user["LRL_VVI"]
-                USERSETTINGS[5] = user["AA_AOO"]
-                USERSETTINGS[6] = user["AA_AAI"]
-                USERSETTINGS[7] = user["VA_VOO"]
-                USERSETTINGS[8] = user["VA_VVI"]
-                USERSETTINGS[9] = user["ARP"]
-                USERSETTINGS[10] = user["VRP"]
-                USERSETTINGS[11] = user["APW"]
-                USERSETTINGS[12] = user["VPW"]
-                print(user)
+                USERSETTINGS[0] = user["AURL"]
+                USERSETTINGS[1] = user["VURL"]
+                USERSETTINGS[2] = user["ALRL"]
+                USERSETTINGS[3] = user["VLRL"]
+                USERSETTINGS[4] = user["AA"]
+                USERSETTINGS[5] = user["VA"]
+                USERSETTINGS[6] = user["ARP"]
+                USERSETTINGS[7] = user["VRP"]
+                USERSETTINGS[8] = user["APW"]
+                USERSETTINGS[9] = user["VPW"]
+                USERSETTINGS[10] = user["AMSR"]
+                USERSETTINGS[11] = user["VMSR"]
+                USERSETTINGS[12] = user["AREACT"]
+                USERSETTINGS[13] = user["VREACT"]
+                USERSETTINGS[14] = user["ARF"]
+                USERSETTINGS[15] = user["VRF"]
+                USERSETTINGS[16] = user["ARECOVER"]
+                USERSETTINGS[17] = user["VRECOVER"]
+                USERSETTINGS[18] = user["AAT"]
+                USERSETTINGS[19] = user["VAT"]
                 return 1
     
     if user_verify:
@@ -70,19 +76,26 @@ def register(username, password):
     data.append({
     "user_name": username,
     "password": password,
-    "URL" : 120,
-    "LRL_AOO" : 60,
-    "LRL_VOO" : 60,
-    "LRL_AAI" : 60,
-    "LRL_VVI" : 60,
-    "AA_AOO" : 3.5,
-    "AA_AAI" : 3.5,
-    "VA_VOO" : 3.5,
-    "VA_VVI" : 3.5,
+    "AURL" : 120,
+    "VURL" : 120,
+    "ALRL" : 60,
+    "VLRL" : 60,
+    "AA" : 3.5,
+    "VA" : 3.5,
     "ARP" : 250,
     "VRP" : 320,
+    "APW" :0.4,
     "VPW" : 0.4,
-    "APW" :0.4
+    "AMSR": 120,
+    "VMSR": 120,
+    "AREACT":30,
+    "VREACT":30,
+    "ARF": 8,
+    "VRF": 8,
+    "ARECOVER": 5,
+    "VRECOVER": 5,
+    "AAT": "V-High",
+    "VAT": "V-High"
     })
     
     with open("user_data.json", 'w') as json_file:
@@ -110,38 +123,55 @@ AS:  Atrial Sensitivity
 ARR: Atrial Refractory Period
 '''
 
-def verifyInput(URL, LRL_AOO=-1, LRL_VOO=-1, LRL_AAI=-1, LRL_VVI=-1, APW=-1, AA_AOO=-1, AA_AAI=-1, ARP=-1, VPW=-1, VA_VOO=-1, VA_VVI=-1, VRP=-1):
+def verifyInput(settings):
     global USERNAME
-    if (float(LRL_AOO) !=-1 and URL < float(LRL_AOO)) or (float(LRL_VOO) !=-1 and URL < float(LRL_VOO))\
-          or (float(LRL_AAI) !=-1 and URL < float(LRL_AAI)) or (float(LRL_VVI) !=-1 and URL < float(LRL_VVI)):#basic logic limiter since lower limit cant be higher then upper limit
+    if (float(settings["ALRL"]) !=-1 and float(settings["AURL"]) < float(settings["ALRL"])) or \
+        (float(settings["VLRL"]) !=-1 and float(settings["VURL"]) < float(settings["VLRL"])):#basic logic limiter since lower limit cant be higher then upper limit
         print("Lower Rate Limit Cannot Be Higher Than the Upper Rate Limit")
         error_msg = "LRL cannot be greater than URL"
         return 0, error_msg
     else:
         print("pass")
-        saveData(USERNAME, URL, LRL_AOO=LRL_AOO, LRL_VOO=LRL_VOO, LRL_AAI=LRL_AAI, LRL_VVI=LRL_VVI, APW=APW, AA_AOO=AA_AOO, AA_AAI=AA_AAI, ARP=ARP, VPW=VPW, VA_VOO=VA_VOO, VA_VVI=VA_VVI, VRP=VRP)
+        saveData(USERNAME, settings)
         return 1, "SUCCESS"
     
 
-def saveData(username, URL, LRL_AOO=-1, LRL_VOO=-1, LRL_AAI=-1, LRL_VVI=-1, APW=-1, AA_AOO=-1, AA_AAI=-1, ARP=-1, VPW=-1, VA_VOO=-1, VA_VVI=-1, VRP=-1):
+def saveData(username, settings):
     data, _ = extract_database()
     print(username)
     for index, user in enumerate(data):
         if user["user_name"] == username:
-            data[index]["URL"] = URL
-            if LRL_AOO!= -1:data[index]["LRL_AOO"] = LRL_AOO
-            if LRL_VOO!= -1:data[index]["LRL_VOO"] = LRL_VOO
-            if LRL_AAI!= -1:data[index]["LRL_AAI"] = LRL_AAI
-            if LRL_VVI!= -1:data[index]["LRL_VVI"] = LRL_VVI
-            if APW!= -1:data[index]["APW"] = APW
-            if AA_AOO!= -1:data[index]["AA_AOO"] = AA_AOO
-            if AA_AAI!= -1:data[index]["AA_AAI"] = AA_AAI
-            if ARP!= -1:data[index]["ARP"] = ARP
-            if VPW!= -1:data[index]["VPW"] = VPW
-            if VA_VOO!= -1:data[index]["VA_VOO"] = VA_VOO
-            if VA_VVI!= -1:data[index]["VA_VVI"] = VA_VVI
-            if VRP!= -1:data[index]["VRP"] = VRP
+            if settings["AURL"]!= -1:data[index]["AURL"] = settings["AURL"]
+            if settings["VURL"]!= -1:data[index]["VURL"] = settings["VURL"]
 
+            if settings["ALRL"]!= -1:data[index]["ALRL"] = settings["ALRL"]
+            if settings["VLRL"]!= -1:data[index]["VLRL"] = settings["VLRL"]
+            
+            if settings["APW"]!= -1:data[index]["APW"] = settings["APW"]
+            if settings["AA"]!= -1:data[index]["AA"] = settings["AA"]
+            
+            if settings["VPW"]!= -1:data[index]["VPW"] = settings["VPW"]
+            if settings["VA"]!= -1:data[index]["VA"] = settings["VA"]
+
+            if settings["ARP"]!= -1:data[index]["ARP"] = settings["ARP"]
+            if settings["VRP"]!= -1:data[index]["VRP"] = settings["VRP"]
+
+            if settings["AMSR"]!= -1:data[index]["AMSR"] = settings["AMSR"]
+            if settings["VMSR"]!= -1:data[index]["VMSR"] = settings["VMSR"]
+
+            if settings["AREACT"]!= -1:data[index]["AREACT"] = settings["AREACT"]
+            if settings["VREACT"]!= -1:data[index]["VREACT"] = settings["VREACT"]
+
+            if settings["ARF"]!= -1:data[index]["ARF"] = settings["ARF"]
+            if settings["VRF"]!= -1:data[index]["VRF"] = settings["VRF"]
+
+            if settings["ARECOVER"]!= -1:data[index]["ARECOVER"] = settings["ARECOVER"]
+            if settings["VRECOVER"]!= -1:data[index]["VRECOVER"] = settings["VRECOVER"]
+
+            if settings["AAT"]!= -1:data[index]["AAT"] = settings["AAT"]
+            if settings["VAT"]!= -1:data[index]["VAT"] = settings["VAT"]
+
+            print(data)
             with open("user_data.json", 'w') as json_file:
                 json.dump(data, json_file, 
                                     indent=4,  
@@ -157,12 +187,15 @@ def saveData(username, URL, LRL_AOO=-1, LRL_VOO=-1, LRL_AAI=-1, LRL_VVI=-1, APW=
 
 #input values are now all float instead of string. package data for simulink
 def packageData(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
+
     return 0
     
 
 # for preperation of serical communication
 def sendToDevice(data):
     return 0 
+
+
 
 #test script
 if __name__ == "__main__":

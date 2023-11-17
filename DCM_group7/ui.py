@@ -19,6 +19,7 @@ def obtain_logins(ui_username, ui_pswrd):
     if backend.log_in(username, password) == 1:
         print("chaging to mode view")
         mode.update_values()
+        mode_extend.update_values()
         switch_frame(modes, welcome)
     else:
         display_msg(backend.log_in(username, password)[1], welcome, 1)
