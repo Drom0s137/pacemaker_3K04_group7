@@ -164,7 +164,7 @@ if __name__ == "__main__":
     atrium_plot.set_title('Atrium')
     atrium_plot.set_xlabel('time(s)')
     atrium_plot.set_ylabel('voltage(V)')    
-    atrium_plot.set_ylim(0, 2)
+    atrium_plot.set_ylim(0, 65)
     atrium_data = deque([(atrium_x, atrium_y)], maxlen=10)
     atrium_line, = atrium_plot.plot(*zip(*atrium_data), 'r', marker='o')
     def atrium_animate(i):
