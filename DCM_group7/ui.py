@@ -189,7 +189,7 @@ if __name__ == "__main__":
     def ventricle_animate(i):
         v_data = ser.read(2)
         ventricle_x=(i+1)
-        ventricle_data.append((ventricle_x, list(v_data)[0]))
+        ventricle_data.append((ventricle_x, list(v_data)[1]))
         ventricle_line.set_data(*zip(*ventricle_data))
         ventricle_plot.relim()
         ventricle_plot.autoscale_view()
