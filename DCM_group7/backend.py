@@ -2,9 +2,11 @@ import json
 import sys
 import numpy as np
 import matplotlib
+import serial 
 
 USERNAME = ""
 USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+
 
 def exit_system():
     sys.exit()

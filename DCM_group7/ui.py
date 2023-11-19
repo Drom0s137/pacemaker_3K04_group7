@@ -11,6 +11,7 @@ from matplotlib import style
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from collections import deque
 import random 
+import serial
 
 def temp_text(e, i):
     i.delete(0, "end")
@@ -129,6 +130,16 @@ def display_ext_msg(msg, frame, where):
     label.grid(row=50,column=where, columnspan=4)
 
 if __name__ == "__main__":
+    # configure the serial connections (the parameters differs on the device you are connecting to)
+    ser = serial.Serial(
+        port = "COM8",
+        baudrate=115200,
+        #parity=serial.PARITY_ODD,
+        stopbits=serial.STOPBITS_ONE,
+        bytesize= 8,
+        timeout = 1
+    )
+
     #win = Tk()
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
@@ -157,9 +168,9 @@ if __name__ == "__main__":
     atrium_data = deque([(atrium_x, atrium_y)], maxlen=10)
     atrium_line, = atrium_plot.plot(*zip(*atrium_data), 'r', marker='o')
     def atrium_animate(i):
-        atrium_y=random.uniform(0, 2)
+        a_data = ser.read(2)
         atrium_x=(i+1)
-        atrium_data.append((atrium_x, atrium_y))
+        atrium_data.append((atrium_x, list(a_data)[0]))
         atrium_line.set_data(*zip(*atrium_data))
         atrium_plot.relim()
         atrium_plot.autoscale_view()
@@ -176,9 +187,9 @@ if __name__ == "__main__":
     ventricle_data = deque([(ventricle_x, ventricle_y)], maxlen=10)
     ventricle_line, = ventricle_plot.plot(*zip(*ventricle_data), 'r', marker='o')
     def ventricle_animate(i):
-        ventricle_y=random.uniform(0, 2)
+        v_data = ser.read(2)
         ventricle_x=(i+1)
-        ventricle_data.append((ventricle_x, ventricle_y))
+        ventricle_data.append((ventricle_x, list(v_data)[0]))
         ventricle_line.set_data(*zip(*ventricle_data))
         ventricle_plot.relim()
         ventricle_plot.autoscale_view()
