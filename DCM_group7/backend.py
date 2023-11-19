@@ -1,6 +1,7 @@
 import json
-import logging
 import sys
+import numpy as np
+import matplotlib
 
 USERNAME = ""
 USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
@@ -182,19 +183,11 @@ def saveData(username, settings):
     
     print("user does not exist, error")
     return 0
-    
 
-
-#input values are now all float instead of string. package data for simulink
-def packageData(URL, LRL, APW=-1, AA=-1, RS=-1, AS=-1, ARP=-1, VPW=-1, VA=-1, VS=-1, VRP=-1):
-
-    return 0
-    
-
-# for preperation of serical communication
-def sendToDevice(data):
-    return 0 
-
+'''def createEKG(data_size):
+    x = np.random.rand(50)
+    y = np.random.rand(50)  
+    plt.scatter(x, y, color='blue')'''
 
 
 #test script

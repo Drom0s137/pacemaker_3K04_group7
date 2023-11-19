@@ -5,6 +5,8 @@ import ui
 import backend
 
 
+# generate random floating point values
+
 def Save_press(frame, AURL=-1, VURL=-1, ALRL=-1, VLRL = -1, \
                APW=-1, AA=-1, ARP=-1, VPW=-1, VA=-1, VRP=-1,\
                 AMSR=-1, VMSR=-1, AREACT=-1, VREACT=-1, ARF=-1, VRF=-1,\
@@ -80,15 +82,10 @@ def update_values():
     vat.set(backend.USERSETTINGS[19])'''
 
 ## A00 Pacing Mode
-
-    
 def AOO_page(AOO, modes):
     l0 = Label(AOO, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
-
-    plot = Label(AOO, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=1, row = 9, columnspan=3, pady=5)
-
+    
     label = Label(AOO, text="AOO Page", font=('Arial', 14))
     label.grid(row=0, column=2)
 
@@ -149,8 +146,7 @@ def VOO_page(VOO, modes):
     l0 = Label(VOO, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
 
-    plot = Label(VOO, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=1, row = 16, columnspan=3, pady=5)
+
 
     label = Label(VOO, text="VOO Page", font=('Arial', 14))
     label.grid(row=0, column=2)
@@ -203,8 +199,7 @@ def VOO_page(VOO, modes):
 
     va_scale.config(command=lambda e: va_slider_mod(va_scale))  # Dynamically updates the slider resolution
     vlrl_scale.config(command=lambda e: lrl_slider_mod(vlrl_scale))  # Dynamically updates the slider resolution
-
-
+    
 ## AAI Pacing Mode
 
 def AAI_page(AAI, modes):
@@ -212,8 +207,6 @@ def AAI_page(AAI, modes):
     l0 = Label(AAI, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
 
-    plot = Label(AAI, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=1, row = 13, columnspan=3, pady=5)
 
     label = Label(AAI, text="AAI Page", font=('Arial', 14))
     label.grid(row=0, column=2)
@@ -276,14 +269,10 @@ def AAI_page(AAI, modes):
     aa_scale.config(command=lambda e: aa_slider_mod(aa_scale))  # Dynamically updates the slider resolution
     alrl_scale.config(command=lambda e: lrl_slider_mod(alrl_scale))  # Dynamically updates the slider resolution
 
-
 def VVI_page(VVI, modes):
         
     l0 = Label(VVI, width=37, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
-
-    plot = Label(VVI, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=1, row = 11, columnspan=3, pady=5)
 
     label = Label(VVI, text="VVI Page", font=('Arial', 14))
     label.grid(row=0, column=2)
@@ -345,6 +334,7 @@ def VVI_page(VVI, modes):
 
     va_scale.config(command=lambda e: va_slider_mod(va_scale))  # Dynamically updates the slider resolution
     vlrl_scale.config(command=lambda e: lrl_slider_mod(vlrl_scale))  # Dynamically updates the slider resolution
+
 
 def lrl_slider_mod(scale):
     current = float(scale.get())
