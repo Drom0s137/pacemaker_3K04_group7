@@ -86,10 +86,10 @@ def Modes_page(Modes, Welcome):
     l0.grid(column=0, row=0, rowspan=10)
 
     plotcanvas = FigureCanvasTkAgg(atrium_graph, Modes)
-    plotcanvas.get_tk_widget().grid(column=1, row=6, columnspan=3, pady=2)
+    plotcanvas.get_tk_widget().grid(column=1, row=5, columnspan=3, pady=2)
     a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=1000, blit=False)
     plotcanvas = FigureCanvasTkAgg(ventricle_graph, Modes)
-    plotcanvas.get_tk_widget().grid(column=1,row = 7, columnspan=3, pady=2)
+    plotcanvas.get_tk_widget().grid(column=1, row=6, columnspan=3, pady=2)
     v_ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=1000, blit=False)
 
 
@@ -118,7 +118,7 @@ def Modes_page(Modes, Welcome):
     VVIR_btn.grid(row=4, column=3, columnspan=1,pady=5, padx=3)
 
     back = ttk.Button(Modes, text="BACK", width=10, command=lambda: switch_frame(Welcome, Modes))
-    back.grid(row=5, column=1, columnspan=3)
+    back.grid(row=8, column=1, columnspan=3)
     return a_ani, v_ani
 
 def display_msg(msg, frame, where):
@@ -132,7 +132,7 @@ def display_ext_msg(msg, frame, where):
 if __name__ == "__main__":
     # configure the serial connections (the parameters differs on the device you are connecting to)
     ser = serial.Serial(
-        # port = "COM8", 
+        # port = "COM8",
         baudrate=115200,
         #parity=serial.PARITY_ODD,
         stopbits=serial.STOPBITS_ONE,
