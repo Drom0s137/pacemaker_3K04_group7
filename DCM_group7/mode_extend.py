@@ -93,8 +93,8 @@ def AOOR_page(AOOR, modes):
     l0 = Label(AOOR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
 
-    plot = Label(AOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=2, row=15, columnspan=4, pady=5)
+    # plot = Label(AOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder
+    # plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     global url_aoor
     url_aoor = StringVar()
@@ -201,8 +201,8 @@ def VOOR_page(VOOR, modes):
     l0 = Label(VOOR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
     
-    plot = Label(VOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=2, row=15, columnspan=4, pady=5)
+    # plot = Label(VOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder
+    # plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     global url_voor
     url_voor = StringVar()
@@ -309,8 +309,8 @@ def AAIR_page(AAIR, modes):
     l0 = Label(AAIR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
     
-    plot = Label(AAIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=2, row=15, columnspan=4, pady=5)
+    # plot = Label(AAIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder
+    # plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     global url_aair
     url_aair = StringVar()
@@ -426,8 +426,8 @@ def VVIR_page(VVIR, modes):
     l0 = Label(VVIR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
     
-    plot = Label(VVIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=2, row=15, columnspan=4, pady=5)
+    # plot = Label(VVIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder
+    # plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     global url_vvir
     url_vvir = StringVar()
