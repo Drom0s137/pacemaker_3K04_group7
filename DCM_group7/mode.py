@@ -7,32 +7,26 @@ import backend
 
 # generate random floating point values
 
-def Save_press(frame, AURL=-1, VURL=-1, ALRL=-1, VLRL = -1, \
+def Save_press(frame, MODE = -1, URL=-1, LRL=-1,\
                APW=-1, AA=-1, ARP=-1, VPW=-1, VA=-1, VRP=-1,\
-                AMSR=-1, VMSR=-1, AREACT=-1, VREACT=-1, ARF=-1, VRF=-1,\
-                    ARECOVER=-1, VRECOVER=-1, AAT=-1, VAT=-1):
+                MSR=-1, REACT=-1, RF=-1,\
+                    RECOVER=-1, AT=-1):
     print("Save Pressed")
     settings = {
-        "AURL": AURL,
-        "VURL": VURL,
-        "ALRL": ALRL,
-        "VLRL": VLRL,
+        "URL": URL,
+        "LRL": LRL,
         "APW": APW,
         "AA": AA,
         "ARP": ARP,
         "VPW": VPW,
         "VA": VA,
         "VRP": VRP,
-        "AMSR": AMSR,
-        "VMSR": VMSR,
-        "AREACT":AREACT,
-        "VREACT":VREACT,
-        "ARF": ARF,
-        "VRF": VRF,
-        "ARECOVER": ARECOVER,
-        "VRECOVER": VRECOVER,
-        "AAT": AAT,
-        "VAT": AAT
+        "MSR": MSR,
+        "REACT":REACT,
+        "RF": RF,
+        "RECOVER": RECOVER,
+        "AT": AT,
+        "MODE": MODE
     }
     temp = backend.verifyInput(settings)
     if temp[0]:
@@ -54,32 +48,27 @@ def update_values():
     #global amsr, vmsr, areact, vreact, arf, vrf, arecover, vrecover, aat, vat
     url_aoo.set(backend.USERSETTINGS[0])
     url_aai.set(backend.USERSETTINGS[0])
-    url_voo.set(backend.USERSETTINGS[1])
-    url_vvi.set(backend.USERSETTINGS[1])
+    url_voo.set(backend.USERSETTINGS[0])
+    url_vvi.set(backend.USERSETTINGS[0])
 
-    lrl_aoo.set(backend.USERSETTINGS[2])
-    lrl_aai.set(backend.USERSETTINGS[2])
-    lrl_voo.set(backend.USERSETTINGS[3])
-    lrl_vvi.set(backend.USERSETTINGS[3])
+    lrl_aoo.set(backend.USERSETTINGS[1])
+    lrl_aai.set(backend.USERSETTINGS[1])
+    lrl_voo.set(backend.USERSETTINGS[1])
+    lrl_vvi.set(backend.USERSETTINGS[1])
     
-    aa_aoo.set(backend.USERSETTINGS[4])
-    aa_aai.set(backend.USERSETTINGS[4])
+    aa_aoo.set(backend.USERSETTINGS[2])
+    aa_aai.set(backend.USERSETTINGS[2])
 
-    va_voo.set(backend.USERSETTINGS[5])
-    va_vvi.set(backend.USERSETTINGS[5])
+    va_voo.set(backend.USERSETTINGS[3])
+    va_vvi.set(backend.USERSETTINGS[3])
 
-    arp_aai.set(backend.USERSETTINGS[6])
-    vrp_vvi.set(backend.USERSETTINGS[7])
-    '''amsr.set(backend.USERSETTINGS[10])
-    vmsr.set(backend.USERSETTINGS[11])
-    areact.set(backend.USERSETTINGS[12])
-    vreact.set(backend.USERSETTINGS[13])
-    arf.set(backend.USERSETTINGS[14])
-    vrf.set(backend.USERSETTINGS[15])
-    arecover.set(backend.USERSETTINGS[16])
-    vrecover.set(backend.USERSETTINGS[17])
-    aat.set(backend.USERSETTINGS[18])
-    vat.set(backend.USERSETTINGS[19])'''
+    arp_aai.set(backend.USERSETTINGS[4])
+    vrp_vvi.set(backend.USERSETTINGS[5])
+    '''msr.set(backend.USERSETTINGS[8])
+    react.set(backend.USERSETTINGS[9])
+    rf.set(backend.USERSETTINGS[10])
+    recover.set(backend.USERSETTINGS[11])
+    at.set(backend.USERSETTINGS[12])'''
 
 ## A00 Pacing Mode
 def AOO_page(AOO, modes):
@@ -129,7 +118,7 @@ def AOO_page(AOO, modes):
     increment_button.grid(row=8, column=3)
 
     AOO_save = ttk.Button(AOO, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL=url_aoo.get(), ALRL=lrl_aoo.get(), APW=scale_incs[current_index_aoo],
+                          command=lambda: Save_press(MODE=1,URL=url_aoo.get(), LRL=lrl_aoo.get(), APW=scale_incs[current_index_aoo],
                                                      AA=aa_aoo.get(), frame=AOO))
     AOO_save.grid(row=10, column=2)
 
@@ -191,7 +180,7 @@ def VOO_page(VOO, modes):
     increment_button.grid(row=15, column=3)
 
     VOO_save = ttk.Button(VOO, text="SAVE", width=10,
-                          command=lambda: Save_press(VURL=url_voo.get(), VLRL=lrl_voo.get(), VPW=scale_incs[current_index_voo],
+                          command=lambda: Save_press(MODE=5,URL=url_voo.get(), LRL=lrl_voo.get(), VPW=scale_incs[current_index_voo],
                                                      VA=va_voo.get(), frame=VOO))
     VOO_save.grid(row=18, column=2)
     VOO_back = ttk.Button(VOO, text="BACK", width=10, command=lambda: Back_press(modes, VOO))
@@ -259,7 +248,7 @@ def AAI_page(AAI, modes):
     increment_button.grid(row=12, column=3)
 
     AAI_save = ttk.Button(AAI, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL=url_aai.get(), ALRL=lrl_aai.get(), APW=scale_incs[current_index_aai],
+                          command=lambda: Save_press(MODE=2,URL=url_aai.get(), LRL=lrl_aai.get(), APW=scale_incs[current_index_aai],
                                                      AA=aa_aai.get(), ARP=arp_aai.get(), frame=AAI))
     AAI_save.grid(row=14, column=2)
 
@@ -325,7 +314,7 @@ def VVI_page(VVI, modes):
     increment_button.grid(row=10, column=3)
 
     VVI_save = ttk.Button(VVI, text="SAVE", width=10,
-                          command=lambda: Save_press(VURL=url_vvi.get(), VLRL=lrl_vvi.get(), VPW=scale_incs[current_index_vvi],
+                          command=lambda: Save_press(MODE=6,URL=url_vvi.get(), LRL=lrl_vvi.get(), VPW=scale_incs[current_index_vvi],
                                                      VA=va_vvi.get(), VRP=vrp_vvi.get(), frame=VVI))
     VVI_save.grid(row=12, column=2)
 
