@@ -50,7 +50,7 @@ def welcome_page(welcome):
     label = ttk.Label(welcome, text="Welcome to Pacemaker Interface", font=('Arial', 14))
     label.grid(row=0, column=1)
 
-    l0 = Label(welcome, width=42, height=3) # This is blank space just to help center the layout 
+    l0 = Label(welcome, width=42, height=3) # This is blank space just to help center the layout
     l0.grid(column=0, row=0, rowspan=10)
 
     #username section
@@ -84,14 +84,14 @@ def Modes_page(Modes, Welcome):
     label = ttk.Label(Modes, text="Select the Pacing Mode", font=('Arial', 14))
     label.grid(row=0, column=1, columnspan=3, pady=5)
 
-    l0 = Label(Modes, width=45, height=3) # This is blank space just to help center the layout 
+    l0 = Label(Modes, width=32, height=3) # This is blank space just to help center the layout
     l0.grid(column=0, row=0, rowspan=10)
 
     plotcanvas = FigureCanvasTkAgg(atrium_graph, Modes)
-    plotcanvas.get_tk_widget().grid(column=1, row=6, columnspan=3, pady=5)
+    plotcanvas.get_tk_widget().grid(column=1, row=5, columnspan=3, pady=2)
     a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=1000, blit=False)
     plotcanvas = FigureCanvasTkAgg(ventricle_graph, Modes)
-    plotcanvas.get_tk_widget().grid(column=1,row = 7, columnspan=3, pady=5)
+    plotcanvas.get_tk_widget().grid(column=1, row=6, columnspan=3, pady=2)
     v_ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=1000, blit=False)
 
 
@@ -120,7 +120,7 @@ def Modes_page(Modes, Welcome):
     VVIR_btn.grid(row=4, column=3, columnspan=1,pady=5, padx=3)
 
     back = ttk.Button(Modes, text="BACK", width=10, command=lambda: switch_frame(Welcome, Modes))
-    back.grid(row=5, column=1, columnspan=3)
+    back.grid(row=8, column=1, columnspan=3)
     return a_ani, v_ani
 
 def display_msg(msg, frame, where):
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
     win.title("Pacemaker UI")
-    win.geometry("1080x650")
+    win.geometry("1080x900")
     modes = Frame(win)
     welcome = Frame(win)
     aoo = Frame(win)
@@ -161,7 +161,7 @@ if __name__ == "__main__":
     atrium_x = 0
     atrium_y = 0
     style.use('ggplot')
-    atrium_graph = plt.figure(figsize=(5, 3), dpi=100)
+    atrium_graph = plt.figure(figsize=(6, 4), dpi=80)
     atrium_plot = atrium_graph.add_subplot(1, 1, 1)
     atrium_plot.set_title('Atrium')
     atrium_plot.set_xlabel('time(s)')
@@ -180,12 +180,12 @@ if __name__ == "__main__":
     ventricle_x = 0
     ventricle_y = 0
     style.use('ggplot')
-    ventricle_graph = plt.figure(figsize=(5, 3), dpi=100)
+    ventricle_graph = plt.figure(figsize=(6, 4), dpi=80)
     ventricle_plot = ventricle_graph.add_subplot(1, 1, 1)
     ventricle_plot.set_title('Ventricle')
     ventricle_plot.set_xlabel('time(s)')
     ventricle_plot.set_ylabel('voltage(V)')    
-    ventricle_plot.set_ylim(0, 2)
+    ventricle_plot.set_ylim(0, 65)
     ventricle_data = deque([(ventricle_x, ventricle_y)], maxlen=10)
     ventricle_line, = ventricle_plot.plot(*zip(*ventricle_data), 'r', marker='o')
     def ventricle_animate(i):
