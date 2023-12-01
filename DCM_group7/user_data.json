@@ -17,8 +17,8 @@
         "MSR": 145,
         "REACT": 40,
         "RF": 13,
-        "RECOVER": 12,
+        "RECOVER": 9,
         "AT": "V-High",
-        "MODE": 3
+        "MODE": 5
     }
 ]

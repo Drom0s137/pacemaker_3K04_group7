@@ -94,10 +94,10 @@ def Modes_page(Modes, Welcome):
 
     plotcanvas = FigureCanvasTkAgg(atrium_graph, Modes)
     plotcanvas.get_tk_widget().grid(column=1, row=5, columnspan=3, pady=2)
-    a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=1000, blit=False)
+    a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=15, blit=False)
     plotcanvas = FigureCanvasTkAgg(ventricle_graph, Modes)
     plotcanvas.get_tk_widget().grid(column=1, row=6, columnspan=3, pady=2)
-    v_ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=1000, blit=False)
+    v_ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=15, blit=False)
 
 
     AOO_btn = ttk.Button(Modes, text="AOO", command = lambda: switch_frame(aoo, Modes))
@@ -180,6 +180,7 @@ if __name__ == "__main__":
         ser.write(Start)
         if f==1:
             atr_sig = struct.unpack("d", ser_data[0:8])[0]
+            print("atrium: ", atr_sig)
             atrium_x=(i+1)
             atrium_data.append((atrium_x, atr_sig))
             atrium_line.set_data(*zip(*atrium_data))
@@ -202,10 +203,10 @@ if __name__ == "__main__":
     def ventricle_animate(i):
         global u, ser_data
         if u==2:
-            print(f)
-            print(ser_data)
+            # print(f)
+            # print(ser_data)
             ven_sig = struct.unpack("d", ser_data[8:16])[0]
-            print(ven_sig)
+            print("ventrical: ", ven_sig)
             ventricle_x=(i+1)
             ventricle_data.append((ventricle_x, ven_sig))
             ventricle_line.set_data(*zip(*ventricle_data))
