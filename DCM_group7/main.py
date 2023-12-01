@@ -14,6 +14,7 @@ from threading import Thread, Event
 import serial
 import struct
 import time
+import sys
 
 event = Event()
 comport = "COM3"
@@ -21,6 +22,10 @@ Start = b'\x16'
 ser_data = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 u=0
 f=0
+
+
+def exit_system():
+    sys.exit()
 
 def update_ekg_data(atrium_data, ventricle_data):
     i=0
@@ -103,7 +108,7 @@ def welcome_page(welcome):
     register = ttk.Button(welcome, command = lambda: register_user(ui_username, ui_pswrd), text="Register")
     register.grid(row=4,column=1, pady=5)
 
-    quit = ttk.Button(welcome, command = backend.exit_system, text="Quit")
+    quit = ttk.Button(welcome, command = exit_system, text="Quit")
     quit.grid(row=5,column=1, pady=5)
 
 
