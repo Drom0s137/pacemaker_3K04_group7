@@ -16,7 +16,7 @@ import struct
 import time
 
 event = Event()
-comport = "COM12"
+comport = "COM3"
 Start = b'\x16'
 ser_data = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 u=0
@@ -161,6 +161,7 @@ def display_ext_msg(msg, frame, where):
 
 if __name__ == "__main__":
     # configure the serial connections (the parameters differs on the device you are connecting to)
+    global ser
     ser = serial.Serial(
         port = comport,
         baudrate=115200,
