@@ -13,6 +13,7 @@ from collections import deque
 from threading import Thread, Event
 import serial
 import struct
+import time
 
 event = Event()
 comport = "COM12"
@@ -25,6 +26,7 @@ def update_ekg_data(atrium_data, ventricle_data):
     i=0
     f=0
     while True:
+        time.sleep(0.001)
         ser_data = ser.read(16)
         ser.write(Start)
         if event.is_set():
@@ -115,10 +117,10 @@ def Modes_page(Modes, Welcome):
 
     plotcanvas = FigureCanvasTkAgg(atrium_graph, Modes)
     plotcanvas.get_tk_widget().grid(column=1, row=5, columnspan=3, pady=2)
-    a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=15, blit=False)
+    a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=150, blit=False)
     plotcanvas = FigureCanvasTkAgg(ventricle_graph, Modes)
     plotcanvas.get_tk_widget().grid(column=1, row=6, columnspan=3, pady=2)
-    v_ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=15, blit=False)
+    v_ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=150, blit=False)
 
 
     AOO_btn = ttk.Button(Modes, text="AOO", command = lambda: switch_frame(aoo, Modes))
@@ -208,7 +210,7 @@ if __name__ == "__main__":
     ventricle_line, = ventricle_plot.plot(*zip(*ventricle_data), 'r', marker='o')
     t = Thread(target=update_ekg_data, args=(atrium_data, ventricle_data, ))
     t.start()
-    def atrium_animate():
+    def atrium_animate(i):
         global f
         if f==1:
             atrium_line.set_data(*zip(*atrium_data))
@@ -217,7 +219,7 @@ if __name__ == "__main__":
         else:
             f = 1
    
-    def ventricle_animate():
+    def ventricle_animate(i):
         global u, ser_data
         if u==2:
             ventricle_line.set_data(*zip(*ventricle_data))
