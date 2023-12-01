@@ -11,7 +11,7 @@ USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 Start = b'\x16'
 SYNC = b'\x22'
 Fn_set = b'\x55'
-comport = "COM3"
+comport = "COM12"
 
 def exit_system():
     sys.exit()

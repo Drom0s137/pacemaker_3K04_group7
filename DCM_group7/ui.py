@@ -16,7 +16,7 @@ import struct
 import time
 
 event = Event()
-comport = "COM3"
+comport = "COM12"
 Start = b'\x16'
 ser_data = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 u=0
