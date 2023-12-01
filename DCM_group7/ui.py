@@ -16,8 +16,7 @@ import struct
 import time
 import sys
 
-event = Event()
-comport = "COM12"
+comport = "COM8"
 Start = b'\x16'
 ser_data = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 u=0
@@ -26,26 +25,6 @@ f=0
 
 def exit_system():
     sys.exit()
-
-def update_ekg_data(atrium_data, ventricle_data):
-    i=0
-    f=0
-    while True:
-        time.sleep(0.001)
-        ser_data = ser.read(16)
-        ser.write(Start)
-        if event.is_set():
-            break
-        if f==1:
-            atr_sig = struct.unpack("d", ser_data[0:8])[0]
-            atrium_x=(i+1)
-            atrium_data.append((atrium_x, atr_sig))
-            ven_sig = struct.unpack("d", ser_data[8:16])[0]
-            ventricle_x=(i+1)
-            ventricle_data.append((ventricle_x, ven_sig))
-        else: 
-            f = 1
-        i+=1
 
 
 def temp_text(e, i):
@@ -166,15 +145,7 @@ def display_ext_msg(msg, frame, where):
 
 if __name__ == "__main__":
     # configure the serial connections (the parameters differs on the device you are connecting to)
-    global ser
-    ser = serial.Serial(
-        port = comport,
-        baudrate=115200,
-        #parity=serial.PARITY_ODD,
-        stopbits=serial.STOPBITS_ONE,
-        bytesize= 8,
-        timeout = 1
-    )
+    
     #win = Tk()
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
@@ -214,7 +185,7 @@ if __name__ == "__main__":
     ventricle_plot.set_ylim(0, 1)
     ventricle_data = deque([(ventricle_x, ventricle_y)], maxlen=10)
     ventricle_line, = ventricle_plot.plot(*zip(*ventricle_data), 'r', marker='o')
-    t = Thread(target=update_ekg_data, args=(atrium_data, ventricle_data, ))
+    t = Thread(target=backend.update_ekg_data, args=(atrium_data, ventricle_data, ))
     t.start()
     def atrium_animate(i):
         global f

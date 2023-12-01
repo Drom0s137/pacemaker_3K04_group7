@@ -4,15 +4,49 @@ import numpy as np
 import matplotlib
 import serial 
 import struct
-import main
+import ui
+import time
+from threading import Thread, Event
+
 
 USERNAME = ""
 USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 Start = b'\x16'
 SYNC = b'\x22'
 Fn_set = b'\x55'
-comport = "COM12"
+comport = "COM8"
 
+event = Event()
+
+def update_ekg_data(atrium_data, ventricle_data):
+    global ser, f, i
+    i=0
+    f=0
+    ser = serial.Serial(
+        port = comport,
+        baudrate=115200,
+        #parity=serial.PARITY_ODD,
+        stopbits=serial.STOPBITS_ONE,
+        bytesize= 8,
+        timeout = 1
+    )
+    while True:
+        time.sleep(0.001)
+        ser_data = ser.read(16)
+        ser.write(Start) # Should add SYNCH for the full simulink model
+        if event.is_set():
+            break
+        if f==1:
+            atr_sig = struct.unpack("d", ser_data[0:8])[0]
+            atrium_x=(i+1)
+            atrium_data.append((atrium_x, atr_sig))
+            ven_sig = struct.unpack("d", ser_data[8:16])[0]
+            ventricle_x=(i+1)
+            ventricle_data.append((ventricle_x, ven_sig))
+
+        else: 
+            f = 1
+        i+=1
 
 def log_in(username, password):
     global USERNAME
@@ -167,6 +201,7 @@ def saveData(username, settings):
             
             print('User Data Saved')
             sendToSimulink(data)    
+            
             return 1, "Success"
         
     
@@ -187,23 +222,17 @@ def sendToSimulink(data):
             mode = struct.pack("H", data[index]["MODE"])  # int 1-AOO 2-AAI 3-AOOR 4-AAIR 5-VOO 6-VVI 7-VOOR 8-VVIR
             lrl = struct.pack("H", data[index]["LRL"])  #11 int
             url = struct.pack("H", data[index]["URL"])  #11 int
-            #PVARP = struct.pack("H", 1) #int
-            #av_delay = struct.pack("H", 1) #int 
             reaction_time = struct.pack("H", data[index]["REACT"]) # int11
             response_factor = struct.pack("H",data[index]["RF"]) # int 11
             activity_threshold = struct.pack("d", 1) # double 11
-            # response factor, adctivity threshold
             recovery_time = struct.pack("H", data[index]["RECOVER"]) # int 11
             MSR = struct.pack("H", data[index]["MSR"])  #int 11
             atr_amp = struct.pack("d", data[index]["AA"]) # double
             atr_pulse_width = struct.pack("d", data[index]["APW"]) # int
             ARP = struct.pack("H", data[index]["ARP"]) #int
-            #atr_threshold = struct.pack("d", 1) #double
             vent_amp = struct.pack("d", data[index]["VA"]) #double
             vent_pulse_width = struct.pack("d",data[index]["VPW"]) #int
             VRP = struct.pack("H", data[index]["VRP"]) #int
-            #vent_threshold = struct.pack("d", 1) #double
-    # broken up like this for the sake of readability and testing
 
     Signal_set_order = Start + Fn_set + mode +atr_amp+ atr_pulse_width + ARP  \
                         + vent_amp + vent_pulse_width +  VRP + lrl + url + MSR \
@@ -212,9 +241,11 @@ def sendToSimulink(data):
     ''' Signal_echo_order = Start + SYNC +  modei +atr_ampi+ atr_pulse_widthi + atr_thresholdi + ARPi + PVARPi \
                         + vent_ampi + vent_pulse_widthi + vent_thresholdi + VRPi + lrli + urli + MSRi \
                             + reaction_timei +  recovery_timei + av_delayi + response_factori + activity_thresholdi''' 
-
-    main.ser.write(Signal_set_order)
-    
+    global ser
+    ser.write(Signal_set_order)
+    global f, i
+    f =0
+    i =0
     '''with serial.Serial(comport, 115200) as pacemaker:
         pacemaker.write(Signal_echo_order)
         data = pacemaker.read(88)
