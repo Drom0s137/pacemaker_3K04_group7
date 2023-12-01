@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib
 import serial 
 import struct
-import ui
+import main
 
 USERNAME = ""
 USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
@@ -13,8 +13,6 @@ SYNC = b'\x22'
 Fn_set = b'\x55'
 comport = "COM12"
 
-def exit_system():
-    sys.exit()
 
 def log_in(username, password):
     global USERNAME
@@ -215,7 +213,7 @@ def sendToSimulink(data):
                         + vent_ampi + vent_pulse_widthi + vent_thresholdi + VRPi + lrli + urli + MSRi \
                             + reaction_timei +  recovery_timei + av_delayi + response_factori + activity_thresholdi''' 
 
-    ui.ser.write(Signal_set_order)
+    main.ser.write(Signal_set_order)
     
     '''with serial.Serial(comport, 115200) as pacemaker:
         pacemaker.write(Signal_echo_order)
