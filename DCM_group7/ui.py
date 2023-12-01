@@ -183,7 +183,7 @@ if __name__ == "__main__":
     ventricle_plot.set_title('Ventricle')
     ventricle_plot.set_xlabel('time(s)')
     ventricle_plot.set_ylabel('voltage(V)')    
-    ventricle_plot.set_ylim(0, 2)
+    ventricle_plot.set_ylim(0, 65)
     ventricle_data = deque([(ventricle_x, ventricle_y)], maxlen=10)
     ventricle_line, = ventricle_plot.plot(*zip(*ventricle_data), 'r', marker='o')
     def ventricle_animate(i):
