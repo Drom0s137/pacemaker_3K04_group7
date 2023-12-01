@@ -5,7 +5,7 @@ import serial
 
 # configure the serial connections (the parameters differs on the device you are connecting to)
 ser = serial.Serial(
-    port = "COM8",
+    port = "COM12",
     baudrate=115200,
     #parity=serial.PARITY_ODD,
     stopbits=serial.STOPBITS_ONE,
@@ -17,17 +17,17 @@ ser = serial.Serial(
 ser.isOpen()
 
 # Option A Below code works
-"""
+
 Start = b'\x16'
 set = b'\x55'
 on = b'\x01'
 off = b'\x00'
 off_time = b'\x00\x00\x00\x01'   # big endian
 switch_time = b'\x50\x11'        # big endian
-send1 = Start + set + on + on + on + off_time + switch_time
+send1 = Start + set + off + off + on + off_time + switch_time
 send2 = Start + set + off + off + off + off_time + switch_time
 ser.write(send1)
-"""
+
 
 # Option B Below code also works
 """

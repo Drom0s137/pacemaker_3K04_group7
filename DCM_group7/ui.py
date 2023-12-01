@@ -14,9 +14,11 @@ import random
 import serial
 import struct
 
-comport = "COM8"
+comport = "COM12"
 Start = b'\x16'
-ser_data = ""
+ser_data = b'\x00\x00\x00\x00\x00\x00\x00\x00'
+u=0
+f=0
 
 def temp_text(e, i):
     i.delete(0, "end")
@@ -169,18 +171,22 @@ if __name__ == "__main__":
     atrium_plot.set_title('Atrium')
     atrium_plot.set_xlabel('time(s)')
     atrium_plot.set_ylabel('voltage(V)')    
-    atrium_plot.set_ylim(0, 65)
+    atrium_plot.set_ylim(0, 1)
     atrium_data = deque([(atrium_x, atrium_y)], maxlen=10)
     atrium_line, = atrium_plot.plot(*zip(*atrium_data), 'r', marker='o')
     def atrium_animate(i):
+        global f, ser_data
         ser_data = ser.read(16)
         ser.write(Start)
-        atr_sig = struct.unpack("d", ser_data[0:8][0])
-        atrium_x=(i+1)
-        atrium_data.append((atrium_x, atr_sig))
-        atrium_line.set_data(*zip(*atrium_data))
-        atrium_plot.relim()
-        atrium_plot.autoscale_view()
+        if f==1:
+            atr_sig = struct.unpack("d", ser_data[0:8])[0]
+            atrium_x=(i+1)
+            atrium_data.append((atrium_x, atr_sig))
+            atrium_line.set_data(*zip(*atrium_data))
+            atrium_plot.relim()
+            atrium_plot.autoscale_view()
+        else:
+            f = 1
     #ventricle graphing ekg
     ventricle_x = 0
     ventricle_y = 0
@@ -190,16 +196,23 @@ if __name__ == "__main__":
     ventricle_plot.set_title('Ventricle')
     ventricle_plot.set_xlabel('time(s)')
     ventricle_plot.set_ylabel('voltage(V)')    
-    ventricle_plot.set_ylim(0, 65)
+    ventricle_plot.set_ylim(0, 1)
     ventricle_data = deque([(ventricle_x, ventricle_y)], maxlen=10)
     ventricle_line, = ventricle_plot.plot(*zip(*ventricle_data), 'r', marker='o')
     def ventricle_animate(i):
-        ven_sig = struct.unpack("d", ser_data[8:16][0])
-        ventricle_x=(i+1)
-        ventricle_data.append((ventricle_x, ven_sig))
-        ventricle_line.set_data(*zip(*ventricle_data))
-        ventricle_plot.relim()
-        ventricle_plot.autoscale_view()
+        global u, ser_data
+        if u==2:
+            print(f)
+            print(ser_data)
+            ven_sig = struct.unpack("d", ser_data[8:16])[0]
+            print(ven_sig)
+            ventricle_x=(i+1)
+            ventricle_data.append((ventricle_x, ven_sig))
+            ventricle_line.set_data(*zip(*ventricle_data))
+            ventricle_plot.relim()
+            ventricle_plot.autoscale_view()
+        else:
+            u += 1
     welcome_page(welcome)
     a_ani, v_ani = Modes_page(modes, welcome)
     mode.AOO_page(aoo, modes)

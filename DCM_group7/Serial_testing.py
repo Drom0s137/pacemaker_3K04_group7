@@ -5,7 +5,7 @@ import serial
 
 # configure the serial connections (the parameters differs on the device you are connecting to)
 ser = serial.Serial(
-    port = "COM8",
+    port = "COM12",
     baudrate=115200,
     #parity=serial.PARITY_ODD,
     stopbits=serial.STOPBITS_ONE,

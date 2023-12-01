@@ -12,13 +12,13 @@
         "VA": 0.5,
         "ARP": 190,
         "VRP": 180,
-        "APW": 0.5,
+        "APW": 0.4,
         "VPW": 0.4,
         "MSR": 145,
         "REACT": 40,
         "RF": 13,
         "RECOVER": 12,
         "AT": "V-High",
-        "MODE": 4
+        "MODE": 3
     }
 ]
