@@ -115,10 +115,10 @@ def Modes_page(Modes, Welcome):
 
     plotcanvas = FigureCanvasTkAgg(atrium_graph, Modes)
     plotcanvas.get_tk_widget().grid(column=1, row=5, columnspan=3, pady=2)
-    a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=1000, blit=False)
+    a_ani = animation.FuncAnimation(atrium_graph, atrium_animate, interval=15, blit=False)
     plotcanvas = FigureCanvasTkAgg(ventricle_graph, Modes)
     plotcanvas.get_tk_widget().grid(column=1, row=6, columnspan=3, pady=2)
-    v_ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=1000, blit=False)
+    v_ani = animation.FuncAnimation(ventricle_graph, ventricle_animate, interval=15, blit=False)
 
 
     AOO_btn = ttk.Button(Modes, text="AOO", command = lambda: switch_frame(aoo, Modes))
