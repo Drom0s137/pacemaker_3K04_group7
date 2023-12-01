@@ -23,6 +23,7 @@ f=0
 
 def update_ekg_data(atrium_data, ventricle_data):
     i=0
+    f=0
     while True:
         ser_data = ser.read(16)
         ser.write(Start)
@@ -35,6 +36,8 @@ def update_ekg_data(atrium_data, ventricle_data):
             ven_sig = struct.unpack("d", ser_data[8:16])[0]
             ventricle_x=(i+1)
             ventricle_data.append((ventricle_x, ven_sig))
+        else: 
+            f = 1
         i+=1
 
 
@@ -164,10 +167,6 @@ if __name__ == "__main__":
         bytesize= 8,
         timeout = 1
     )
-    atrium_data = ""
-    ventricle_data = ""
-    t = Thread(target=update_ekg_data, args=(atrium_data, ventricle_data, ))
-    t.start()
     #win = Tk()
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
@@ -195,14 +194,6 @@ if __name__ == "__main__":
     atrium_plot.set_ylim(0, 1)
     atrium_data = deque([(atrium_x, atrium_y)], maxlen=10)
     atrium_line, = atrium_plot.plot(*zip(*atrium_data), 'r', marker='o')
-    def atrium_animate(i):
-        global f
-        if f==1:
-            atrium_line.set_data(*zip(*atrium_data))
-            atrium_plot.relim()
-            atrium_plot.autoscale_view()
-        else:
-            f = 1
     #ventricle graphing ekg
     ventricle_x = 0
     ventricle_y = 0
@@ -215,7 +206,18 @@ if __name__ == "__main__":
     ventricle_plot.set_ylim(0, 1)
     ventricle_data = deque([(ventricle_x, ventricle_y)], maxlen=10)
     ventricle_line, = ventricle_plot.plot(*zip(*ventricle_data), 'r', marker='o')
-    def ventricle_animate(i):
+    t = Thread(target=update_ekg_data, args=(atrium_data, ventricle_data, ))
+    t.start()
+    def atrium_animate():
+        global f
+        if f==1:
+            atrium_line.set_data(*zip(*atrium_data))
+            atrium_plot.relim()
+            atrium_plot.autoscale_view()
+        else:
+            f = 1
+   
+    def ventricle_animate():
         global u, ser_data
         if u==2:
             ventricle_line.set_data(*zip(*ventricle_data))
