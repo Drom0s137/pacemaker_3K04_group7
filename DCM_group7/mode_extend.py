@@ -5,32 +5,26 @@ import ui
 import backend
 import mode
 
-def Save_press(frame, AURL=-1, VURL=-1, ALRL=-1, VLRL = -1, \
+def Save_press(frame, MODE = -1, URL=-1, LRL=-1,\
                APW=-1, AA=-1, ARP=-1, VPW=-1, VA=-1, VRP=-1,\
-                AMSR=-1, VMSR=-1, AREACT=-1, VREACT=-1, ARF=-1, VRF=-1,\
-                    ARECOVER=-1, VRECOVER=-1, AAT=-1, VAT=-1):
+                MSR=-1, REACT=-1, RF=-1,\
+                    RECOVER=-1, AT=-1 ):
     print("Save Pressed")
     settings = {
-        "AURL": AURL,
-        "VURL": VURL,
-        "ALRL": ALRL,
-        "VLRL": VLRL,
+        "URL": URL,
+        "LRL": LRL,
         "APW": APW,
         "AA": AA,
         "ARP": ARP,
         "VPW": VPW,
         "VA": VA,
         "VRP": VRP,
-        "AMSR": AMSR,
-        "VMSR": VMSR,
-        "AREACT":AREACT,
-        "VREACT":VREACT,
-        "ARF": ARF,
-        "VRF": VRF,
-        "ARECOVER": ARECOVER,
-        "VRECOVER": VRECOVER,
-        "AAT": AAT,
-        "VAT": VAT
+        "MSR": MSR,
+        "REACT":REACT,
+        "RF": RF,
+        "RECOVER": RECOVER,
+        "AT": AT,
+        "MODE": MODE
     }
     temp = backend.verifyInput(settings)
     if temp[0]:
@@ -48,42 +42,42 @@ def update_values():
         recovert_aoor, recovert_aair, recovert_voor, recovert_vvir, arp_aair, vrp_vvir
     url_aoor.set(backend.USERSETTINGS[0])
     url_aair.set(backend.USERSETTINGS[0])
-    url_voor.set(backend.USERSETTINGS[1])
-    url_vvir.set(backend.USERSETTINGS[1])
+    url_voor.set(backend.USERSETTINGS[0])
+    url_vvir.set(backend.USERSETTINGS[0])
 
-    lrl_aoor.set(backend.USERSETTINGS[2])
-    lrl_aair.set(backend.USERSETTINGS[2])
-    lrl_voor.set(backend.USERSETTINGS[3])
-    lrl_vvir.set(backend.USERSETTINGS[3])
+    lrl_aoor.set(backend.USERSETTINGS[1])
+    lrl_aair.set(backend.USERSETTINGS[1])
+    lrl_voor.set(backend.USERSETTINGS[1])
+    lrl_vvir.set(backend.USERSETTINGS[1])
     
-    aa_aoor.set(backend.USERSETTINGS[4])
-    aa_aair.set(backend.USERSETTINGS[4])
+    aa_aoor.set(backend.USERSETTINGS[2])
+    aa_aair.set(backend.USERSETTINGS[2])
 
-    va_voor.set(backend.USERSETTINGS[5])
-    va_vvir.set(backend.USERSETTINGS[5])
+    va_voor.set(backend.USERSETTINGS[3])
+    va_vvir.set(backend.USERSETTINGS[3])
 
-    arp_aair.set(backend.USERSETTINGS[6])
-    vrp_vvir.set(backend.USERSETTINGS[7])
+    arp_aair.set(backend.USERSETTINGS[4])
+    vrp_vvir.set(backend.USERSETTINGS[5])
     
-    msr_aoor.set(backend.USERSETTINGS[10])
-    msr_aair.set(backend.USERSETTINGS[10])
-    msr_voor.set(backend.USERSETTINGS[11])
-    msr_vvir.set(backend.USERSETTINGS[11])
+    msr_aoor.set(backend.USERSETTINGS[8])
+    msr_aair.set(backend.USERSETTINGS[8])
+    msr_voor.set(backend.USERSETTINGS[8])
+    msr_vvir.set(backend.USERSETTINGS[8])
 
-    reactt_aoor.set(backend.USERSETTINGS[12])
-    reactt_aair.set(backend.USERSETTINGS[12])
-    reactt_voor.set(backend.USERSETTINGS[13])
-    reactt_vvir.set(backend.USERSETTINGS[13])
+    reactt_aoor.set(backend.USERSETTINGS[9])
+    reactt_aair.set(backend.USERSETTINGS[9])
+    reactt_voor.set(backend.USERSETTINGS[9])
+    reactt_vvir.set(backend.USERSETTINGS[9])
 
-    respfac_aoor.set(backend.USERSETTINGS[14])
-    respfac_aair.set(backend.USERSETTINGS[14])
-    respfac_voor.set(backend.USERSETTINGS[15])
-    respfac_vvir.set(backend.USERSETTINGS[15])
+    respfac_aoor.set(backend.USERSETTINGS[10])
+    respfac_aair.set(backend.USERSETTINGS[10])
+    respfac_voor.set(backend.USERSETTINGS[10])
+    respfac_vvir.set(backend.USERSETTINGS[10])
 
-    recovert_aoor.set(backend.USERSETTINGS[16])
-    recovert_aair.set(backend.USERSETTINGS[16])
-    recovert_voor.set(backend.USERSETTINGS[17])
-    recovert_vvir.set(backend.USERSETTINGS[17])
+    recovert_aoor.set(backend.USERSETTINGS[11])
+    recovert_aair.set(backend.USERSETTINGS[11])
+    recovert_voor.set(backend.USERSETTINGS[11])
+    recovert_vvir.set(backend.USERSETTINGS[11])
 
 
 def AOOR_page(AOOR, modes):
@@ -93,8 +87,8 @@ def AOOR_page(AOOR, modes):
     l0 = Label(AOOR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
 
-    plot = Label(AOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=2, row=15, columnspan=4, pady=5)
+    # plot = Label(AOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder
+    # plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     global url_aoor
     url_aoor = StringVar()
@@ -183,9 +177,9 @@ def AOOR_page(AOOR, modes):
     increment_activity.grid(row=10, column=6)
 
     AOOR_save = ttk.Button(AOOR, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL = url_aoor.get(), ALRL = lrl_aoor.get(), APW=mode.scale_incs[current_index_aoor],
-                                                     AA=aa_aoor.get(), AMSR=msr_aoor.get(), AREACT=reactt_aoor.get(), ARF=respfac_aoor.get(), 
-                                                     ARECOVER=recovert_aoor.get(),  frame=AOOR))
+                          command=lambda: Save_press(MODE=3,URL = url_aoor.get(), LRL = lrl_aoor.get(), APW=mode.scale_incs[current_index_aoor],
+                                                     AA=aa_aoor.get(), MSR=msr_aoor.get(), REACT=reactt_aoor.get(), RF=respfac_aoor.get(), 
+                                                     RECOVER=recovert_aoor.get(),  frame=AOOR))
     AOOR_save.grid(row=17, column=2, columnspan= 4)
 
     AOOR_back = ttk.Button(AOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AOOR))
@@ -201,8 +195,8 @@ def VOOR_page(VOOR, modes):
     l0 = Label(VOOR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
     
-    plot = Label(VOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=2, row=15, columnspan=4, pady=5)
+    # plot = Label(VOOR, width=50, height=10, bg = "dark green") # This is the temporary graph holder
+    # plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     global url_voor
     url_voor = StringVar()
@@ -291,9 +285,9 @@ def VOOR_page(VOOR, modes):
     increment_activity.grid(row=10, column=6)
 
     VOOR_save = ttk.Button(VOOR, text="SAVE", width=10,
-                          command=lambda: Save_press(VURL = url_voor.get(), VLRL = lrl_voor.get(), VPW=mode.scale_incs[current_index_voor],
-                                                     VA=va_voor.get(), VMSR=msr_voor.get(), VREACT=reactt_voor.get(), VRF=respfac_voor.get(), 
-                                                     VRECOVER=recovert_voor.get(),  frame=VOOR))
+                          command=lambda: Save_press(MODE=7,URL = url_voor.get(), LRL = lrl_voor.get(), VPW=mode.scale_incs[current_index_voor],
+                                                     VA=va_voor.get(), MSR=msr_voor.get(), REACT=reactt_voor.get(), RF=respfac_voor.get(), 
+                                                     RECOVER=recovert_voor.get(),  frame=VOOR))
     VOOR_save.grid(row=17, column=2, columnspan= 4)
 
     VOOR_back = ttk.Button(VOOR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VOOR))
@@ -309,8 +303,8 @@ def AAIR_page(AAIR, modes):
     l0 = Label(AAIR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
     
-    plot = Label(AAIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=2, row=15, columnspan=4, pady=5)
+    # plot = Label(AAIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder
+    # plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     global url_aair
     url_aair = StringVar()
@@ -407,9 +401,9 @@ def AAIR_page(AAIR, modes):
     increment_activity.grid(row=10, column=6)
 
     AAIR_save = ttk.Button(AAIR, text="SAVE", width=10,
-                          command=lambda: Save_press(AURL = url_aair.get(), ALRL = lrl_aair.get(), APW=mode.scale_incs[current_index_aair],
-                                                     AA=aa_aair.get(), AMSR=msr_aair.get(), AREACT=reactt_aair.get(), 
-                                                     ARF=respfac_aair.get(), ARECOVER=recovert_aair.get(), ARP=arp_aair.get(), frame=AAIR))
+                          command=lambda: Save_press(MODE=4,URL = url_aair.get(), LRL = lrl_aair.get(), APW=mode.scale_incs[current_index_aair],
+                                                     AA=aa_aair.get(), MSR=msr_aair.get(), REACT=reactt_aair.get(), 
+                                                     RF=respfac_aair.get(), RECOVER=recovert_aair.get(), ARP=arp_aair.get(), frame=AAIR))
     AAIR_save.grid(row=17, column=2, columnspan= 4)
 
     AAIR_back = ttk.Button(AAIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, AAIR))
@@ -426,8 +420,8 @@ def VVIR_page(VVIR, modes):
     l0 = Label(VVIR, width=10, height=3) # This is blank space just to help center the layout 
     l0.grid(column=0, row=0, rowspan=10)
     
-    plot = Label(VVIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder 
-    plot.grid(column=2, row=15, columnspan=4, pady=5)
+    # plot = Label(VVIR, width=50, height=10, bg = "dark green") # This is the temporary graph holder
+    # plot.grid(column=2, row=15, columnspan=4, pady=5)
 
     global url_vvir
     url_vvir = StringVar()
@@ -524,9 +518,9 @@ def VVIR_page(VVIR, modes):
     increment_activity.grid(row=10, column=6)
 
     VVIR_save = ttk.Button(VVIR, text="SAVE", width=10,
-                          command=lambda: Save_press(VURL = url_vvir.get(), VLRL = lrl_vvir.get(), VPW=mode.scale_incs[current_index_vvir],
-                                                     VA=va_vvir.get(), VMSR=msr_vvir.get(), VREACT=reactt_vvir.get(), 
-                                                     VRF=respfac_vvir.get(), VRECOVER=recovert_vvir.get(), VRP=vrp_vvir.get(), frame=VVIR))
+                          command=lambda: Save_press(MODE=8,URL = url_vvir.get(), LRL = lrl_vvir.get(), VPW=mode.scale_incs[current_index_vvir],
+                                                     VA=va_vvir.get(), MSR=msr_vvir.get(), REACT=reactt_vvir.get(), 
+                                                     RF=respfac_vvir.get(), RECOVER=recovert_vvir.get(), VRP=vrp_vvir.get(), frame=VVIR))
     VVIR_save.grid(row=17, column=2, columnspan= 4)
 
     VVIR_back = ttk.Button(VVIR, text="BACK", width=10, command=lambda: mode.Back_press(modes, VVIR))
