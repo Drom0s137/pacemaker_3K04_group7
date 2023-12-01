@@ -10,15 +10,33 @@ import matplotlib.animation as animation
 from matplotlib import style
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from collections import deque
-import random 
+from threading import Thread, Event
 import serial
 import struct
 
+event = Event()
 comport = "COM12"
 Start = b'\x16'
 ser_data = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 u=0
 f=0
+
+def update_ekg_data(atrium_data, ventricle_data):
+    i=0
+    while True:
+        ser_data = ser.read(16)
+        ser.write(Start)
+        if event.is_set():
+            break
+        if f==1:
+            atr_sig = struct.unpack("d", ser_data[0:8])[0]
+            atrium_x=(i+1)
+            atrium_data.append((atrium_x, atr_sig))
+            ven_sig = struct.unpack("d", ser_data[8:16])[0]
+            ventricle_x=(i+1)
+            ventricle_data.append((ventricle_x, ven_sig))
+        i+=1
+
 
 def temp_text(e, i):
     i.delete(0, "end")
@@ -146,7 +164,10 @@ if __name__ == "__main__":
         bytesize= 8,
         timeout = 1
     )
-
+    atrium_data = ""
+    ventricle_data = ""
+    t = Thread(target=update_ekg_data, args=(atrium_data, ventricle_data, ))
+    t.start()
     #win = Tk()
     win = ThemedTk(theme="radiance") # Use this instead of Tk() to have themes
     win.iconbitmap("McMaster.ico")
@@ -175,13 +196,8 @@ if __name__ == "__main__":
     atrium_data = deque([(atrium_x, atrium_y)], maxlen=10)
     atrium_line, = atrium_plot.plot(*zip(*atrium_data), 'r', marker='o')
     def atrium_animate(i):
-        global f, ser_data
-        ser_data = ser.read(16)
-        ser.write(Start)
+        global f
         if f==1:
-            atr_sig = struct.unpack("d", ser_data[0:8])[0]
-            atrium_x=(i+1)
-            atrium_data.append((atrium_x, atr_sig))
             atrium_line.set_data(*zip(*atrium_data))
             atrium_plot.relim()
             atrium_plot.autoscale_view()
@@ -202,12 +218,6 @@ if __name__ == "__main__":
     def ventricle_animate(i):
         global u, ser_data
         if u==2:
-            print(f)
-            print(ser_data)
-            ven_sig = struct.unpack("d", ser_data[8:16])[0]
-            print(ven_sig)
-            ventricle_x=(i+1)
-            ventricle_data.append((ventricle_x, ven_sig))
             ventricle_line.set_data(*zip(*ventricle_data))
             ventricle_plot.relim()
             ventricle_plot.autoscale_view()
