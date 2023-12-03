@@ -14,7 +14,7 @@ USERSETTINGS = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 Start = b'\x16'
 SYNC = b'\x22'
 Fn_set = b'\x55'
-comport = "COM8"
+comport = "COM12"
 
 event = Event()
 
@@ -32,20 +32,21 @@ def update_ekg_data(atrium_data, ventricle_data):
     )
     while True:
         time.sleep(0.001)
-        ser_data = ser.read(16)
-        ser.write(Start) # Should add SYNCH for the full simulink model
-        if event.is_set():
-            break
-        if f==1:
+        try:
+            ser_data = ser.read(16)
+            ser.write(Start) # Should add SYNCH for the full simulink model
+            if event.is_set():
+                break
+       
             atr_sig = struct.unpack("d", ser_data[0:8])[0]
             atrium_x=(i+1)
             atrium_data.append((atrium_x, atr_sig))
             ven_sig = struct.unpack("d", ser_data[8:16])[0]
             ventricle_x=(i+1)
             ventricle_data.append((ventricle_x, ven_sig))
+        except:
+            print("data point err handler")
 
-        else: 
-            f = 1
         i+=1
 
 def log_in(username, password):
@@ -242,7 +243,10 @@ def sendToSimulink(data):
                         + vent_ampi + vent_pulse_widthi + vent_thresholdi + VRPi + lrli + urli + MSRi \
                             + reaction_timei +  recovery_timei + av_delayi + response_factori + activity_thresholdi''' 
     global ser
-    ser.write(Signal_set_order)
+    try:
+        ser.write(Signal_set_order)
+    except:
+        print("serial err handler")
     global f, i
     f =0
     i =0
